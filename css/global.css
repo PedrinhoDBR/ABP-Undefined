@@ -1,16 +1,12 @@
-/* *{
- margin: 0;
- padding: 0;
- box-sizing: border-box;
-} */
 
 body {
-    /* display: flex; */
     padding: 0;
     margin: 0;
     text-align: center;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
     font-family: "Kanit";
     overflow-x: hidden;
 }
@@ -18,21 +14,16 @@ body {
 p {
     margin: 0;
 }
-
-
-/*////////// Header - > ///////////////////////////////////////////*/
-
+/* Header */
 .header>nav {
     display: flex;
     justify-content: row;
     justify-content: space-between;
-
 }
 
 header {
     display: flex;
     justify-content: center;
-
     /* background-color:#2E6A50; */
     background-image: linear-gradient(180deg, #2E6A50 0%, #41C089 73%);
     color: white;
@@ -42,7 +33,6 @@ header {
 .header {
     width: 900px;
 }
-
 
 .headerTop {
     display: flex;
@@ -54,8 +44,6 @@ header {
 
 .arsl {
     margin-bottom: 10px;
-
-
 }
 
 .title {
@@ -77,20 +65,17 @@ header nav .menu-button {
 
 header nav .menu-button:hover {
     color: var(--light-blue-color);
-
 }
 
 .header>nav {
     display: flex;
     justify-content: row;
     justify-content: space-between;
-
 }
 
 header {
     display: flex;
     justify-content: center;
-
     /* background-color:#2E6A50; */
     background-image: linear-gradient(180deg, #2E6A50 0%, #41C089 73%);
     color: white;
@@ -112,8 +97,6 @@ header {
 
 .arsl {
     margin-bottom: 10px;
-
-
 }
 
 .title {
@@ -123,27 +106,21 @@ header {
 .logo a {
     display: flex;
     align-self: center;
-    /* align-self: center; */
     margin-top: 10px;
     width: 80px;
     aspect-ratio: 1;
-
-    /* transform: scale(1.2); */
 }
-
 
 .languageButton {
     height: 40px;
     width: 70px;
-
 }
 
 .languageChangeIcon {
     display: flex;
-
 }
 
-/* Interatividade Nav */
+/* Interactivity Nav */
 
 .sobre {
     position: relative;
@@ -161,13 +138,11 @@ header {
     flex-direction: column;
     z-index: 10;
     top: 30px;
-    /* background-image: linear-gradient(90deg, #2E6A50 0%, #41C089 73%); */
     background-color: #5fbb93;
     width: 130px;
     font-size: small;
     transition: 200ms;
     text-align: start;
-
 }
 
 .submenuAtuacao {
@@ -182,7 +157,6 @@ header {
     transition: 200ms;
     text-align: start;
 }
-
 
 .submenu a {
     color: white;
@@ -206,31 +180,31 @@ header {
     transform: scale(1);
 }
 
-    .arrow-down {
-        display: flex;
-        align-items: center;
-         width:0px;
-         border:none;
-         border-top:5px solid #fff;
-         border-left:5px solid rgba(0,0,0,0);
-         border-right:5px solid rgba(0,0,0,0);
-         margin-left: 8px;
-         
+.arrow-down {
+    display: flex;
+    align-items: center;
+     width:0px;
+     border:none;
+     border-top:5px solid #fff;
+     border-left:5px solid rgba(0,0,0,0);
+     border-right:5px solid rgba(0,0,0,0);
+     margin-left: 8px;
 }
 
 
-/* Container -> ///////////////////////////////////////*/
+/* Container */
 
 
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100vw;
+    width: 100%;
+    flex: 1 0 auto; /* allow container to grow and push footer to bottom */
 }
 
 .container>* {
-    width: 900px;
+    width: 1000px;
 }
 
 .container>section {
@@ -241,7 +215,7 @@ header {
 
 
 
-/* footer //////////////////// */
+/* footer */
 
 footer {
     display: flex;
@@ -286,6 +260,12 @@ footer {
     width: 300px;
 }
 
+/* Ensure dynamically-inserted footer stays at the bottom of the page */
+#footer-socket footer {
+    margin-top: auto;
+    width: 100%;
+}
+
 
 /* Link */
 
@@ -314,4 +294,72 @@ footer a{
 .sobrebox {
     display: flex;
 
+}
+
+/* Adicione ao global.css */
+.main-content {
+    display: flex;
+    gap: 40px;
+    margin-top: 32px;
+}
+
+.sidebar {
+    width: 320px;
+    background: #f6fff6;
+    padding: 16px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    overflow: auto; 
+    max-height: calc(100vh - 0px);
+}
+
+.filter {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.other-publications {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.publication-card {
+    background: #e6ffe6;
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+}
+
+.publication-card img {
+    width: 100%;
+    border-radius: 6px;
+    margin-bottom: 8px;
+}
+
+.publication-detail {
+    flex: 1;
+    background: #fff;
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px #0001;
+    min-height: 300px; /* define baseline height so page limits are based on this column */
+}
+
+.publication-detail img {
+    width: 100%;
+    max-width: 500px;
+    display: block;
+    margin: 16px 0;
+    border-radius: 8px;
+}
+
+.pub-date {
+    float: right;
+    color: #888;
+    font-size: 0.95em;
 }

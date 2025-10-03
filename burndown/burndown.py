@@ -13,11 +13,14 @@ month_map = {
 
 datas = []
 real = []
+labels = []
 
 
 with open(csv_path, newline='', encoding='utf-8') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
+        # keep the original label from the CSV so we can force the x-axis labels
+        labels.append(row['Data'])
         day, mon = row['Data'].split('-')
         mon_num = month_map[mon.lower()]
         datas.append(datetime(2025, mon_num, int(day))) 
@@ -34,7 +37,12 @@ plt.plot(datas, ideal, marker='x', linestyle='--', label='Ideal')
 plt.title('Burndown Sprint 1')
 plt.xlabel('Data')
 plt.ylabel('Pontos Restantes')
-plt.xticks(rotation=45)
+# Force xticks at the exact data points and use the original CSV labels so the day shown
+# matches the spreadsheet (avoids timezone/formatting shifts by matplotlib)
+if labels:
+    plt.xticks(datas, labels, rotation=45)
+else:
+    plt.xticks(rotation=45)
 plt.grid(True)
 plt.legend()
 plt.tight_layout()

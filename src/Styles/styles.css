@@ -91,6 +91,18 @@ header{
     height: 20vh;
     margin-bottom: 20px ;
    
+
+@media (max-width: 768px) {
+    .carrosel{ height: 14vh; }
+    .PROJETOScard, .PUBLICACOEScard { width: 45%; height: auto; }
+    .cardsProjetos, .cardsPublicacoes { flex-wrap: wrap; gap: 8px; }
+    .card { width: 48px; height: 60px; }
+}
+
+@media (max-width: 420px) {
+    .PROJETOScard, .PUBLICACOEScard { width: 100%; }
+    .material-symbols-outlined { margin-top: 10px; }
+}
 }
 
 .PROJETOScard{
