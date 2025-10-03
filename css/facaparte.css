@@ -97,10 +97,16 @@ body.facaparte button:hover {
   body.facaparte .container section {
     flex-direction: column;
     text-align: center;
+    padding: 15px;
+    max-width: 100%;  /* impede de estourar a tela */
   }
 
+  /* remove imagem no celular */
   body.facaparte .container section img {
-    max-width: 100%;
-    margin: 15px 0;
+    display: none;
+  }
+
+  body.facaparte .container section .texto {
+    padding: 15px;
   }
 }
