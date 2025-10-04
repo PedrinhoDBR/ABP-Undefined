@@ -33,7 +33,6 @@ body {
       font-weight:500;
     overflow-wrap: break-word;
     font-weight: bold;
-     margin-bottom: 40px;
       margin-top: -10px;
 }
 
@@ -55,21 +54,21 @@ body {
     box-shadow: 6px 5px 5px 2px rgba(0,0,0,0.44);/* Efeito de sombra retirado da site https://html-css-js.com/css/generator/box-shadow/ */
      width: 70%;
      margin-top: 30px;
+     margin-bottom: 30px;
      
     
 }
 
 .imagem-da-noticia1>img {
     width: 100%;
-    
-    
+  
 }
 
 .conteudo-noticia {
      width: 70%;
       font-family: "Kanit";
       text-align:justify;
-      margin-bottom: 20px ;
+      margin-bottom: 30px ;
 }
 
 .card-citacao {
