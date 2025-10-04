@@ -112,6 +112,7 @@
 
 .formSection {
     display: flex;
+    
 
 
 }
@@ -151,9 +152,14 @@ textarea {
 
 }
 
+
+.map p{
+    max-width: 25rem;
+  }
+
 /* Area de colaboradores */
 
-.areaColaboradores {
+.areaColaboradores{
     display: flex;
     flex-direction: column;
 }
@@ -169,6 +175,7 @@ textarea {
 .colabBox {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     
 }
 
@@ -178,3 +185,83 @@ button{
     margin: 3rem;
 }
 
+
+/* Responsividade página inicial */
+
+
+@media screen and (max-width:1000px){
+    /* Carrosel */
+
+  .carrosel p {
+    display: none;
+  }
+
+
+
+  /* Area de formulario */
+
+  .formSection {
+    max-width: 380px;
+  }
+
+  .map img {
+    width: 180px;
+    height: 200px;
+  }
+
+  .form {
+    width: 10rem;
+  }
+
+  form>input,
+  textarea {
+    width: 100%;
+    /* border: solid 1px;
+    border-radius: 5px; */
+    border: none;
+    padding: 7px;
+    border-radius: 3px;
+    /* box-shadow: inset 3px 4px 4px rgba(200, 200, 200, 0.5); */
+    border-bottom: 1px solid rgba(200, 200, 200, 0.9);
+    font-family: inherit;
+
+  }
+
+  #assuntoBox>form {
+    height: 60px;
+
+
+  }
+
+  .formSection h2 {
+    font-size: large;
+  }
+
+  .formSection p {
+    font-size: small;
+  }
+
+  .formSection button {
+    display: flex;
+    align-items: center;
+    width: 60px;
+    height: 10px;
+    font-size: xx-small;
+    margin-top: 0px;
+
+  }
+
+  /* Area de colaboradores */
+
+  .areaColaboradores {
+    max-width: 380px;
+  }
+
+  .colabBox img {
+    width: 4rem;
+    margin: 1rem;
+    object-fit: contain;
+
+
+  }
+}
