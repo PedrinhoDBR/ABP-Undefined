@@ -10,7 +10,7 @@
 .card{
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 25px;
-    margin: 80px 0px;
+    margin: 40px 0px;
     border-radius: 8px;
     display: flex;
     flex-direction: column;
@@ -23,7 +23,7 @@
 }
 
 .card.localizacao, .card.contatoInfo {
-    flex: 1 1 45%; 
+    flex: 1 1 100%; 
 }
 
 .campoForm{
