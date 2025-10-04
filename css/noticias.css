@@ -1,5 +1,5 @@
 body {
-    /* display: flex; */
+   
     padding: 0;
     margin: 0;
     text-align: center;
@@ -8,7 +8,9 @@ body {
     font-family: "Kanit";
 }
 
-.titulo-notica-geral {
+/*--------Conteudo da Noticia------*/
+
+.titulo-noticia-geral {
     width:85%;
     border-radius: 2rem 2rem 0 0;
     height: 300px ;
@@ -32,7 +34,7 @@ body {
     overflow-wrap: break-word;
     font-weight: bold;
      margin-bottom: 40px;
-      margin-top: 25px
+      margin-top: -10px;
 }
 
 .subtitulo-titulo-noticia {
@@ -42,13 +44,25 @@ body {
        
 }
 
-#imagemnoticia1 {
-    background-image: url(/public/img/1paginanoticia.png);
-   background-size: 100%auto;
+
+
+.imagem-da-noticia1  {
+    
+     overflow: hidden;
+     display: flex;
+    border-radius: 0px 30px 0 30px; 
+   -webkit-box-shadow: 6px 5px 5px 2px rgba(0,0,0,0.44); /* Efeito de sombra retirado da site https://html-css-js.com/css/generator/box-shadow/ */
+    box-shadow: 6px 5px 5px 2px rgba(0,0,0,0.44);/* Efeito de sombra retirado da site https://html-css-js.com/css/generator/box-shadow/ */
      width: 70%;
-     height: 350px;
      margin-top: 30px;
      
+    
+}
+
+.imagem-da-noticia1>img {
+    width: 100%;
+    
+    
 }
 
 .conteudo-noticia {
@@ -60,17 +74,18 @@ body {
 
 .card-citacao {
     width:100%;
-    /* height: 100px; */
     background-color: #7EE8A1;
     margin-block: 1.5rem;
-    text-align: left;
+    text-align:left;
     border-left: 7px solid;
     border-left-color:#2E6A50  ;
     border-radius: 0 10px 10px 0;
 }
 
 .citacao-noticia {
-    margin-left: 10px;
+ 
+    padding: 10px;
     font-style: italic;
+    
     
 }

@@ -136,3 +136,59 @@
     height: 100%;
     font-size: small;
 }
+
+
+@media screen and (max-width:1000px){
+    /* Cards */
+
+
+
+  .cardsBox {
+    justify-content: space-around;
+  }
+
+
+  .card {
+    width: 6rem;
+    height: 10rem;
+  }
+
+  .cardWide {
+    width: 10rem;
+  }
+
+  .cardText{
+    height: 3rem;
+    font-size: xx-small;
+    padding: 0px;
+
+  }
+
+  .cardText p{
+    margin: 0.5rem;
+    font-size: 0.5rem;
+  }
+
+
+  /* Carrosel Equipe */
+
+  .equipeCarrosel {
+    max-width: 380px;
+    margin-bottom: 50px;
+  }
+
+  .cardEquipeMiniatura {
+    width: 30px;
+    height: 40px;
+    margin: 10px;
+  }
+
+  .cardTextEquipe {
+    font-size: 0.3rem;
+  }
+
+  .setasEquipe {
+    display: none;
+    margin-top: 1rem;
+  }
+}

@@ -123,207 +123,7 @@ header {
   bottom: 0.5rem;
 }
 
-@media screen and (max-width: 1000px) {
 
-  /* Header Responsivo */
-  header {
-    width: 100%;
-  }
-
-  .header {
-    width: 900px;
-  }
-
-  .logo a {
-    width: 4.5rem;
-    aspect-ratio: 1;
-  }
-
-  .logo {
-    margin: 0;
-  }
-
-  .title {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 15rem;
-    margin-left: 0px;
-    height: 102px;
-    text-align: left;
-  }
-
-  .agrirslab {
-    text-align: center;
-  }
-
-  .headerTop {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    justify-content: space-around;
-  }
-
-  .headerTop h1 {
-    font-size: larger;
-    text-align: left;
-  }
-
-  .headerTop p {
-    font-size: x-small;
-  }
-
-  nav {
-    display: flex;
-    justify-content: center;
-    font-size: 0.7rem;
-  }
-
-  nav .menu-button {
-    max-width: 2.5rem;
-  }
-
-  .languageButton {
-    width: 2rem;
-    aspect-ratio: 1;
-    object-fit: contain;
-    transform: rotate(90deg);
-  }
-
-  .title h1 {
-    margin: 0;
-  }
-
-  .arsl {
-    margin: 0;
-  }
-
-  /* Container Responsivo */
-
-  .container>* {
-    max-width: 100%;
-  }
-
-  /* Carrosel */
-
-  .carrosel p {
-    display: none;
-  }
-
-
-  /* Cards */
-
-
-
-  .cardsBox {
-    justify-content: space-around;
-  }
-
-
-  .card {
-    width: 6rem;
-    height: 10rem;
-  }
-
-  .cardWide {
-    width: 10rem;
-  }
-
-
-  /* Carrosel Equipe */
-
-  .equipeCarrosel {
-    max-width: 380px;
-    margin-bottom: 50px;
-  }
-
-  .cardEquipeMiniatura {
-    width: 30px;
-    height: 40px;
-    margin: 10px;
-  }
-
-  .cardTextEquipe {
-    font-size: 0.3rem;
-  }
-
-  .setasEquipe {
-    display: none;
-    margin-top: 1rem;
-  }
-
-  /* Area de formulario */
-
-  .formSection {
-    max-width: 380px;
-  }
-
-  .map img {
-    width: 180px;
-    height: 200px;
-  }
-
-  .form {
-    width: 10rem;
-  }
-
-  form>input,
-  textarea {
-    width: 100%;
-    /* border: solid 1px;
-    border-radius: 5px; */
-    border: none;
-    padding: 7px;
-    border-radius: 3px;
-    /* box-shadow: inset 3px 4px 4px rgba(200, 200, 200, 0.5); */
-    border-bottom: 1px solid rgba(200, 200, 200, 0.9);
-    font-family: inherit;
-
-  }
-
-  #assuntoBox>form {
-    height: 60px;
-
-
-  }
-
-  .formSection h2 {
-    font-size: large;
-  }
-
-  .formSection p {
-    font-size: small;
-  }
-
-  .formSection button {
-    display: flex;
-    align-items: center;
-    width: 60px;
-    height: 10px;
-    font-size: xx-small;
-    margin-top: 0px;
-
-  }
-
-  /* Area de colaboradores */
-
-  .areaColaboradores {
-    max-width: 380px;
-  }
-
-  .colabBox img {
-    width: 4rem;
-    margin: 1rem;
-    object-fit: contain;
-
-
-  }
-
-  /* Footer*/
-
-
-
-}
 
 .languageChangeIcon {
   display: flex;
@@ -431,6 +231,7 @@ header {
 /* footer //////////////////// */
 
 footer {
+
   display: flex;
   justify-content: space-around;
   background-image: linear-gradient(180deg, #154430 0%, #3f936e 100%);
@@ -564,4 +365,162 @@ footer a {
     float: right;
     color: #888;
     font-size: 0.95em;
+}
+
+
+
+
+
+
+/* Responsividade  */
+
+@media screen and (max-width: 1000px) {
+
+
+  body{
+    width: 100%;
+  }
+
+  /* Header Responsivo */
+  header {
+    width: 100%;
+  }
+
+  .header {
+    width: 900px;
+  }
+
+  .logo a {
+    width: 4.5rem;
+    aspect-ratio: 1;
+  }
+
+  .logo {
+    margin: 0;
+  }
+
+  .title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 15rem;
+    margin-left: 0px;
+    height: 102px;
+    text-align: left;
+  }
+
+  .agrirslab {
+    text-align: center;
+  }
+
+  .headerTop {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-content: space-around;
+  }
+
+  .headerTop h1 {
+    font-size: larger;
+    text-align: left;
+  }
+
+  .headerTop p {
+    font-size: x-small;
+  }
+
+  nav {
+    display: flex;
+    justify-content: center;
+    font-size: 0.7rem;
+  }
+
+  nav .menu-button {
+    max-width: 2.5rem;
+  }
+
+  .languageButton {
+    width: 2rem;
+    aspect-ratio: 1;
+    object-fit: contain;
+    transform: rotate(90deg);
+  }
+
+  .title h1 {
+    margin: 0;
+  }
+
+  .arsl {
+    margin: 0;
+  }
+
+  /* Container Responsivo */
+
+  .container>* {
+    max-width: 100%;
+  }
+
+
+  /* Footer*/
+
+
+  footer{
+    max-width: 100%;
+    padding: 0px;
+
+  }
+
+  .footer{
+    justify-content: space-evenly;
+    max-width: 100%;
+    
+  }
+
+  .iconsFooter {
+    font-size: x-small;
+    margin: 0px;
+  }
+
+   #footer1 div a{
+    margin: 0.3rem;
+   }
+
+  #footer1, #footer2, #footer3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+  }
+
+  #footer1{
+    font-size: 0.7rem;
+  }
+
+  #footer2{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 0.6rem;
+  }
+
+  #footer3{
+    font-size: 0.5rem;
+    max-width: 7rem;
+  }
+
+
+
+  #footer2 img{
+    height: 2rem;
+    width: 2rem;
+
+  }
+
+  
+
+  
+
+
+
+
 }
