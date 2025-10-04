@@ -4,13 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AgriRS - Mapeamento de Áreas Agrícolas com CONAB</title>
+    <title>AgriRS - Projeto</title>
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/projetos.css">
     <link rel="stylesheet" href="../css/projetoCONAB.css">
     <link rel="stylesheet" href="../css/vars.css">
     <link rel="stylesheet" href="../css/button.css">
     <script src="/javascripts/layout.js" defer></script>
+    <script src="/javascripts/projetos.js" defer></script>
     <script src="https://kit.fontawesome.com/5e96e72d2d.js" crossorigin="anonymous"></script>
     <style>
         .material-symbols-outlined {
@@ -19,6 +20,17 @@
                 'wght' 400,
                 'GRAD' 0,
                 'opsz' 24
+        }
+        
+        /* Estilos para garantir que o conteúdo seja atualizado dinamicamente */
+        .projeto-conteudo h1,
+        .projeto-descricao,
+        .projeto-info {
+            transition: opacity 0.3s ease;
+        }
+        
+        .carregando {
+            opacity: 0.6;
         }
     </style>
     <link rel="stylesheet"
@@ -31,46 +43,27 @@
 
     <div class="container">
         <div class="carrosel">
-            <img src="../public/img/projetos/Carrosel.png" alt="Mapeamento de áreas agrícolas junto a CONAB" class="carrosel-img">
+            <img src="../public/img/projetos/Carrosel.png" alt="Projeto" class="carrosel-img" id="carrossel-imagem">
         </div>
 
         <div class="projeto-conteudo">
-            <h1>Mapeamento de áreas agrícolas junto a CONAB</h1>
+            <h1 id="projeto-titulo">Carregando projeto...</h1>
             
-            <div class="projeto-descricao">
-                <p>O AgriRS integra um projeto firmado entre a Companhia Nacional de Abastecimento (Conab) e o Instituto Nacional de Pesquisas Espaciais (INPE) com o objetivo de mapear, por meio de imagens de satélite, as áreas cultivadas com milho primeira safra, arroz irrigado e trigo no estado do Rio Grande do Sul, além de milho (primeira e segunda safra) e trigo nos estados do Paraná e de São Paulo.</p>
-                
-                <p>A metodologia adotada inclui a construção de um painel utilizando amostragem aleatória estratificada em dois estágios que serviu para estimar a área cultivada e para validar o mapeamento. Após a seleção das amostras são realizados trabalhos de campo para visitar os pontos sorteados in loco (pontos para validação) e para coletar dados de treinamento.</p>
-                
-                <p>Com os dados coletados, a classificação da áreas agrícolas é feita com o uso de modelos de machine learning. A iniciativa busca fortalecer o monitoramento agrícola nacional, melhorar as estimativas de safra, apoiar ações de segurança alimentar e contribuir para a mitigação dos impactos das mudanças climáticas e para o desenvolvimento sustentável da agricultura.</p>
+            <div class="projeto-descricao" id="projeto-descricao">
+                <p>Carregando descrição do projeto...</p>
             </div>
             
-            <div class="projeto-info">
+            <div class="projeto-info" id="projeto-info">
                 <div class="info-item">
-                    <h3>Parcerias</h3>
-                    <p>CONAB e INPE</p>
-                </div>
-                
-                <div class="info-item">
-                    <h3>Culturas Mapeadas</h3>
-                    <p>Milho (1ª e 2ª safra), Arroz Irrigado e Trigo</p>
-                </div>
-                
-                <div class="info-item">
-                    <h3>Estados Abrangidos</h3>
-                    <p>Rio Grande do Sul, Paraná e São Paulo</p>
-                </div>
-                
-                <div class="info-item">
-                    <h3>Tecnologia Utilizada</h3>
-                    <p>Imagens de Satélite e Machine Learning</p>
+                    <h3>Carregando...</h3>
+                    <p>Carregando informações...</p>
                 </div>
             </div>
         </div>
         
-         <div>
+        <div>
             <a href="/pages/projetos.html" title="Mais Projetos">
-            <button type="button">Mais Projetos</button>
+                <button type="button">Mais Projetos</button>
             </a>
         </div>
     </div>
