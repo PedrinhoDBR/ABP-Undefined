@@ -25,7 +25,7 @@ const projetosData = {
     "cobertura-solo": {
         id: "cobertura-solo",
         titulo: "Estimativa do Percentual de Cobertura do Solo por Resíduos Culturais através de Sensoriamento Remoto Orbital",
-        imagemCarrossel: "../public/img/projetos/Carrosel.png",
+        imagemCarrossel: "../public/img/Figura_P1_PS.png",
         imagemCard: "/public/img/Figura_P1_PS.png",
         descricao: `
             <h3>Integrantes:</h3>
@@ -51,8 +51,8 @@ const projetosData = {
     "desmatamento-cerrado": {
         id: "desmatamento-cerrado",
         titulo: "Detecção de Desmatamento e Cicatriz de Fogo no Cerrado via Redes Neurais Artificiais",
-        imagemCarrossel: "../public/img/projetos/Carrosel.png",
-        imagemCard: "/public/img/Figura_P2_MG.JPG",
+        imagemCarrossel: "../public/img/projetos/Projeto 5.jpg",
+        imagemCard: "/public/img/projetos/Projeto 5.jpg",
         descricao: `
             <h3>Integrantes:</h3>
             <ul>
@@ -78,7 +78,7 @@ const projetosData = {
     "mapeamento-cultivos": {
         id: "mapeamento-cultivos",
         titulo: "Mapeamento e Monitoramento de Cultivos Agrícolas no Brasil",
-        imagemCarrossel: "../public/img/projetos/Carrosel.png",
+        imagemCarrossel: "../public/img/projetos/Projeto 3.jpg",
         imagemCard: "/public/img/projetos/Projeto 3.jpg",
         descricao: `
             <h3>Integrantes:</h3>
@@ -106,7 +106,7 @@ const projetosData = {
     "alteracoes-uso-terra": {
         id: "alteracoes-uso-terra",
         titulo: "Detecção de alterações no uso da terra utilizando sensoriamento remoto",
-        imagemCarrossel: "../public/img/projetos/Carrosel.png",
+        imagemCarrossel: "../public/img/projetos/Projeto 4.jpg",
         imagemCard: "../public/img/projetos/Projeto 4.jpg",
         descricao: `
             <p>O AgriRS aplica técnicas de sensoriamento remoto para detectar alterações no uso da terra, como desmatamentos e mudanças na cobertura vegetal.</p>
@@ -122,8 +122,8 @@ const projetosData = {
     "impactos-agricultura": {
         id: "impactos-agricultura",
         titulo: "Monitoramento via Sensoriamento Remoto: Impactos da Agricultura na Floresta",
-        imagemCarrossel: "../public/img/projetos/Carrosel.png",
-        imagemCard: "/public/img/projetos/Projeto 5.jpg",
+        imagemCarrossel: "../public/img/Figura_P2_MG.JPG",
+        imagemCard: "/public/img/Figura_P2_MG.JPG",
         descricao: `
             <p>Monitoramento dos impactos da atividade agrícola nas áreas florestais através de técnicas avançadas de sensoriamento remoto.</p>
             
@@ -138,7 +138,7 @@ const projetosData = {
     "acompanhamento-frutas": {
         id: "acompanhamento-frutas",
         titulo: "Tecnologia e Agricultura: Acompanhamento de Frutas por Imagens",
-        imagemCarrossel: "../public/img/projetos/Carrosel.png",
+        imagemCarrossel: "../public/img/projetos/Projeto 6.jpg",
         imagemCard: "/public/img/projetos/Projeto 6.jpg",
         descricao: `
             <p>Utilização de tecnologias de imageamento para acompanhamento do desenvolvimento e qualidade de frutas.</p>
