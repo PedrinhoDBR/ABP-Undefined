@@ -191,3 +191,32 @@ a {
     width: 100%;
     text-align: center;
 }
+
+/* responsividade */
+@media (max-width: 767px) {
+
+    .cardsProjetos {
+        display: flex;
+        justify-content: center;
+        padding: 0 0.5rem;
+    }
+
+    .PROJETOScard {
+        
+        width: calc(50% - 1.5rem); 
+       
+        margin: 0.75rem;
+        
+        height: 16rem;
+    }
+
+   
+    .carroselText {
+        font-size: 1rem;
+    }
+
+    .PROJETOScard:hover {
+       
+        transform: scale(1.08);
+    }
+}
