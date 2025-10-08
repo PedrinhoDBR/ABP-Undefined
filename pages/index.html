@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +10,8 @@
     <link rel="stylesheet" href="../css/paginainicial.css">
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/button.css">
-    
+    <script src="/javascripts/paginainicial.js" defer></script>
+
     <script src="/javascripts/layout.js" defer></script>
     <script src="https://kit.fontawesome.com/5e96e72d2d.js" crossorigin="anonymous" defer></script>
     <!-- <link
@@ -33,33 +35,65 @@
     <div id="header-socket"></div>
 
     <div class="container">
-        <div>
-            <div class="carrosel">
-                 <img src="/public/img/imagemCarroselNoticia.png" alt="">
-                <div class="arrow">
-                    <span class="material-symbols-outlined" id="leftArrowNews">
-                        arrow_forward_ios
-                    </span>
+        <div class="carroselBox">
+            <div class="arrow">
+                <span class="material-symbols-outlined" id="leftArrowNews">
+                    arrow_forward_ios
+                </span>
+            </div>
+
+            <div class="arrow rightArrow">
+                <span class="material-symbols-outlined" id="rightArrowNews">
+                    arrow_forward_ios
+                </span>
+            </div>
+            <div class="carrosel" id="slide0">
+                <img src="/public/img/2hovernoticia.png" alt="">
+
+
+                <div class="carroselText">
+                    <h3>Novo Sensor Portátil Realiza Análise de Solo em Tempo Real</h3>
+                    <p>Pesquisadores desenvolvem dispositivo capaz de medir nutrientes do solo instantaneamente,
+                        eliminando a espera por laboratórios.
+
+                    </p>
+                    <div>
+
+                    </div>
                 </div>
 
-                 <div class="arrow rightArrow">
-                    <span class="material-symbols-outlined" id="rightArrowNews">
-                        arrow_forward_ios
-                    </span>
-                </div>
-                
+            </div>
+            <div class="carrosel" id="slide1">
+                <img src="/public/img/imagemCarroselNoticia.png" alt="">
+
+
                 <div class="carroselText">
                     <h3>Sistemas de Irrigação Inteligente Economizam até 50% de Água</h3>
-                    <p>Tecnologia que combina sensores de umidade do solo e dados meteorológicos está revolucionando a
+                    <p>Tecnologia que combina sensores de umidade do solo e dados meteorológicos está revolucionando
+                        a
                         forma como a agricultura utiliza recursos hídricos.</p>
                     <div>
 
                     </div>
                 </div>
 
-               
-                
+
             </div>
+            <div class="carrosel" id="slide2">
+                <img src="/public/img/3hovernoticia.png" alt="">
+
+
+                <div class="carroselText">
+                    <h3>Tecnologias Verdes Transformam a Agricultura Sustentável</h3>
+                    <p>Combinação de sensoriamento remoto e inteligência artificial está criando novas possibilidades para uma agricultura mais ecológica e eficiente.</p>
+                    <div>
+
+                    </div>
+                </div>
+
+
+            </div>
+
 
         </div>
         <section>
@@ -74,7 +108,8 @@
                 <div class="card cardWide" id="PROJETOScard1">
                     <img src="/public/img/Figura_A2_NS.png" alt="">
                     <div class="cardText">
-                        <p>Estimativa do Percentual de Cobertura do Solo por Resíduos Culturais através de Sensoriamento
+                        <p>Estimativa do Percentual de Cobertura do Solo por Resíduos Culturais através de
+                            Sensoriamento
                             Remoto Orbital</p>
                     </div>
                 </div>
@@ -104,21 +139,24 @@
                 <div class="card" id="PUBLICACOEScard1">
                     <img src="/public/img/Figura_AC5_PS.png" alt="">
                     <div class="cardText">
-                        <p>Sugarcane Yield Estimation Using Satellite Remote Sensing Data in Empirical or Mechanistic
+                        <p>Sugarcane Yield Estimation Using Satellite Remote Sensing Data in Empirical or
+                            Mechanistic
                             Modeling: A Systematic Review.</p>
                     </div>
                 </div>
-                    <div class="card" id="PUBLICACOEScard2">
-                        <img src="/public/img/Figura_A7_AG.png" alt="">
-                        <div class="cardText">
-                        <p>Growth behavior of irrigated rice according to different indices, sensors, and stages of the
+                <div class="card" id="PUBLICACOEScard2">
+                    <img src="/public/img/Figura_A7_AG.png" alt="">
+                    <div class="cardText">
+                        <p>Growth behavior of irrigated rice according to different indices, sensors, and stages of
+                            the
                             growth cycle.</p>
                     </div>
                 </div>
                 <div class="card" id="PUBLICACOEScard3">
                     <img src="/public/img/Figura_AC1_PS.png" alt="">
                     <div class="cardText">
-                        <p>Avaliação do uso e cobertura da terra no Mato Grosso entre 1985-2020: mudanças associadas à
+                        <p>Avaliação do uso e cobertura da terra no Mato Grosso entre 1985-2020: mudanças associadas
+                            à
                             expansão agropecuária e supressão de áreas florestais</p>
                     </div>
                 </div>
@@ -139,7 +177,7 @@
                 </div>
                 <div class="cardEquipeMiniatura" id="cardEquipe2">
                     <img src="/public/img/equipe/Cleverton_Santana.jpeg" alt="">
-                    <div class="cardTextEquipe" >
+                    <div class="cardTextEquipe">
                         <p>Cleverton Santana</p>
                     </div>
                 </div>
@@ -184,7 +222,8 @@
                 <div class="map">
                     <h2>NOSSA LOCALIZAÇÃO:</h2>
                     <div class="inpeMAP"><img src="../public/img/Basemap image.png" alt="" width="400"></div>
-                    <p>Avenida dos Astronautas, 1.758 - Jd. Granja - CEP 12227-010 São José dos Campos - SP - Brasil</p>
+                    <p>Avenida dos Astronautas, 1.758 - Jd. Granja - CEP 12227-010 São José dos Campos - SP - Brasil
+                    </p>
                 </div>
 
                 <div class="form">
@@ -199,7 +238,7 @@
                         <form action="" method="post">
                             <textarea name="textarea" id="" placeholder="Assunto..."></textarea>
                     </div>
-                    
+
                     </form>
                     <div class="buttonForm">
                         <button type="submit">ENVIAR</button>
@@ -212,17 +251,21 @@
         <section>
             <h2>COLABORADORES</h2>
             <div class="areaColaboradores">
-              <div class="colabBox">
-                <a href="https://www.gov.br/capes/pt-br"><img src="/public/img/colaboradores/capesLogo.png" alt=""></a>
-                <a href="https://www.gov.br/inpe/pt-br"><img src="/public/img/inpeLogo.png" alt=""></a>
-                <a href="https://www.gov.br/conab/pt-br"><img src="/public/img/colaboradores/conabLogo.png" alt=""></a>
-            </div>
-              <div class="colabBox">
-                <a href=""><img src="/public/img/colaboradores/cnpqLogo.png" alt=""></a>
-                <a href=""><img src="/public/img/colaboradores/fapespLogo.png" alt=""></a>
-                <a href=""><img src="/public/img/colaboradores/brazil-data-cube.png" alt=""></a>
-            </div>
+                <div class="colabBox">
+                    <a href="https://www.gov.br/capes/pt-br"><img src="/public/img/colaboradores/capesLogo.png"
+                            alt=""></a>
+                    <a href="https://www.gov.br/inpe/pt-br"><img src="/public/img/inpeLogo.png" alt=""></a>
+                    <a href="https://www.gov.br/conab/pt-br"><img src="/public/img/colaboradores/conabLogo.png"
+                            alt=""></a>
+                </div>
+                <div class="colabBox">
+                    <a href=""><img src="/public/img/colaboradores/cnpqLogo.png" alt=""></a>
+                    <a href=""><img src="/public/img/colaboradores/fapespLogo.png" alt=""></a>
+                    <a href=""><img src="/public/img/colaboradores/brazil-data-cube.png" alt=""></a>
+                </div>
         </section>
+
+
     </div>
 
 
