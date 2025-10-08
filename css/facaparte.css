@@ -61,15 +61,19 @@ body.facaparte .container section p {
 
 /* Links */
 body.facaparte a {
-  color: #b3ffe1ba;          /* verde clarinho */
   text-decoration: none;
   font-weight: 500;
   transition: color 0.2s ease, text-decoration 0.2s ease;
 }
 
-body.facaparte a:hover {
-  color: #99e6cc;          /* tom levemente mais escuro no hover */
+.container a{
+  color: #b3ffe1ba;
+}
+
+.container a:hover{
+  color: #99e6cc; 
   text-decoration: underline;
+
 }
 
 /* Botão "Candidatar-se agora" */

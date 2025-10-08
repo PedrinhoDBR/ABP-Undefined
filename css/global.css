@@ -222,11 +222,6 @@ header {
   width: 1000px;
 }
 
-.container>section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
 /* footer //////////////////// */
 

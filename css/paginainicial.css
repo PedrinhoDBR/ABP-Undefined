@@ -217,6 +217,12 @@ button{
 @media screen and (max-width:1000px){
     /* Carrosel */
 
+
+  .carroselBox{
+    width: 95%;
+  }
+  
+
   .carrosel p {
     display: none;
   }
