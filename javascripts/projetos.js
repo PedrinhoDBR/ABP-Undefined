@@ -26,7 +26,7 @@ const projetosData = {
         id: "cobertura-solo",
         titulo: "Estimativa do Percentual de Cobertura do Solo por Resíduos Culturais através de Sensoriamento Remoto Orbital",
         imagemCarrossel: "../public/img/Figura_P1_PS.png",
-        imagemCard: "/public/img/Figura_P1_PS.png",
+        imagemCard: "../public/img/Figura_P1_PS.png",
         descricao: `
             <h3>Integrantes:</h3>
             <ul>
@@ -52,7 +52,7 @@ const projetosData = {
         id: "desmatamento-cerrado",
         titulo: "Detecção de Desmatamento e Cicatriz de Fogo no Cerrado via Redes Neurais Artificiais",
         imagemCarrossel: "../public/img/projetos/Projeto 5.jpg",
-        imagemCard: "/public/img/projetos/Projeto 5.jpg",
+        imagemCard: "../public/img/projetos/Projeto 5.jpg",
         descricao: `
             <h3>Integrantes:</h3>
             <ul>
@@ -79,7 +79,7 @@ const projetosData = {
         id: "mapeamento-cultivos",
         titulo: "Mapeamento e Monitoramento de Cultivos Agrícolas no Brasil",
         imagemCarrossel: "../public/img/projetos/Projeto 3.jpg",
-        imagemCard: "/public/img/projetos/Projeto 3.jpg",
+        imagemCard: "../public/img/projetos/Projeto 3.jpg",
         descricao: `
             <h3>Integrantes:</h3>
             <ul>
@@ -123,7 +123,7 @@ const projetosData = {
         id: "impactos-agricultura",
         titulo: "Monitoramento via Sensoriamento Remoto: Impactos da Agricultura na Floresta",
         imagemCarrossel: "../public/img/Figura_P2_MG.JPG",
-        imagemCard: "/public/img/Figura_P2_MG.JPG",
+        imagemCard: "../public/img/Figura_P2_MG.JPG",
         descricao: `
             <p>Monitoramento dos impactos da atividade agrícola nas áreas florestais através de técnicas avançadas de sensoriamento remoto.</p>
             
@@ -139,7 +139,7 @@ const projetosData = {
         id: "acompanhamento-frutas",
         titulo: "Tecnologia e Agricultura: Acompanhamento de Frutas por Imagens",
         imagemCarrossel: "../public/img/projetos/Projeto 6.jpg",
-        imagemCard: "/public/img/projetos/Projeto 6.jpg",
+        imagemCard: "../public/img/projetos/Projeto 6.jpg",
         descricao: `
             <p>Utilização de tecnologias de imageamento para acompanhamento do desenvolvimento e qualidade de frutas.</p>
             
