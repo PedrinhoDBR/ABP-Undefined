@@ -541,7 +541,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
 
 <h2 id="burndown-sprint-1">📉 Burndown</h2>
 
-<img src="./public/burndown/burndown_sprint1.png">
+<img src="./public/burndown/sprint1.png">
 
 <hr>
 
@@ -564,4 +564,4 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
 
 <h2 id="burndown-sprint-2">📉 Burndown</h2>
 
-<img src="./public/burndown/burndown_sprint2.png">
+<img src="./public/burndown/sprint2.png">
