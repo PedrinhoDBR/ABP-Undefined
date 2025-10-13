@@ -3,7 +3,7 @@ name: Generate Burndown
 on:
   push:
     paths:
-      - 'burndown/backlog_sprint1.csv'
+      - 'burndown/backlog_sprint*.csv'  # dispara para qualquer sprint
 
 jobs:
   generate-burndown:
@@ -21,13 +21,13 @@ jobs:
       - name: Install matplotlib
         run: pip install matplotlib
 
-      - name: Generate Burndown
+      - name: Generate Burndown charts
         run: python burndown/burndown.py
 
-      - name: Commit and push Burndown
+      - name: Commit and push Burndown images
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add public/img/burndown_sprint1.png
-          git commit -m "Update burndown graph" || echo "No changes to commit"
+          git add public/burndown/*.png
+          git commit -m "Update burndown graphs" || echo "No changes to commit"
           git push
