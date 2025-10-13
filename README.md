@@ -46,7 +46,7 @@ Ele servirá como base para o desenvolvimento do frontend.
 
 <p>
 🔗 <strong>Acesse o protótipo no Figma:</strong>
-<a href="https://www.figma.com/files/team/1544516334617697082/project/444279865?fuid=1535458053608445462" target="_blank">Clique aqui</a>
+<a href="https://www.figma.com/team_invite/redeem/5p0PJg8oLlWeOnH18nydzl" target="_blank">Clique aqui</a>
 </p>
 
 <h3>Principais Características do Design</h3>
@@ -218,7 +218,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
   </li>
   <li>
     <strong>Figma:</strong>
-    <a href="https://www.figma.com/files/team/1544516334617697082/project/444279865?fuid=1407439674361896360" target="_blank">
+    <a href="https://www.figma.com/team_invite/redeem/5p0PJg8oLlWeOnH18nydzl" target="_blank">
       Acessar Figma
     </a>
   </li>
@@ -254,7 +254,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>3</td>
         <td>João</td>
         <td>✔</td>
-        <td><a href="https://www.figma.com/design/2N7zSpm5xo2rUtcfgw2qbS/Tela-Inicio?node-id=0-1&p=f&t=SrGNEzFyTJh1DmLr-0">Link</a></td>
+        <td><a href="https://www.figma.com/team_invite/redeem/5p0PJg8oLlWeOnH18nydzl">Link</a></td>
         <td>RF01.01</td>
       </tr>
       <tr>
@@ -263,7 +263,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>3</td>
         <td>Rainan</td>
         <td>✔</td>
-        <td><a href="https://www.figma.com/design/2N7zSpm5xo2rUtcfgw2qbS/Tela-Inicio?node-id=0-1&p=f&t=SrGNEzFyTJh1DmLr-0">Link</a></td>
+        <td><a href="https://www.figma.com/team_invite/redeem/5p0PJg8oLlWeOnH18nydzl">Link</a></td>
         <td>RF01</td>
       </tr>
       <tr>
@@ -272,7 +272,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>3</td>
         <td>João</td>
         <td>✔</td>
-        <td><a href="https://www.figma.com/design/2N7zSpm5xo2rUtcfgw2qbS/Tela-Inicio?node-id=0-1&p=f&t=SrGNEzFyTJh1DmLr-0">Link</a></td>
+        <td><a href="https://www.figma.com/team_invite/redeem/5p0PJg8oLlWeOnH18nydzl">Link</a></td>
         <td>RF02</td>
       </tr>
       <tr>
@@ -281,7 +281,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>3</td>
         <td>Thales</td>
         <td>✔</td>
-        <td><a href="https://www.figma.com/design/2N7zSpm5xo2rUtcfgw2qbS/Tela-Inicio?node-id=0-1&p=f&t=SrGNEzFyTJh1DmLr-0">Link</a></td>
+        <td><a href="https://www.figma.com/team_invite/redeem/5p0PJg8oLlWeOnH18nydzl">Link</a></td>
         <td>RF03</td>
       </tr>
       <tr>
@@ -290,7 +290,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>3</td>
         <td>Nicolas</td>
         <td>✔</td>
-        <td><a href="https://www.figma.com/design/2N7zSpm5xo2rUtcfgw2qbS/Tela-Inicio?node-id=0-1&p=f&t=SrGNEzFyTJh1DmLr-0">Link</a></td>
+        <td><a href="https://www.figma.com/team_invite/redeem/5p0PJg8oLlWeOnH18nydzl">Link</a></td>
         <td>RF04</td>
       </tr>
       <tr>
@@ -299,7 +299,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>3</td>
         <td>Israel</td>
         <td>✔</td>
-        <td><a href="https://www.figma.com/design/2N7zSpm5xo2rUtcfgw2qbS/Tela-Inicio?node-id=0-1&p=f&t=SrGNEzFyTJh1DmLr-0">Link</a></td>
+        <td><a href="https://www.figma.com/team_invite/redeem/5p0PJg8oLlWeOnH18nydzl">Link</a></td>
         <td>RF05</td>
       </tr>
       <tr>
@@ -308,7 +308,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>3</td>
         <td>Marcus</td>
         <td>✔</td>
-        <td><a href="https://www.figma.com/design/2N7zSpm5xo2rUtcfgw2qbS/Tela-Inicio?node-id=0-1&p=f&t=SrGNEzFyTJh1DmLr-0">Link</a></td>
+        <td><a href="https://www.figma.com/team_invite/redeem/5p0PJg8oLlWeOnH18nydzl">Link</a></td>
         <td>RF08</td>
       </tr>
       <tr>
@@ -317,7 +317,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>3</td>
         <td>Ronaldo</td>
         <td>✔</td>
-        <td><a href="https://www.figma.com/design/2N7zSpm5xo2rUtcfgw2qbS/Tela-Inicio?node-id=0-1&p=f&t=SrGNEzFyTJh1DmLr-0">Link</a></td>
+        <td><a href="https://www.figma.com/team_invite/redeem/5p0PJg8oLlWeOnH18nydzl">Link</a></td>
         <td>RF06</td>
       </tr>
       <tr>
@@ -326,7 +326,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>3</td>
         <td>Pedro</td>
         <td>✔</td>
-        <td><a href="https://www.figma.com/design/2N7zSpm5xo2rUtcfgw2qbS/Tela-Inicio?node-id=0-1&p=f&t=SrGNEzFyTJh1DmLr-0">Link</a></td>
+        <td><a href="https://www.figma.com/team_invite/redeem/5p0PJg8oLlWeOnH18nydzl">Link</a></td>
         <td>RF07</td>
       </tr>
       <tr>
@@ -335,7 +335,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>3</td>
         <td>João</td>
         <td>✔</td>
-        <td><a href="https://www.figma.com/design/2N7zSpm5xo2rUtcfgw2qbS/Tela-Inicio?node-id=0-1&p=f&t=SrGNEzFyTJh1DmLr-0">Link</a></td>
+        <td><a href="https://www.figma.com/team_invite/redeem/5p0PJg8oLlWeOnH18nydzl">Link</a></td>
         <td></td>
       </tr>
       <tr>
@@ -406,7 +406,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>BurnDown Sprint 1</td>
         <td>3</td>
         <td>Pedro</td>
-        <td>✖</td>
+        <td>✔</td>
         <td><a href="">Link</a></td>
         <td></td>
       </tr>
@@ -414,8 +414,8 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>DW-020</td>
         <td>Adicionar imagens do projeto / logos na pasta pública</td>
         <td>3</td>
-        <td></td>
-        <td>✖</td>
+        <td>Geral</td>
+        <td>✔</td>
         <td><a href="">Link</a></td>
         <td></td>
       </tr>
@@ -513,7 +513,25 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>AL-031</td>
         <td>Rotas da pagina -> Integrar footer / header nas páginas</td>
         <td>5</td>
-        <td>Pedro/Rainan</td>
+        <td>Pedro</td>
+        <td>✔</td>
+        <td><a href="">Link</a></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>DW-032</td>
+        <td>Ajustar redirecionamento das páginas</td>
+        <td>5</td>
+        <td>Rainan</td>
+        <td>✔</td>
+        <td><a href="">Link</a></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>AL-031</td>
+        <td>Controle do filtro para tela de publicações</td>
+        <td>5</td>
+        <td>Pedro</td>
         <td>✔</td>
         <td><a href="">Link</a></td>
         <td></td>
@@ -523,6 +541,27 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
 
 <h2 id="burndown-sprint-1">📉 Burndown</h2>
 
-<img src="./public/img/burndown_sprint1.png">
+<img src="./public/burndown/sprint1.png">
 
 <hr>
+
+<h1 id="sprint-2">⏱️ Sprint 2</h1>
+<h2 id="backlog-sprint-2">📋 Backlog</h2>
+  <table border="1" cellpadding="5" cellspacing="0">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Pontos</th>
+        <th>Responsáveis</th>
+        <th>Status</th>
+        <th>Link</th>
+        <th>Requisitos atendidos</th>
+      </tr>
+    </thead>
+  </table>
+
+
+<h2 id="burndown-sprint-2">📉 Burndown</h2>
+
+<img src="./public/burndown/sprint2.png">
