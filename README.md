@@ -441,8 +441,8 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>DW-023</td>
         <td>Trabalhar página inicial</td>
         <td>8</td>
-        <td></td>
-        <td>✖</td>
+        <td>Rainan</td>
+        <td>✔</td>
         <td><a href="">Link</a></td>
         <td></td>
       </tr>
@@ -451,7 +451,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>Trabalhar página sobre o AgriRS</td>
         <td>5</td>
         <td>João</td>
-        <td>✖</td>
+        <td>✔</td>
         <td><a href="">Link</a></td>
         <td></td>
       </tr>
@@ -460,7 +460,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>Trabalhar página de membros</td>
         <td>8</td>
         <td>Thales</td>
-        <td>✖</td>
+        <td>✔</td>
         <td><a href="">Link</a></td>
         <td></td>
       </tr>
@@ -469,7 +469,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>Trabalhar página de notícias</td>
         <td>5</td>
         <td>Ronaldo</td>
-        <td>✖</td>
+        <td>✔</td>
         <td><a href="">Link</a></td>
         <td></td>
       </tr>
@@ -478,7 +478,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>Trabalhar página de publicações</td>
         <td>5</td>
         <td></td>
-        <td>✖</td>
+        <td>✔</td>
         <td><a href="">Link</a></td>
         <td></td>
       </tr>
@@ -487,7 +487,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>Trabalhar página de vagas</td>
         <td>3</td>
         <td>Nicolas</td>
-        <td>✖</td>
+        <td>✔</td>
         <td><a href="">Link</a></td>
         <td></td>
       </tr>
@@ -496,7 +496,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>Trabalhar página de projetos</td>
         <td>3</td>
         <td>Israel</td>
-        <td>✖</td>
+        <td>✔</td>
         <td><a href="">Link</a></td>
         <td></td>
       </tr>
@@ -505,7 +505,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>Trabalhar página de contato</td>
         <td>5</td>
         <td>Marcus</td>
-        <td>✖</td>
+        <td>✔</td>
         <td><a href="">Link</a></td>
         <td></td>
       </tr>
@@ -513,8 +513,8 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>AL-031</td>
         <td>Rotas da pagina -> Integrar footer / header nas páginas</td>
         <td>5</td>
-        <td>Pedro</td>
-        <td>✖</td>
+        <td>Pedro/Rainan</td>
+        <td>✔</td>
         <td><a href="">Link</a></td>
         <td></td>
       </tr>
