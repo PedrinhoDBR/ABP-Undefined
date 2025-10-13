@@ -137,6 +137,7 @@
 
 .formSection {
     display: flex;
+    justify-content: space-around;
     
 
 
@@ -182,6 +183,9 @@ textarea {
     max-width: 25rem;
   }
 
+
+  
+
 /* Area de colaboradores */
 
 .areaColaboradores{
@@ -199,7 +203,7 @@ textarea {
 
 .colabBox {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     
 }
