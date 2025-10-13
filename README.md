@@ -405,7 +405,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>ES-019</td>
         <td>BurnDown Sprint 1</td>
         <td>3</td>
-        <td></td>
+        <td>Pedro</td>
         <td>✖</td>
         <td><a href="">Link</a></td>
         <td></td>
@@ -477,7 +477,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>DW-027</td>
         <td>Trabalhar página de publicações</td>
         <td>5</td>
-        <td></td>
+        <td>Pedro</td>
         <td>✔</td>
         <td><a href="">Link</a></td>
         <td></td>
