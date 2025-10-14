@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
         {
             id: 'AC1',
             type: 'AC',
-            image: '/public/img/publicacoes/Figura_AC1_PS.png',
+            image: '../public/img/publicacoes/Figura_AC1_PS.png',
             title: 'Avaliação do uso e cobertura da terra no Mato Grosso entre 1985-2020',
             doi: '',
             links: ['https://proceedings.science/sbsr/sbsr-2023/trabalhos/avaliacao-do-uso-e-cobertura-da-terra-no-mato-grosso-entre-1985-2020-mudancas-as?lang=pt-br'],
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
         {
             id: 'AC3',
             type: 'AC',
-            image: '/public/img/publicacoes/Figura_AC3_PS.png',
+            image: '../public/img/publicacoes/Figura_AC3_PS.png',
             title: 'Rumo a Estimativa Objetivas de Safras Agrícolas',
             doi: '',
             links: ['https://proceedings.science/sbsr/sbsr-2023/trabalhos/rumo-a-estimativa-objetivas-de-safras-agricolas?lang=pt-br.'],
