@@ -164,6 +164,10 @@
 
 }
 
+.formSection h2{
+  font-size: 1rem;
+}
+
 
 form {
     display: flex;
@@ -198,6 +202,7 @@ textarea {
     font-family: inherit;
 
 }
+
 
 
 .map p{

@@ -5,9 +5,15 @@ body {
   text-align: center;
   width: 100%;
   height: 100vh;
-  font-family: "Kanit";
+  /* font-family: "Kanit"; */
   overflow-x: hidden;
+  font-family: "Saira";
 }
+
+h1,  h2{
+  font-family: "Michroma";
+}
+
 
 p {
   margin: 0;
