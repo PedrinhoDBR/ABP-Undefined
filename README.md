@@ -95,7 +95,6 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
 
 <hr>
 
-
 <h2 id="requisitos">📑 Requisitos</h2>
 
 <h3 id="requisitos-funcionais">✅ Requisitos Funcionais</h3>
@@ -186,19 +185,18 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
 <h3 id="status-do-projeto">🚀 Status do Projeto</h3>
 <p>🔄 <strong>Em desenvolvimento</strong> – Acompanhe os commits para ver o progresso e as novas funcionalidades adicionadas.</p>
 
-
 <h2 id="integrantes">🧑 Integrantes</h2>
 
-| Foto | Nome Completo                         | Papel          | LinkedIn                                                                 | GitHub                                  |
-|------|---------------------------------------|---------------|--------------------------------------------------------------------------|-----------------------------------------|
-| <img src="./public/img/Pedro.jpg" alt="Pedro" width=100px> | Pedro Augusto Gomes                   | Product Owner | [LinkedIn](https://www.linkedin.com/in/pedro-augusto-gomes)              | [GitHub](https://github.com/PedrinhoDBR) |
-| <img src="./public/img/Israel.jpg" alt="Israel" width=100px> | Israel da Silva Lemes                 | Scrum Master  | [LinkedIn](https://www.linkedin.com/in/israel-lemes/)                    | [GitHub](https://github.com/Israelisl)   |
-| <img src="./public/img/Lorena.jpg" alt="Lorena" width=100px> | João Paulo Lorena Dias da Silva       | Dev           | [LinkedIn](https://www.linkedin.com/in/jo%C3%A3o-lorena-056b95271)       | [GitHub](https://github.com/Jonnaes)     |
-| <img src="./public/img/Thales.jpg" alt="Thales" width=100px> | Thales Cambraia Dias                  | Dev           | [LinkedIn](https://www.linkedin.com/in/thales-tcd/)                      | [GitHub](https://github.com/thalestcd)   |
-| <img src="./public/img/Marcus.jpg" alt="Marcus" width=100px> | Marcus Vinicius Ribeiro do Nascimento | Dev           | [LinkedIn](https://www.linkedin.com/in/marcus-nascimento-50a0ba1b5)      | [GitHub](https://github.com/MarcusVRDN)  |
-| <img src="./public/img/Nicolas.jpg" alt="Nicolas" width=100px> | Nicolas Bernardo Patricio de Assis    | Dev           | [LinkedIn](https://www.linkedin.com/in/n%C3%ADcolas-assis-495906274)     | [GitHub](https://github.com/Nickcolth)   |
+| Foto                                                           | Nome Completo                         | Papel         | LinkedIn                                                                          | GitHub                                     |
+| -------------------------------------------------------------- | ------------------------------------- | ------------- | --------------------------------------------------------------------------------- | ------------------------------------------ |
+| <img src="./public/img/Pedro.jpg" alt="Pedro" width=100px>     | Pedro Augusto Gomes                   | Product Owner | [LinkedIn](https://www.linkedin.com/in/pedro-augusto-gomes)                       | [GitHub](https://github.com/PedrinhoDBR)   |
+| <img src="./public/img/Israel.jpg" alt="Israel" width=100px>   | Israel da Silva Lemes                 | Scrum Master  | [LinkedIn](https://www.linkedin.com/in/israel-lemes/)                             | [GitHub](https://github.com/Israelisl)     |
+| <img src="./public/img/Lorena.jpg" alt="Lorena" width=100px>   | João Paulo Lorena Dias da Silva       | Dev           | [LinkedIn](https://www.linkedin.com/in/jo%C3%A3o-lorena-056b95271)                | [GitHub](https://github.com/Jonnaes)       |
+| <img src="./public/img/Thales.jpg" alt="Thales" width=100px>   | Thales Cambraia Dias                  | Dev           | [LinkedIn](https://www.linkedin.com/in/thales-tcd/)                               | [GitHub](https://github.com/thalestcd)     |
+| <img src="./public/img/Marcus.jpg" alt="Marcus" width=100px>   | Marcus Vinicius Ribeiro do Nascimento | Dev           | [LinkedIn](https://www.linkedin.com/in/marcus-nascimento-50a0ba1b5)               | [GitHub](https://github.com/MarcusVRDN)    |
+| <img src="./public/img/Nicolas.jpg" alt="Nicolas" width=100px> | Nicolas Bernardo Patricio de Assis    | Dev           | [LinkedIn](https://www.linkedin.com/in/n%C3%ADcolas-assis-495906274)              | [GitHub](https://github.com/Nickcolth)     |
 | <img src="./public/img/Ronaldo.jpg" alt="Ronaldo" width=100px> | Ronaldo de Avila Ribeiro Junior       | Dev           | [LinkedIn](https://www.linkedin.com/in/ronaldo-de-avila-ribeiro-junior-653093238) | [GitHub](https://github.com/RonaldoAvilaa) |
-| vazio | Rainan de Oliveira Reis               | Dev           | [LinkedIn](https://www.linkedin.com/in/rainan-reis-757384365/)           | [GitHub](https://github.com/RainanKaneka) |
+| vazio                                                          | Rainan de Oliveira Reis               | Dev           | [LinkedIn](https://www.linkedin.com/in/rainan-reis-757384365/)                    | [GitHub](https://github.com/RainanKaneka)  |
 
 <h2 id="licenca">📜 Licença</h2>
 <p>
@@ -244,7 +242,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>Verificar identidade visual</td>
         <td>3</td>
         <td>Rainan</td>
-        <td>✔</td>
+        <td>✔️</td>
         <td></td>
         <td>RNF06</td>
       </tr>
@@ -253,7 +251,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>Header/Footer</td>
         <td>3</td>
         <td>João</td>
-        <td>✔</td>
+        <td>✔️</td>
         <td><a href="https://www.figma.com/team_invite/redeem/5p0PJg8oLlWeOnH18nydzl">Link</a></td>
         <td>RF01.01</td>
       </tr>
@@ -262,7 +260,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>Página inicial</td>
         <td>3</td>
         <td>Rainan</td>
-        <td>✔</td>
+        <td>✔️</td>
         <td><a href="https://www.figma.com/team_invite/redeem/5p0PJg8oLlWeOnH18nydzl">Link</a></td>
         <td>RF01</td>
       </tr>
@@ -271,7 +269,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>Sobre o agriRS</td>
         <td>3</td>
         <td>João</td>
-        <td>✔</td>
+        <td>✔️</td>
         <td><a href="https://www.figma.com/team_invite/redeem/5p0PJg8oLlWeOnH18nydzl">Link</a></td>
         <td>RF02</td>
       </tr>
@@ -280,7 +278,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>Membros</td>
         <td>3</td>
         <td>Thales</td>
-        <td>✔</td>
+        <td>✔️</td>
         <td><a href="https://www.figma.com/team_invite/redeem/5p0PJg8oLlWeOnH18nydzl">Link</a></td>
         <td>RF03</td>
       </tr>
@@ -289,7 +287,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>Vagas</td>
         <td>3</td>
         <td>Nicolas</td>
-        <td>✔</td>
+        <td>✔️</td>
         <td><a href="https://www.figma.com/team_invite/redeem/5p0PJg8oLlWeOnH18nydzl">Link</a></td>
         <td>RF04</td>
       </tr>
@@ -298,7 +296,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>Projetos</td>
         <td>3</td>
         <td>Israel</td>
-        <td>✔</td>
+        <td>✔️</td>
         <td><a href="https://www.figma.com/team_invite/redeem/5p0PJg8oLlWeOnH18nydzl">Link</a></td>
         <td>RF05</td>
       </tr>
@@ -307,7 +305,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>Contato</td>
         <td>3</td>
         <td>Marcus</td>
-        <td>✔</td>
+        <td>✔️</td>
         <td><a href="https://www.figma.com/team_invite/redeem/5p0PJg8oLlWeOnH18nydzl">Link</a></td>
         <td>RF08</td>
       </tr>
@@ -316,7 +314,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>Notícias</td>
         <td>3</td>
         <td>Ronaldo</td>
-        <td>✔</td>
+        <td>✔️</td>
         <td><a href="https://www.figma.com/team_invite/redeem/5p0PJg8oLlWeOnH18nydzl">Link</a></td>
         <td>RF06</td>
       </tr>
@@ -325,7 +323,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>Publicações</td>
         <td>3</td>
         <td>Pedro</td>
-        <td>✔</td>
+        <td>✔️</td>
         <td><a href="https://www.figma.com/team_invite/redeem/5p0PJg8oLlWeOnH18nydzl">Link</a></td>
         <td>RF07</td>
       </tr>
@@ -334,7 +332,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>Organizar e linkar projetos do figma</td>
         <td>3</td>
         <td>João</td>
-        <td>✔</td>
+        <td>✔️</td>
         <td><a href="https://www.figma.com/team_invite/redeem/5p0PJg8oLlWeOnH18nydzl">Link</a></td>
         <td></td>
       </tr>
@@ -343,7 +341,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>Planejar CSS base</td>
         <td>3</td>
         <td>Rainan</td>
-        <td>✔</td>
+        <td>✔️</td>
         <td><a href="">Link</a></td>
         <td>RNF06</td>
       </tr>
@@ -352,7 +350,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>Planejar backlog Sprint 1</td>
         <td>3</td>
         <td>Pedro</td>
-        <td>✔</td>
+        <td>✔️</td>
         <td><a href="">Link</a></td>
         <td></td>
       </tr>
@@ -361,7 +359,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>Informações base do projeto no GitHub</td>
         <td>3</td>
         <td>Thales</td>
-        <td>✔</td>
+        <td>✔️</td>
         <td><a href="">Link</a></td>
         <td></td>
       </tr>
@@ -370,7 +368,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>Diagrama de casos de uso</td>
         <td>3</td>
         <td>Ronaldo</td>
-        <td>✔</td>
+        <td>✔️</td>
         <td><a href="">Link</a></td>
         <td></td>
       </tr>
@@ -379,7 +377,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>Organização do GitHub (Forks / Padrão de commits / Documentação)</td>
         <td>3</td>
         <td>Marcus</td>
-        <td>✔</td>
+        <td>✔️</td>
         <td><a href="">Link</a></td>
         <td></td>
       </tr>
@@ -388,7 +386,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>Organizar Trello Sprint 1</td>
         <td>3</td>
         <td>Israel</td>
-        <td>✔</td>
+        <td>✔️</td>
         <td><a href="">Link</a></td>
         <td></td>
       </tr>
@@ -397,7 +395,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>Pesquisa / configuração de ambiente Visual Studio Code</td>
         <td>3</td>
         <td>Nicolas</td>
-        <td>✔</td>
+        <td>✔️</td>
         <td><a href="">Link</a></td>
         <td></td>
       </tr>
@@ -406,7 +404,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>BurnDown Sprint 1</td>
         <td>3</td>
         <td>Pedro</td>
-        <td>✔</td>
+        <td>✔️</td>
         <td><a href="">Link</a></td>
         <td></td>
       </tr>
@@ -415,7 +413,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>Adicionar imagens do projeto / logos na pasta pública</td>
         <td>3</td>
         <td>Geral</td>
-        <td>✔</td>
+        <td>✔️</td>
         <td><a href="">Link</a></td>
         <td></td>
       </tr>
@@ -424,7 +422,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>Trabalhar Footer.html</td>
         <td>8</td>
         <td>Rainan</td>
-        <td>✔</td>
+        <td>✔️</td>
         <td><a href="">Link</a></td>
         <td></td>
       </tr>
@@ -433,7 +431,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>Trabalhar Header.html</td>
         <td>8</td>
         <td>Rainan</td>
-        <td>✔</td>
+        <td>✔️</td>
         <td><a href="">Link</a></td>
         <td></td>
       </tr>
@@ -442,7 +440,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>Trabalhar página inicial</td>
         <td>8</td>
         <td>Rainan</td>
-        <td>✔</td>
+        <td>✔️</td>
         <td><a href="">Link</a></td>
         <td></td>
       </tr>
@@ -451,7 +449,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>Trabalhar página sobre o AgriRS</td>
         <td>5</td>
         <td>João</td>
-        <td>✔</td>
+        <td>✔️</td>
         <td><a href="">Link</a></td>
         <td></td>
       </tr>
@@ -460,7 +458,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>Trabalhar página de membros</td>
         <td>8</td>
         <td>Thales</td>
-        <td>✔</td>
+        <td>✔️</td>
         <td><a href="">Link</a></td>
         <td></td>
       </tr>
@@ -469,7 +467,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>Trabalhar página de notícias</td>
         <td>5</td>
         <td>Ronaldo</td>
-        <td>✔</td>
+        <td>✔️</td>
         <td><a href="">Link</a></td>
         <td></td>
       </tr>
@@ -477,8 +475,8 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>DW-027</td>
         <td>Trabalhar página de publicações</td>
         <td>5</td>
-        <td></td>
-        <td>✔/td>
+        <td>Pedro</td>
+        <td>✔️</td>
         <td><a href="">Link</a></td>
         <td></td>
       </tr>
@@ -487,7 +485,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>Trabalhar página de vagas</td>
         <td>3</td>
         <td>Nicolas</td>
-        <td>✔</td>
+        <td>✔️</td>
         <td><a href="">Link</a></td>
         <td></td>
       </tr>
@@ -496,7 +494,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>Trabalhar página de projetos</td>
         <td>3</td>
         <td>Israel</td>
-        <td>✔</td>
+        <td>✔️</td>
         <td><a href="">Link</a></td>
         <td></td>
       </tr>
@@ -505,7 +503,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>Trabalhar página de contato</td>
         <td>5</td>
         <td>Marcus</td>
-        <td>✔</td>
+        <td>✔️</td>
         <td><a href="">Link</a></td>
         <td></td>
       </tr>
@@ -514,7 +512,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>Rotas da pagina -> Integrar footer / header nas páginas</td>
         <td>5</td>
         <td>Pedro</td>
-        <td>✔</td>
+        <td>✔️</td>
         <td><a href="">Link</a></td>
         <td></td>
       </tr>
@@ -523,7 +521,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>Ajustar redirecionamento das páginas</td>
         <td>5</td>
         <td>Rainan</td>
-        <td>✔</td>
+        <td>✔️</td>
         <td><a href="">Link</a></td>
         <td></td>
       </tr>
@@ -532,7 +530,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
         <td>Controle do filtro para tela de publicações</td>
         <td>5</td>
         <td>Pedro</td>
-        <td>✔</td>
+        <td>✔️️</td>
         <td><a href="">Link</a></td>
         <td></td>
       </tr>
@@ -547,20 +545,46 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
 
 <h1 id="sprint-2">⏱️ Sprint 2</h1>
 <h2 id="backlog-sprint-2">📋 Backlog</h2>
-  <table border="1" cellpadding="5" cellspacing="0">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Nome</th>
-        <th>Pontos</th>
-        <th>Responsáveis</th>
-        <th>Status</th>
-        <th>Link</th>
-        <th>Requisitos atendidos</th>
-      </tr>
-    </thead>
-  </table>
-
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Pontos</th>
+      <th>Responsáveis</th>
+      <th>Status</th>
+      <th>Link</th>
+      <th>Requisitos atendidos</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>ES-032</td><td>Planejar backlog sprint 2</td><td>5</td><td>Pedro</td><td>✔️</td><td></td><td></td></tr>
+    <tr><td>ES-033</td><td>Burndown sprint 2</td><td>1</td><td>Pedro</td><td>✔️</td><td></td><td></td></tr>
+    <tr><td>ES-034</td><td>Organizar Trello sprint 2</td><td>3</td><td>Israel</td><td>⏳</td><td></td><td></td></tr>
+    <tr><td>DW-035</td><td>Trabalhar responsividade da página inicial</td><td>3</td><td>Rainan</td><td>⏳</td><td></td><td></td></tr>
+    <tr><td>DW-036</td><td>Trabalhar responsividade página sobre o AgriRS</td><td>3</td><td>João</td><td>⏳</td><td></td><td></td></tr>
+    <tr><td>DW-037</td><td>Trabalhar responsividade página de membros</td><td>3</td><td>Thales</td><td>⏳</td><td></td><td></td></tr>
+    <tr><td>DW-038</td><td>Trabalhar responsividade página de notícias</td><td>3</td><td>Ronaldo</td><td>⏳</td><td></td><td></td></tr>
+    <tr><td>DW-039</td><td>Trabalhar responsividade página de publicações</td><td>3</td><td></td><td>❌</td><td></td><td></td></tr>
+    <tr><td>DW-040</td><td>Trabalhar responsividade página de Vagas</td><td>3</td><td>Nicolas</td><td>⏳</td><td></td><td></td></tr>
+    <tr><td>DW-041</td><td>Trabalhar responsividade página de Projetos</td><td>3</td><td></td><td>❌</td><td></td><td></td></tr>
+    <tr><td>DW-042</td><td>Trabalhar responsividade página de Contato</td><td>3</td><td>Marcus</td><td>⏳</td><td></td><td></td></tr>
+    <tr><td>ES-043</td><td>Diagrama de classes do banco de dados</td><td>1</td><td></td><td>❌</td><td></td><td></td></tr>
+    <tr><td>MB-044</td><td>Estrutura das tabelas do banco de dados</td><td>5</td><td></td><td>❌</td><td></td><td></td></tr>
+    <tr><td>MB-045</td><td>Configuração do banco de dados no projeto</td><td>5</td><td></td><td>❌</td><td></td><td></td></tr>
+    <tr><td>AL-046</td><td>Envio de e-mail (contato)</td><td>3</td><td></td><td>❌</td><td></td><td></td></tr>
+    <tr><td>DW-047</td><td>Tela de login</td><td>1</td><td></td><td>❌</td><td></td><td></td></tr>
+    <tr><td>AL-048</td><td>Rota para realizar login</td><td>1</td><td></td><td>❌</td><td></td><td></td></tr>
+    <tr><td>AL-049</td><td>Rota para pegar as informações da página inicial</td><td>3</td><td></td><td>❌</td><td></td><td></td></tr>
+    <tr><td>AL-050</td><td>Rota para pegar as informações da página sobre o AgriRS</td><td>3</td><td></td><td>❌</td><td></td><td></td></tr>
+    <tr><td>AL-051</td><td>Rota para pegar as informações da página de membros</td><td>3</td><td></td><td>❌</td><td></td><td></td></tr>
+    <tr><td>AL-052</td><td>Rota para pegar as informações da página de notícias</td><td>3</td><td></td><td>❌</td><td></td><td></td></tr>
+    <tr><td>AL-053</td><td>Rota para pegar as informações da página de publicações</td><td>3</td><td></td><td>❌</td><td></td><td></td></tr>
+    <tr><td>AL-054</td><td>Rota para pegar as informações da página de Vagas</td><td>3</td><td></td><td>❌</td><td></td><td></td></tr>
+    <tr><td>AL-055</td><td>Rota para pegar as informações da página de Projetos</td><td>3</td><td></td><td>❌</td><td></td><td></td></tr>
+    <tr><td>AL-056</td><td>Rota para pegar as informações da página de Contato</td><td>3</td><td></td><td>❌</td><td></td><td></td></tr>
+  </tbody>
+</table>
 
 <h2 id="burndown-sprint-2">📉 Burndown</h2>
 
