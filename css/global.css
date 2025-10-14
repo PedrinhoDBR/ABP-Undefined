@@ -48,8 +48,18 @@ header {
 }
 
 .logo {
+  /* display: flex;
+  justify-content: space-between; */
   margin-top: 20px;
 }
+
+/* .inpe{
+  background-color: var(--text-base-color);
+   border-radius: 50px;
+   border-left: solid 0.3rem white;
+   border-right: solid 0.1rem white;
+} */
+
 
 header nav .menu-button {
   display: flex;
@@ -63,12 +73,15 @@ header nav .menu-button:hover {
   color: var(--light-blue-color);
 }
 
-.header>nav {
+nav{
   display: flex;
   justify-content: row;
-  justify-content: space-around;
-  justify-content: flex-start;
+  justify-content: space-between;
+  align-items: center;
+  
 }
+
+
 
 .menu-button {
   margin: 1rem;
@@ -116,7 +129,6 @@ header {
 }
 
 .languageButton {
-  position: absolute;
   height: 40px;
   width: 70px;
   right: 0px;

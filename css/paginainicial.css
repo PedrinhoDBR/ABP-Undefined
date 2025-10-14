@@ -76,6 +76,18 @@
     z-index: 10;
 }
 
+.arrowEquipe{
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: 200ms;
+  z-index: 10;
+  width: 100%;
+}
+
 .arrow:hover{
     
     cursor: pointer;
@@ -116,14 +128,23 @@
     transform: scaleX(-1);
 }
 
+
+
 .setasEquipe {
     display: flex;
-    margin-top: 3rem;
     color: black;
 }
 
 
 /* equipe Carrosel //////////////*/
+
+.equipeBox{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  max-width: 95%;
+  overflow-x: hidden;
+}
 
 
 .equipeCarrosel {
