@@ -4,8 +4,9 @@
     justify-content: center;
     gap: 30px;
     padding: 20px;
-    max-width: 2000px;
+    width: 1000px;
 }
+
 
 .card{
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -15,6 +16,18 @@
     display: flex;
     flex-direction: column;
     transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+@media (max-width: 768px) {
+    .contatos {
+        width: 90%;   
+    }
+    .card {
+        margin-bottom: 20px;
+    }
+    h1{
+        font-size: 1.5rem;
+    }
 }
 
 .card:hover{
