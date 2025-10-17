@@ -4,14 +4,15 @@
 
 .cardsBox {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     width: 100%;
+    margin-top: 4rem;
 }
 
 
 /* Card Padrão */
 
-.card {
+/* .card{
     position: relative;
     display: flex;
     flex-direction: column;
@@ -21,20 +22,54 @@
     width: 200px;
     border-radius: 10px;
     transition: transform 200ms ease-in;
-    background-size: cover;
     color: white;
     font-size: small;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5);
     cursor: pointer;
 }
 
-.card img {
+.card img{
     position: absolute;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: fill;
+    border-radius: 10px;
+} */
+
+.card{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background-color: #21A866;
+    height: 300px;
+    width: 250px;
+    border-radius: 10px;
+    transition: transform 200ms ease-in;
+    color: white;
+    font-size: small;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+.card img{
+    width: 100%;
+    height: 100%; 
+    object-fit:  fill;
     border-radius: 10px;
 }
+
+.cardImg{
+  margin-top: 0.5rem;
+  height: 65%;
+}
+
+.cardImg img{
+  width: 95%;
+  height: 100%;
+}
+
+
 
 /* Card largo (Referencia na página inicial) */
 
@@ -52,21 +87,32 @@
 
 /* Área de texto dos cards */
 
+/* #PUBLICACOEScard1 .cardText, #PUBLICACOEScard2 .cardText, #PUBLICACOEScard3 .cardText{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} */
+
 .cardText {
     position: relative;
-    /* border-radius: 10px; */
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-    background-color: #3F936E;
-    width: 100%;
+    background-color: #21A866;
+    width: 100%;  
     height: 100px;
     overflow-y: scroll;
     scrollbar-color: #3F936E;
 }
 
 .cardText p {
-    margin: 20px;
+    /* margin: 20px; */ 
 }
+
+  .cardText h4{
+    font-size: 1rem;
+    margin: 0.5rem;
+    
+  }
 
 .cardText:hover::-webkit-scrollbar {
     display: flex;
@@ -99,8 +145,9 @@
     display: flex;
     align-items: flex-end;
     background-color: #2E6A50;
-    height: 100px;
-    width: 75px;
+    height: 140px;
+    width: 115px;
+    /* width: 75px; */
     border-radius: 10px;
     display: flex;
     margin: 20px;
@@ -136,4 +183,60 @@
     width: 100%;
     height: 100%;
     font-size: small;
+}
+
+
+@media screen and (max-width:1000px){
+    /* Cards */
+
+
+
+  .cardsBox {
+    justify-content: space-around;
+  }
+
+
+  .card {
+    width: 6rem;
+    height: 10rem;
+  }
+
+  .cardWide {
+    width: 10rem;
+  }
+
+  .cardText{
+    height: 3rem;
+    font-size: xx-small;
+    padding: 0px;
+
+  }
+
+  .cardText p{
+    margin: 0.5rem;
+    font-size: 0.5rem;
+  }
+
+
+  /* Carrosel Equipe */
+
+  .equipeCarrosel {
+    max-width: 380px;
+    margin-bottom: 50px;
+  }
+
+  .cardEquipeMiniatura {
+    width: 30px;
+    height: 40px;
+    margin: 10px;
+  }
+
+  .cardTextEquipe {
+    font-size: 0.3rem;
+  }
+
+  .setasEquipe {
+    display: none;
+    margin-top: 1rem;
+  }
 }

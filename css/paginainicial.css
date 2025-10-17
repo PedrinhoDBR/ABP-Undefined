@@ -1,19 +1,43 @@
 /* Carrosel ////////////////////////////////*/
 
+/* #slide0{
+  z-index: 10;
+} */
+
+#slide1{
+  left: 100%;
+}
+
+#slide2{
+  left: 200%;
+}
+
+.carroselBox{
+  position: relative;
+  display: flex;
+  overflow-x: hidden;
+  height: 35vh;
+  margin-top: 1rem;
+  
+
+
+}
+
 .carrosel {
+    position: absolute;
     display: flex;
     flex-direction: column;
-    position: relative;
     justify-content: flex-end;
     background-color: #dfdfdf;
     height: 35vh;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    margin: 20px;
     border-radius: 20px;
-
+    min-width: 100%;
+    
 }
+
+
+
+
 
 .carroselText {
     position: absolute;
@@ -49,6 +73,19 @@
     top: 50%;
     transform: translateY(-50%);
     transition: 200ms;
+    z-index: 10;
+}
+
+.arrowEquipe{
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: 200ms;
+  z-index: 10;
+  width: 100%;
 }
 
 .arrow:hover{
@@ -81,7 +118,7 @@
 
 .material-symbols-outlined {
     /* margin-top: 55px; */
-    color: rgb(255, 255, 255);
+    color: var(--text-base-color)
 
 
 }
@@ -91,14 +128,23 @@
     transform: scaleX(-1);
 }
 
+
+
 .setasEquipe {
     display: flex;
-    margin-top: 3rem;
     color: black;
 }
 
 
 /* equipe Carrosel //////////////*/
+
+.equipeBox{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  max-width: 95%;
+  overflow-x: hidden;
+}
 
 
 .equipeCarrosel {
@@ -112,8 +158,15 @@
 
 .formSection {
     display: flex;
+    justify-content: space-around;
+    margin: 4rem 0rem 4rem 0rem;
+    
 
 
+}
+
+.formSection h2{
+  font-size: 1rem;
 }
 
 
@@ -151,9 +204,18 @@ textarea {
 
 }
 
+
+
+.map p{
+    max-width: 25rem;
+  }
+
+
+  
+
 /* Area de colaboradores */
 
-.areaColaboradores {
+.areaColaboradores{
     display: flex;
     flex-direction: column;
 }
@@ -168,7 +230,8 @@ textarea {
 
 .colabBox {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    align-items: center;
     
 }
 
@@ -178,3 +241,89 @@ button{
     margin: 3rem;
 }
 
+
+/* Responsividade página inicial */
+
+
+@media screen and (max-width:1000px){
+    /* Carrosel */
+
+
+  .carroselBox{
+    width: 95%;
+  }
+  
+
+  .carrosel p {
+    display: none;
+  }
+
+
+
+  /* Area de formulario */
+
+  .formSection {
+    max-width: 380px;
+  }
+
+  .map img {
+    width: 180px;
+    height: 200px;
+  }
+
+  .form {
+    width: 10rem;
+  }
+
+  form>input,
+  textarea {
+    width: 100%;
+    /* border: solid 1px;
+    border-radius: 5px; */
+    border: none;
+    padding: 7px;
+    border-radius: 3px;
+    /* box-shadow: inset 3px 4px 4px rgba(200, 200, 200, 0.5); */
+    border-bottom: 1px solid rgba(200, 200, 200, 0.9);
+    font-family: inherit;
+
+  }
+
+  #assuntoBox>form {
+    height: 60px;
+
+
+  }
+
+  .formSection h2 {
+    font-size: large;
+  }
+
+  .formSection p {
+    font-size: small;
+  }
+
+  .formSection button {
+    display: flex;
+    align-items: center;
+    width: 60px;
+    height: 10px;
+    font-size: xx-small;
+    margin-top: 0px;
+
+  }
+
+  /* Area de colaboradores */
+
+  .areaColaboradores {
+    max-width: 380px;
+  }
+
+  .colabBox img {
+    width: 4rem;
+    margin: 1rem;
+    object-fit: contain;
+
+
+  }
+}
