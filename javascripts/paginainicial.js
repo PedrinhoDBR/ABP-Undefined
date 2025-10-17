@@ -25,6 +25,8 @@ const slides = document.querySelectorAll(".carrosel")
 //     lista.add(a)
 // })
 
+// só nois dois no meio do ba
+
 
 
 const slide0 = document.querySelector("#slide0")
