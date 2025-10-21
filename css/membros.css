@@ -19,6 +19,7 @@
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 30px;
             display: flex;
+            justify-content: center;
         }
         
         .member-card {
@@ -122,6 +123,7 @@
 
 .coordenador{
     flex-direction: column;
+    align-items: center;
 }
 
 /* CARD */
