@@ -19,7 +19,8 @@ button:hover{
     height: 50px;
     width: 150px;
     padding: 10px;
-    background-color: #005b11;
+    background-color: var(--dark-blue-color);
+    border: 1px solid var(--dark-blue-color);
     color: white;
 
 }

@@ -1,234 +1,150 @@
-body {
-    /* display: flex; */
-    padding: 0;
-    margin: 0;
-    text-align: center;
-    width: 100vw;
-    height: 100vh;
-    font-family: "Kanit";
-}
-
-
-
-/*////////// Header - > ///////////////////////////////////////////*/
-
-.header>nav {
-    display: flex;
-    justify-content: row;
-    justify-content: space-between;
-
-}
-
-header {
-    display: flex;
-    justify-content: center;
-
-    /* background-color:#2E6A50; */
-    background-image: linear-gradient(180deg, #2E6A50 0%, #41C089 73%);
-    color: white;
-    text-shadow: 2px 2px 2px black;
-}
-
-.header {
-    width: 900px;
-}
-
-
-.headerTop {
-    display: flex;
-}
-
-.agrirslab {
-    text-align: start;
-}
-
-.arsl {
-    margin-bottom: 10px;
-
-
-}
-
-.title {
-    margin-left: 30px;
-}
-
-.logo {
-    margin-top: 20px;
-    transform: scale(1.2);
-}
-
-/* Container -> ///////////////////////////////////////*/
-
-
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100vw;
-}
-
-.container>* {
-
-    width: 900px;
-}
-
-.container>section {
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-
-}
-
-
 /* Carrosel ////////////////////////////////*/
 
-.carrosel {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    background-color: #dfdfdf;
-    height: 35vh;
-    background: url(../public/img/imagemCarroselNoticia.png);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    margin-bottom: 20px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+/* #slide0{
+  z-index: 10;
+} */
+
+#slide1{
+  left: 100%;
 }
 
+#slide2{
+  left: 200%;
+}
+
+.carroselBox{
+  position: relative;
+  display: flex;
+  overflow-x: hidden;
+  height: 35vh;
+  margin-top: 1rem;
+  
+
+
+}
+
+.carrosel {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background-color: #dfdfdf;
+    height: 35vh;
+    border-radius: 20px;
+    min-width: 100%;
+    
+}
+
+
+
+
+
 .carroselText {
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
     background-color: #3f936f8a;
-    width: 100vh;
-    height: 15vh;
+    width: 100%;
+    height: 13vh;
     color: white;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.carrosel img{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
 }
 
 .carroselText>p {
     margin: 0px;
 }
 
-.arrows {
+
+/* Setas -> ////////////////////////////*/
+
+.arrow{
+    position: absolute;
     display: flex;
+    align-items: center;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: 200ms;
+    z-index: 10;
 }
 
+.arrowEquipe{
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: 200ms;
+  z-index: 10;
+  width: 100%;
+}
+
+.arrow:hover{
+    
+    cursor: pointer;
+}
+
+#leftArrowNews{
+    transform: scale(-1);
+    transition: 200ms;
+}
+
+#leftArrowNews:hover{
+    transform: scale(-1.5);
+}
+
+#rightArrowNews{
+    transition: 200ms;
+}
+
+#rightArrowNews:hover{
+    transform: scale(1.5);
+
+}
+
+.rightArrow {
+    right: 1px;
+
+}
+
+.material-symbols-outlined {
+    /* margin-top: 55px; */
+    color: var(--text-base-color)
 
 
-
-/* Setas Carrosel -> ////////////////////////////*/
+}
 
 #leftArrow {
     display: flex;
     transform: scaleX(-1);
 }
 
-.material-symbols-outlined {
-    margin-top: 55px;
-
-}
 
 
-/* feed / Cards //////////////*/
-
-.cardsProjetos{
+.setasEquipe {
     display: flex;
-    justify-content: space-between;
-    cursor: pointer;
+    color: black;
 }
-
-
-
-.PROJETOScard {
-    display: flex;
-    align-items: flex-end;
-    background-color: #2E6A50;
-    height: 300px;
-    width: 200px;
-    /* border: solid; */
-    border-radius: 10px;
-    display: flex;
-    margin: 20px;
-    transition: 200ms;
-    background-image: url(/public/img/Figura_P1_PS.png);
-    background-size: contain;
-    font-size: small;
-    color: white;
-
-}
-
-.PROJETOScard:hover {
-    transform: scale(1.2);
-}
-
-
-
-
-#PROJETOScard2 {
-    background-image: url(/public/img/projeto2img.png);
-    background-size: contain;
-}
-
-#PROJETOScard3{
-    background-image: url(/public/img/Figura_P2_MG.JPG);
-    background-size: cover;
-}
-
-.PUBLICACOEScard {
-    display: flex;
-    align-items: flex-end;
-    background-color: #2E6A50;
-    height: 300px;
-    width: 200px;
-    /* border: solid; */
-    border-radius: 10px;
-    display: flex;
-    margin: 20px;
-    transition: 200ms;
-    background-image: url(/public/img/Figura_A2_NS.png);
-    background-size: cover;
-    color: white;
-    font-size: small;
-}
-
-
-#PUBLICACOEScard2 {
-    background-image: url(/public/img/Figura_A7_AG.png);
-    background-size: contain;
-
-
-}
-
-#PUBLICACOEScard3 {
-    background-image: url(/public/img/Figura_AC1_PS.png);
-    background-size: contain;
-}
-
-.PUBLICACOEScard:hover {
-    transform: scale(1.2);
-}
-
-.cardsPublicacoes {
-    display: flex;
-    justify-content: space-between;
-    cursor: pointer;
-}
-
-
-/* button::before{
-    content: "fodase";
-}
-button:hover::before {
-    content: "bazinga";
-} */
 
 
 /* equipe Carrosel //////////////*/
+
+.equipeBox{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  max-width: 95%;
+  overflow-x: hidden;
+}
 
 
 .equipeCarrosel {
@@ -237,153 +153,20 @@ button:hover::before {
     cursor: pointer;
 }
 
-.card{
-    display: flex;
-    align-items: flex-end;
-    background-color: #2E6A50;
-    height: 100px;
-    width: 75px;
-    /* border: solid; */
-    border-radius: 10px;
-    display: flex;
-    margin: 20px;
-    transition: 200ms;
-    color: var(--text-base-color);
-}
-
-.card:hover {
-    transform: scale(1.2);
-}
-
-.card:hover::before{
-    content: "Nome";
-
-}
-
-
-.cardTextEquipe.card{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border-radius: 10px;
-    background-color: #3F936E;
-    width: 206px;
-    height: 30px;
-    font-size: small;
-}
-
-#cardEquipe1 {
-    background-image: url(/public/img/equipe/Andre_Garcia.jpeg);
-    background-size: contain;
-}
-
-#cardEquipe2 {
-    background-image: url(/public/img/equipe/Cleverton_Santana.jpeg);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position-x: center;
-    background-position-y: center;
-    background-size: 125px;
-}
-
-#cardEquipe3 {
-    background-image: url(/public/img/equipe/Darlan_Teles.jpeg);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position-x: center;
-    background-position-y: center;
-    background-size: 80px;
-
-}
-
-#cardEquipe4 {
-    background-image: url(/public/img/equipe/Gabriel_Sansigolo.jpeg);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position-x: center;
-    background-position-y: center;
-    background-size: 100px;
-}
-
-#cardEquipe5 {
-    background-image: url(/public/img/equipe/Grazieli_Rodigheri.jpeg);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position-x: center;
-    background-position-y: center;
-    background-size: 105px;
-}
-
-#cardEquipe6 {
-    background-image: url(/public/img/equipe/Lorrany_Colegnac.jpg);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position-x: center;
-    background-position-y: center;
-    background-size: 100px;
-}
-
-#cardEquipe7 {
-    background-image: url(/public/img/equipe/Marcos_Adami.jpg);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position-x: center;
-    background-position-y: center;
-    background-size: 105px;
-}
-
-/* Cards */
-
-.cardText {
-    border-radius: 10px;
-    background-color: #3F936E;
-    width: 206px;
-    height: 100px;
-
-}
-
-/* Slider */
-
-/* .cardsProjetos .slider{
-    display: flex;
-    justify-content: space-between;
-    cursor: pointer;
-} */
-
-/* .slider{
-    aspect-ratio: auto;
-    overflow-x: auto;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-    scroll-behavior: smooth;
-}
-
-
-.slidernav{
-    display: flex;
-    column-gap: 1rem;
-    margin: 0.5rem;
-    margin-bottom: 1rem;
-}
-
-.slidernav a{
-    width: 0.5rem;
-    height: 0.5rem;
-    color: black;
-    background-color: black;
-    border-radius: 1rem;
-} */
-
-
-
-
 
 /* área de Formulario /////////////////// */
 
 .formSection {
     display: flex;
+    justify-content: space-around;
+    margin: 4rem 0rem 4rem 0rem;
+    
 
 
+}
+
+.formSection h2{
+  font-size: 1rem;
 }
 
 
@@ -423,57 +206,124 @@ textarea {
 
 
 
+.map p{
+    max-width: 25rem;
+  }
 
 
+  
 
+/* Area de colaboradores */
 
-
-/* footer //////////////////// */
-
-footer {
-    display: flex;
-    justify-content: space-around;
-    background-image: linear-gradient(180deg, #154430 0%, #3F936E 100%);
-    color: white;
-    padding: 30px;
-
-}
-
-.footer {
-    display: flex;
-    justify-content: space-between;
-    width: 900px;
-
-
-}
-
-
-#footer1 {
+.areaColaboradores{
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    font-size: x-large;
 }
 
-#footer3 {
+.colabBox img {
+    width: 8rem;
+    margin: 2rem;
+    object-fit: contain;
+    
+     
+}
+
+.colabBox {
     display: flex;
-    align-items: column;
-    width: 300px;
+    justify-content: space-around;
+    align-items: center;
+    
+}
+
+/* Unrelated */
+
+button{
+    margin: 3rem;
 }
 
 
-/* unrelated ////////// */
+/* Responsividade página inicial */
 
-.kanit-regular {
-    font-family: "Kanit", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-}
 
-a {
-    text-decoration: none;
-}
+@media screen and (max-width:1000px){
+    /* Carrosel */
 
-.languageButton {
-    transform: scale(0.7);
+
+  .carroselBox{
+    width: 95%;
+  }
+  
+
+  .carrosel p {
+    display: none;
+  }
+
+
+
+  /* Area de formulario */
+
+  .formSection {
+    max-width: 380px;
+  }
+
+  .map img {
+    width: 180px;
+    height: 200px;
+  }
+
+  .form {
+    width: 10rem;
+  }
+
+  form>input,
+  textarea {
+    width: 100%;
+    /* border: solid 1px;
+    border-radius: 5px; */
+    border: none;
+    padding: 7px;
+    border-radius: 3px;
+    /* box-shadow: inset 3px 4px 4px rgba(200, 200, 200, 0.5); */
+    border-bottom: 1px solid rgba(200, 200, 200, 0.9);
+    font-family: inherit;
+
+  }
+
+  #assuntoBox>form {
+    height: 60px;
+
+
+  }
+
+  .formSection h2 {
+    font-size: large;
+  }
+
+  .formSection p {
+    font-size: small;
+  }
+
+  .formSection button {
+    display: flex;
+    align-items: center;
+    width: 60px;
+    height: 10px;
+    font-size: xx-small;
+    margin-top: 0px;
+
+  }
+
+  /* Area de colaboradores */
+
+  .areaColaboradores {
+    max-width: 380px;
+  }
+
+  .colabBox img {
+    width: 4rem;
+    margin: 1rem;
+    object-fit: contain;
+
+
+  }
 }
