@@ -1,6 +1,3 @@
-// projetos.js
-
-// Dados dos projetos
 const projetosData = {
     "conab": {
         id: "conab",
@@ -154,17 +151,15 @@ const projetosData = {
     }
 };
 
-// Array ordenado dos projetos para os cards (excluindo o primeiro que é o carrossel)
 const projetosOrdenados = [
-    "cobertura-solo",      // Card 1
-    "desmatamento-cerrado", // Card 2  
-    "mapeamento-cultivos",  // Card 3
-    "alteracoes-uso-terra", // Card 4
-    "impactos-agricultura", // Card 5
-    "acompanhamento-frutas" // Card 6
+    "cobertura-solo", 
+    "desmatamento-cerrado", 
+    "mapeamento-cultivos", 
+    "alteracoes-uso-terra",
+    "impactos-agricultura", 
+    "acompanhamento-frutas" 
 ];
 
-// Gerenciador de Projetos
 class ProjetosManager {
     constructor() {
         this.currentPage = this.getCurrentPage();
@@ -186,8 +181,6 @@ class ProjetosManager {
     }
 
     init() {
-        console.log('Projetos.js carregado - Página:', this.currentPage, 'Projeto:', this.currentProject);
-        
         if (this.currentPage === 'project-detail') {
             this.renderProjectDetail();
         } else {
@@ -199,17 +192,12 @@ class ProjetosManager {
         const containers = document.querySelectorAll('.cardsProjetos');
         if (!containers.length) return;
 
-        console.log('Renderizando lista de projetos...');
-
-        // Remove classe 'vazia' para mostrar os containers
         containers[0].classList.remove('vazia');
         containers[1].classList.remove('vazia');
 
-        // Limpa os containers (caso tenha conteúdo de fallback)
         containers[0].innerHTML = '';
         containers[1].innerHTML = '';
 
-        // Primeira linha de cards (índices 0, 1, 2)
         for (let i = 0; i < 3; i++) {
             if (projetosOrdenados[i]) {
                 const projetoId = projetosOrdenados[i];
@@ -219,7 +207,6 @@ class ProjetosManager {
             }
         }
 
-        // Segunda linha de cards (índices 3, 4, 5)
         for (let i = 3; i < 6; i++) {
             if (projetosOrdenados[i]) {
                 const projetoId = projetosOrdenados[i];
@@ -228,8 +215,6 @@ class ProjetosManager {
                 containers[1].appendChild(card);
             }
         }
-
-        console.log('Cards renderizados na ordem correta');
     }
 
     createProjectCard(projeto) {
@@ -238,7 +223,9 @@ class ProjetosManager {
         
         card.innerHTML = `
             <a href="projetoCONAB.html?project=${projeto.id}" title="${projeto.titulo}" class="card-link">
-                <img src="${projeto.imagemCard}" alt="${projeto.titulo}" class="card-img">
+                <div class="card-img-container">
+                    <img src="${projeto.imagemCard}" alt="${projeto.titulo}" class="card-img">
+                </div>
                 <div class="cardText">
                     <p>${projeto.resumo}</p>
                 </div>
@@ -251,7 +238,6 @@ class ProjetosManager {
     renderProjectDetail() {
         const project = projetosData[this.currentProject];
         if (!project) {
-            console.error('Projeto não encontrado:', this.currentProject);
             window.location.href = 'projetoCONAB.html?project=conab';
             return;
         }
@@ -287,30 +273,22 @@ class ProjetosManager {
             carrosselImg.src = project.imagemCarrossel;
             carrosselImg.alt = project.titulo;
         }
-
-        console.log('Conteúdo do projeto atualizado:', project.titulo);
     }
 }
-// Função específica para atualizar o conteúdo do projetoCONAB.html
+
 function atualizarConteudoProjeto(project) {
-    console.log('Atualizando conteúdo para o projeto:', project.id);
-    
-    // Atualiza o título da página
     document.title = `AgriRS - ${project.titulo}`;
-    
-    // Atualiza o título do projeto
+
     const tituloElement = document.getElementById('projeto-titulo');
     if (tituloElement) {
         tituloElement.textContent = project.titulo;
     }
-    
-    // Atualiza a descrição do projeto
+
     const descricaoElement = document.getElementById('projeto-descricao');
     if (descricaoElement) {
         descricaoElement.innerHTML = project.descricao;
     }
     
-    // Atualiza as informações do projeto
     const infoElement = document.getElementById('projeto-info');
     if (infoElement) {
         const infoItems = Object.entries(project.informacoes)
@@ -322,22 +300,18 @@ function atualizarConteudoProjeto(project) {
             `).join('');
         infoElement.innerHTML = infoItems;
     }
-    
-    // Atualiza a imagem do carrossel
+
     const carrosselImg = document.getElementById('carrossel-imagem');
     if (carrosselImg && project.imagemCarrossel) {
         carrosselImg.src = project.imagemCarrossel;
         carrosselImg.alt = project.titulo;
     }
-    
-    console.log('Conteúdo atualizado com sucesso:', project.titulo);
 }
 
-// Modifique a função updateProjectDetail para usar a nova função
 ProjetosManager.prototype.updateProjectDetail = function(project) {
     atualizarConteudoProjeto(project);
 };
-// Inicializa o gerenciador de projetos
+
 document.addEventListener('DOMContentLoaded', function() {
     new ProjetosManager();
 });
