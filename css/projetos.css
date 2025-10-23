@@ -10,11 +10,6 @@ a {
     color: inherit;
 }
 
-.a {
-    text-decoration: none;
-    color: inherit;
-}
-
 .carrosel {
     display: flex;
     justify-content: space-between;
@@ -23,8 +18,7 @@ a {
     background-size: 100%;
     height: 35vh;
     margin-bottom: 1.25rem;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-radius: 10px;
     position: relative;
     overflow: hidden;
     cursor: pointer;
@@ -41,13 +35,10 @@ a {
 }
 
 .carroselText {
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
     background-color: #3f936f8a;
     width: 100%;
     color: white;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-radius: 10px;
     position: relative;
     z-index: 1;
     transition: 200ms;
@@ -60,163 +51,186 @@ a {
     transform: scale(1.02);
 }
 
-.PROJETOScard {
+.cardsProjetos {
     display: flex;
     justify-content: space-between;
+    width: 100%;
+    margin-top: 4rem;
+    gap: 2rem;
+}
+
+.cardsProjetos.vazia {
+    display: none;
 }
 
 .PROJETOScard {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    background-color: #2E6A50;
-    height: 18.75rem;
-    width: 12.5rem;
-    border-radius: 10px;
-    margin: 1.25rem;
-    transition: 200ms;
-    font-size: 1rem;
-    color: white;
     position: relative;
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background-color: #21A866;
+    height: 300px;
+    width: 400px;
+    border-radius: 10px;
+    transition: transform 200ms ease-in;
+    color: white;
+    font-size: small;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5);
     cursor: pointer;
-}   
+    overflow: hidden;
+}
+
+.card-link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    text-decoration: none;
+    color: inherit;
+}
+
+.card-img-container {
+    height: 65%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    box-sizing: border-box;
+}
 
 .card-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
-    justify-content: space-between;
+    border-radius: 8px;
+}
+
+.cardText {
+    background-color: #21A866;
+    width: 100%;
+    height: 100px;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.cardText p {
+    margin: 0;
+    width: 100%;
+    text-align: center;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.3;
+    max-height: calc(1.3em * 3);
 }
 
 .PROJETOScard:hover {
-    transform: scale(1.2);
+    transform: scale(1.1);
 }
 
-.cardsProjetos {
-    display: flex;
-    justify-content: space-between;
-}
-
-.cardText {
-    border-radius: 10px;
-    background-color: #3F936E;
-    width: 12.875rem;
-    height: 6.25rem;
-    position: relative;
-    z-index: 1;
-    padding: 0.5rem;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    text-align: center;
-}
-
-.cardText p {
-    margin: 0;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    line-height: 1.3;
-    max-height: calc(1.3em * 3);
-    width: 100%;
-}
-
-.cardsProjetos {
-    display: flex;
-    justify-content: space-between;
-    align-items: stretch;
-    flex-wrap: wrap; 
-}
-
-.PROJETOScard {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: flex-end;
-    background-color: #2E6A50;
-    height: 18.75rem;
-    width: 12.5rem;
-    border-radius: 10px;
-    margin: 1.25rem;
-    transition: 200ms;
-    font-size: 1rem;
-    color: white;
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-}
-
-.cardText {
-    border-radius: 10px;
-    background-color: #3F936E;
-    width: 100%;
-    height: 6.25rem;
-    position: relative;
-    z-index: 1;
-    padding: 0.5rem;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
-
-.PROJETOScard a {
-    display: contents; }
-
-.cardText a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-}
-
-.cardText p {
-    margin: 0;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    line-height: 1.3;
-    max-height: calc(1.3em * 3);
-    width: 100%;
-    text-align: center;
-}
-
-/* responsividade */
-@media (max-width: 767px) {
-
+@media screen and (max-width: 1000px) {
     .cardsProjetos {
-        display: flex;
-        justify-content: center;
-        padding: 0 0.5rem;
+        justify-content: space-around;
+        gap: 1rem;
     }
 
     .PROJETOScard {
-        
-        width: calc(50% - 1.5rem); 
-       
-        margin: 0.75rem;
-        
-        height: 16rem;
+        width: 150px;
+        height: 200px;
     }
 
-   
+    .cardText {
+        height: 60px;
+        font-size: 0.7rem;
+        padding: 0.3rem;
+    }
+
+    .cardText p {
+        font-size: 0.7rem;
+        margin: 0.2rem;
+    }
+
     .carroselText {
         font-size: 1rem;
+        padding: 0.75rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .cardsProjetos {
+        gap: 0.75rem;
+        padding: 0.5rem;
     }
 
-    .PROJETOScard:hover {
-       
-        transform: scale(1.08);
+    .PROJETOScard {
+        width: 140px;
+        height: 180px;
+    }
+
+    .cardText {
+        height: 50px;
+        font-size: 0.6rem;
+    }
+
+    .cardText p {
+        font-size: 0.6rem;
+    }
+
+    .carroselText {
+        font-size: 0.9rem;
+        padding: 0.5rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .cardsProjetos {
+        gap: 0.5rem;
+        padding: 0.25rem;
+    }
+
+    .PROJETOScard {
+        width: 120px;
+        height: 160px;
+    }
+
+    .cardText {
+        height: 40px;
+        font-size: 0.5rem;
+        padding: 0.2rem;
+    }
+
+    .cardText p {
+        font-size: 0.5rem;
+        margin: 0.1rem;
+    }
+
+    .carroselText {
+        font-size: 0.8rem;
+        padding: 0.4rem;
+    }
+
+    .carrosel {
+        height: 25vh;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .PROJETOScard {
+        width: 100px;
+        height: 140px;
+    }
+
+    .cardText {
+        height: 35px;
+        font-size: 0.4rem;
+    }
+
+    .cardText p {
+        font-size: 0.4rem;
     }
 }
