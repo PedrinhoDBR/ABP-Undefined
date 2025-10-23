@@ -1,4 +1,157 @@
-document.addEventListener('DOMContentLoaded', function () {
+// Current state
+let currentPage = 1;
+const itemsPerPage = 12;
+let totalPages = 1;
+
+// DOM Elements
+const publicationsGrid = document.getElementById('publications-grid');
+const filterAno = document.getElementById('filter-ano');
+const filterSearch = document.getElementById('filter-search');
+const modal = document.getElementById('publication-modal');
+const closeButton = document.querySelector('.close-button');
+const prevPageBtn = document.getElementById('prev-page');
+const nextPageBtn = document.getElementById('next-page');
+const currentPageSpan = document.getElementById('current-page');
+
+// Event Listeners
+filterAno.addEventListener('change', () => {
+    currentPage = 1;
+    fetchPublications();
+});
+
+filterSearch.addEventListener('input', debounce(() => {
+    currentPage = 1;
+    fetchPublications();
+}, 300));
+
+prevPageBtn.addEventListener('click', () => {
+    if (currentPage > 1) {
+        currentPage--;
+        fetchPublications();
+    }
+});
+
+nextPageBtn.addEventListener('click', () => {
+    if (currentPage < totalPages) {
+        currentPage++;
+        fetchPublications();
+    }
+});
+
+// Close modal when clicking close button or outside
+closeButton.addEventListener('click', () => modal.style.display = 'none');
+window.addEventListener('click', (e) => {
+    if (e.target === modal) modal.style.display = 'none';
+});
+
+// Debounce function for search input
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// Fetch publications from API
+async function fetchPublications() {
+    try {
+        const ano = filterAno.value;
+        const titulo = filterSearch.value;
+        const params = new URLSearchParams({
+            page: currentPage,
+            limit: itemsPerPage,
+            idioma: 'PT-BR'
+        });
+
+        if (ano) params.append('ano', ano);
+        if (titulo) params.append('titulo', titulo);
+
+        const response = await fetch(`/api/publicacoes?${params}`);
+        const data = await response.json();
+
+        if (response.ok) {
+            renderPublications(data.results);
+            updatePagination(data.page, Math.ceil(data.total / data.limit));
+        } else {
+            console.error('Erro ao buscar publicações:', data.erro);
+        }
+    } catch (error) {
+        console.error('Erro ao buscar publicações:', error);
+    }
+}
+
+// Render publications grid
+function renderPublications(publications) {
+    publicationsGrid.innerHTML = publications.map(pub => `
+        <div class="publication-card" onclick="showPublicationDetail(${pub.PublicacaoID})">
+            ${pub.PublicacaoImamgem ? `
+                <img src="${pub.PublicacaoImamgem}" 
+                     alt="${pub.PublicacaoTitulo}" 
+                     class="card-image">
+            ` : ''}
+            <div class="card-content">
+                <h3 class="card-title">${pub.PublicacaoTitulo}</h3>
+                <div class="card-year">${pub.PublicacaoAno}</div>
+                ${pub.PublicacaoCitacao ? `
+                    <p class="card-excerpt">${pub.PublicacaoCitacao}</p>
+                ` : ''}
+            </div>
+        </div>
+    `).join('');
+}
+
+// Show publication detail in modal
+async function showPublicationDetail(id) {
+    try {
+        const response = await fetch(`/api/publicacoes/${id}`);
+        const pub = await response.json();
+
+        if (response.ok) {
+            document.getElementById('modal-title').textContent = pub.PublicacaoTitulo;
+            document.getElementById('modal-date').textContent = pub.PublicacaoAno;
+            
+            const modalImage = document.getElementById('modal-image');
+            if (pub.PublicacaoImamgem) {
+                modalImage.src = pub.PublicacaoImamgem;
+                modalImage.style.display = 'block';
+            } else {
+                modalImage.style.display = 'none';
+            }
+
+            document.getElementById('modal-citation').textContent = pub.PublicacaoCitacao || '';
+            
+            const linksDiv = document.getElementById('modal-links');
+            linksDiv.innerHTML = pub.PublicacaoLinkExterno ? `
+                <a href="${pub.PublicacaoLinkExterno}" target="_blank" rel="noopener noreferrer">
+                    Ver Publicação
+                </a>
+            ` : '';
+
+            modal.style.display = 'block';
+        } else {
+            console.error('Erro ao buscar detalhes da publicação:', pub.erro);
+        }
+    } catch (error) {
+        console.error('Erro ao buscar detalhes da publicação:', error);
+    }
+}
+
+// Update pagination controls
+function updatePagination(page, total) {
+    currentPage = page;
+    totalPages = total;
+    currentPageSpan.textContent = page;
+    prevPageBtn.disabled = page <= 1;
+    nextPageBtn.disabled = page >= total;
+}
+
+// Initial load
+document.addEventListener('DOMContentLoaded', fetchPublications);
     const publications = [
         // {
         //     id: 'A1',

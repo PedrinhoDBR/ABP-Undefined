@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AgriRS</title>
     <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/publicacoes.css">
     <script src="../javascripts/layout.js" defer></script>
     <script src="https://kit.fontawesome.com/5e96e72d2d.js" crossorigin="anonymous"></script>
     <link
@@ -29,32 +30,44 @@
     <div id="header-socket"></div>
 
     <div class="container">
-        <h1 class="titulo">PUBLICAÇÕES</h1>
-        <div class="main-content">
-            <aside class="sidebar">
-                <div class="filter">
-                    <select id="filter-ano">
-                        <option value="">Ano</option>
-                        <option value="2025">2025</option>
-                        <option value="2024">2024</option>
-                        <option value="2023">2023</option>
-                        <option value="2022">2022</option>
-                        <option value="2021">2021</option>
-                    </select>
-                    <input id="filter-search" type="text" placeholder="Pesquisar">
-                </div>
-                <div id="publications-list" class="other-publications">
-                </div>
-            </aside>
-            <section id="publication-detail" class="publication-detail">
-                <h2 id="detail-title">Selecione uma publicação</h2>
-                <span id="detail-date" class="pub-date"></span>
-                <img id="detail-image" src="" alt="" style="max-width:100%;height:auto;display:none;">
-                <h3 id="detail-subtitle"></h3>
-                <p id="detail-text"></p>
-                <p id="detail-citation" style="font-size:0.9em;color:#333;"></p>
-                <div id="detail-links" style="margin-top:12px;"></div>
-            </section>
+        <div class="header-content">
+            <h1 class="titulo">PUBLICAÇÕES</h1>
+            <div class="filters">
+                <select id="filter-ano" class="filter-input">
+                    <option value="">Todos os Anos</option>
+                    <option value="2025">2025</option>
+                    <option value="2024">2024</option>
+                    <option value="2023">2023</option>
+                    <option value="2022">2022</option>
+                    <option value="2021">2021</option>
+                </select>
+                <input id="filter-search" type="text" placeholder="Pesquisar por título" class="filter-input">
+            </div>
+        </div>
+        
+        <div id="publications-grid" class="publications-grid">
+            <!-- Cards will be dynamically inserted here -->
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <button id="prev-page" class="page-btn">&lt; Anterior</button>
+            <span id="page-info">Página <span id="current-page">1</span></span>
+            <button id="next-page" class="page-btn">Próxima &gt;</button>
+        </div>
+
+        <!-- Publication Detail Modal -->
+        <div id="publication-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h2 id="modal-title"></h2>
+                <span id="modal-date" class="pub-date"></span>
+                <img id="modal-image" src="" alt="" style="max-width:100%;height:auto;display:none;">
+                <h3 id="modal-subtitle"></h3>
+                <p id="modal-text"></p>
+                <p id="modal-citation" style="font-style:italic;color:#666;"></p>
+                <div id="modal-links" class="modal-links"></div>
+            </div>
         </div>
     </div>
 

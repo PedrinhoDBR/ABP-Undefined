@@ -7,7 +7,7 @@ const router = express.Router();
 //ROTA PARA BUSCAR TODAS AS PUBLICAÇÕES, com filtro basico
 router.get('/', async (req, res) => {
     try {
-        const { id, ano, titulo, page = 1, limit = 10 } = req.query;
+        const { id, ano, titulo, page = 1, limit = 12, idioma = 'PT-BR' } = req.query;
 
         const where = {};
         if (id) {
@@ -21,8 +21,10 @@ router.get('/', async (req, res) => {
             where.PublicacaoAno = parsedAno;
         }
         if (titulo) {
-            where.PublicacaoTitulo = titulo;
+            // Case-insensitive search
+            where.PublicacaoTitulo = { [Sequelize.Op.iLike]: `%${titulo}%` };
         }
+        where.idioma = idioma; // Fixed to PT-BR as requested
 
         const parsedLimit = Math.min(Math.max(parseInt(limit, 10) || 10, 1), 100);
         const parsedPage = Math.max(parseInt(page, 10) || 1, 1);
