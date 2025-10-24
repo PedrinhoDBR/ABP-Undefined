@@ -2,11 +2,12 @@ const path = require('path');
 const { sequelize } = require('./db/db');
 const express = require("express");
 const cors = require("cors");
-const Publicacao  = require("./routes/publicacao.routes");
+const Publicacao  = require("./routes/publicacoes.routes");
 
 const dotenv = require("dotenv");
 dotenv.config();
 
+//CRIAR AS TABELAS NO POSTGRES
 sequelize.sync({ alter: true })
   .then(() => {
     console.log('Tabelas sincronizadas com sucesso!');

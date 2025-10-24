@@ -71,7 +71,7 @@ async function fetchPublications() {
         if (ano) params.append('ano', ano);
         if (titulo) params.append('titulo', titulo);
 
-        const response = await fetch(`/api/publicacoes?${params}`);
+        const response = await fetch(`/api/publicacao?${params}`);
         const data = await response.json();
 
         if (response.ok) {
@@ -377,4 +377,3 @@ document.addEventListener('DOMContentLoaded', fetchPublications);
     renderList(publications);
     
     if (publications.length) showDetail(publications[0]);
-});

@@ -7,37 +7,45 @@ const router = express.Router();
 //ROTA PARA BUSCAR TODAS AS PUBLICAÇÕES, com filtro basico
 router.get('/', async (req, res) => {
     try {
-        const { id, ano, titulo, page = 1, limit = 12, idioma = 'PT-BR' } = req.query;
-
+        const { id, ano, titulo, idioma} = req.query;
         const where = {};
+        if (idioma) {
+            where.PublicacaoIdioma = idioma;
+        }
         if (id) {
-            const parsedId = parseInt(id, 10);
-            if (Number.isNaN(parsedId)) return res.status(400).json({ erro: 'id inválido' });
-            where.PublicacaoID = parsedId;
+            where.PublicacaoID = id;
         }
-        if (ano) {
-            const parsedAno = parseInt(ano, 10);
-            if (Number.isNaN(parsedAno)) return res.status(400).json({ erro: 'ano inválido' });
-            where.PublicacaoAno = parsedAno;
-        }
-        if (titulo) {
-            // Case-insensitive search
-            where.PublicacaoTitulo = { [Sequelize.Op.iLike]: `%${titulo}%` };
-        }
-        where.idioma = idioma; // Fixed to PT-BR as requested
+        const publicacoes = await Publicacao.findAll({where});
+        
 
-        const parsedLimit = Math.min(Math.max(parseInt(limit, 10) || 10, 1), 100);
-        const parsedPage = Math.max(parseInt(page, 10) || 1, 1);
-        const offset = (parsedPage - 1) * parsedLimit;
+        // if (id) {
+        //     const parsedId = parseInt(id, 10);
+        //     if (Number.isNaN(parsedId)) return res.status(400).json({ erro: 'id inválido' });
+        //     where.PublicacaoID = parsedId;
+        // }
+        // if (ano) {
+        //     const parsedAno = parseInt(ano, 10);
+        //     if (Number.isNaN(parsedAno)) return res.status(400).json({ erro: 'ano inválido' });
+        //     where.PublicacaoAno = parsedAno;
+        // }
+        // if (titulo) {
+        //     // Case-insensitive search
+        //     where.PublicacaoTitulo = { [Sequelize.Op.iLike]: `%${titulo}%` };
+        // }
+        // where.idioma = idioma; // Fixed to PT-BR as requested
 
-        const publicacoes = await Publicacao.findAll({
-            where,
-            limit: parsedLimit,
-            offset,
-            order: [['PublicacaoAno', 'DESC']]
-        });
+        // const parsedLimit = Math.min(Math.max(parseInt(limit, 10) || 10, 1), 100);
+        // const parsedPage = Math.max(parseInt(page, 10) || 1, 1);
+        // const offset = (parsedPage - 1) * parsedLimit;
 
-        res.json({ page: parsedPage, limit: parsedLimit, results: publicacoes });
+        // const publicacoes = await Publicacao.findAll({
+        //     where,
+        //     limit: parsedLimit,
+        //     offset,
+        //     order: [['PublicacaoAno', 'DESC']]
+        // });
+
+        res.json({results: publicacoes });
     } catch (error) {
         res.status(500).json({ erro: 'Erro ao buscar publicações', detalhes: error.message });
     }
