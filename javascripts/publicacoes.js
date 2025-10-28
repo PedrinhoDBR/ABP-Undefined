@@ -1,4 +1,112 @@
-document.addEventListener('DOMContentLoaded', function () {
+// Current state
+let currentPage = 1;
+const itemsPerPage = 12;
+let totalPages = 1;
+
+// DOM Elements
+const publicationsGrid = document.getElementById('publications-grid');
+const filterAno = document.getElementById('filter-ano');
+const filterSearch = document.getElementById('filter-search');
+const modal = document.getElementById('publication-modal');
+const closeButton = document.querySelector('.close-button');
+// const prevPageBtn = document.getElementById('prev-page');
+// const nextPageBtn = document.getElementById('next-page');
+// const currentPageSpan = document.getElementById('current-page');
+
+// Event Listeners
+filterAno.addEventListener('change', () => {
+    currentPage = 1;
+    fetchPublications();
+});
+
+filterSearch.addEventListener('input', debounce(() => {
+    currentPage = 1;
+    fetchPublications();
+}, 300));
+
+
+closeButton.addEventListener('click', () => modal.style.display = 'none');
+window.addEventListener('click', (e) => {
+    if (e.target === modal) modal.style.display = 'none';
+});
+
+
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// BUSCAR AS INFOS DO BANCO
+async function fetchPublications() {
+    try {
+        const ano = filterAno.value;
+        const titulo = filterSearch.value;
+        const params = new URLSearchParams({
+            idioma: 'PT-BR'
+        });
+
+        if (ano) params.append('ano', ano);
+        if (titulo) params.append('titulo', titulo);;
+        
+        const url = `http://localhost:3030/publicacao?${params.toString()}`;
+        console.log(url)
+        const response = await fetch(url); 
+        const data = await response.json();
+
+        if (response.ok) {
+            renderPublications(data.results);
+            updatePagination(data.page, Math.ceil(data.total / data.limit));
+        } else {
+            console.error('Erro ao buscar publicações:', data.erro);
+        }
+    } catch (error) {
+        console.error('Erro ao buscar publicações:', error);
+    }
+}
+
+function renderPublications(publications) {
+    publicationsGrid.innerHTML = publications.map(pub => `
+        <div 
+            class="publication-card"
+            ${pub.PublicacaoLinkExterno ? `onclick="window.open('${pub.PublicacaoLinkExterno}', '_blank')"` : ''}
+            style="${pub.PublicacaoLinkExterno ? 'cursor: pointer;' : ''}"
+        >
+            <div class="card-content">
+                <h3 class="card-title">${pub.PublicacaoTitulo}</h3>
+                
+                ${pub.PublicacaoImagem ? `
+                    <img src="${pub.PublicacaoImagem}" 
+                        alt="${pub.PublicacaoTitulo}" 
+                        class="card-image"
+                        onerror="this.src='/public/img/publicacoes/Figura_A1_GR.jpg'">
+                ` : ''}
+
+                <div class="card-year">${pub.PublicacaoAno}</div>
+            </div>
+
+            ${pub.PublicacaoCitacao ? `
+                <p class="card-excerpt">${pub.PublicacaoCitacao}</p>
+            ` : ''}
+        </div>
+    `).join('');
+
+
+}
+
+function updatePagination(page, total) {
+    currentPage = page;
+    totalPages = total;
+}
+
+// Initial load
+document.addEventListener('DOMContentLoaded', fetchPublications);
     const publications = [
         // {
         //     id: 'A1',
@@ -156,8 +264,8 @@ document.addEventListener('DOMContentLoaded', function () {
             card.className = 'publication-card';
             card.setAttribute('data-ano', pub.year);
             card.innerHTML = `
-                <img src="${pub.image}" alt="${pub.title}" onerror="this.src='/public/img/publicacoes/Figura_A1_GR.jpg'">
                 <h3>${pub.title}</h3>
+                <img src="${pub.image}" alt="${pub.title}" onerror="this.src='/public/img/publicacoes/Figura_A1_GR.jpg'">
             `;
             card.addEventListener('click', () => showDetail(pub));
             listEl.appendChild(card);
@@ -224,4 +332,3 @@ document.addEventListener('DOMContentLoaded', function () {
     renderList(publications);
     
     if (publications.length) showDetail(publications[0]);
-});
