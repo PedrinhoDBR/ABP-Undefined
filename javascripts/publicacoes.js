@@ -9,9 +9,9 @@ const filterAno = document.getElementById('filter-ano');
 const filterSearch = document.getElementById('filter-search');
 const modal = document.getElementById('publication-modal');
 const closeButton = document.querySelector('.close-button');
-const prevPageBtn = document.getElementById('prev-page');
-const nextPageBtn = document.getElementById('next-page');
-const currentPageSpan = document.getElementById('current-page');
+// const prevPageBtn = document.getElementById('prev-page');
+// const nextPageBtn = document.getElementById('next-page');
+// const currentPageSpan = document.getElementById('current-page');
 
 // Event Listeners
 filterAno.addEventListener('change', () => {
@@ -24,27 +24,13 @@ filterSearch.addEventListener('input', debounce(() => {
     fetchPublications();
 }, 300));
 
-prevPageBtn.addEventListener('click', () => {
-    if (currentPage > 1) {
-        currentPage--;
-        fetchPublications();
-    }
-});
 
-nextPageBtn.addEventListener('click', () => {
-    if (currentPage < totalPages) {
-        currentPage++;
-        fetchPublications();
-    }
-});
-
-// Close modal when clicking close button or outside
 closeButton.addEventListener('click', () => modal.style.display = 'none');
 window.addEventListener('click', (e) => {
     if (e.target === modal) modal.style.display = 'none';
 });
 
-// Debounce function for search input
+
 function debounce(func, wait) {
     let timeout;
     return function executedFunction(...args) {
@@ -57,21 +43,21 @@ function debounce(func, wait) {
     };
 }
 
-// Fetch publications from API
+// BUSCAR AS INFOS DO BANCO
 async function fetchPublications() {
     try {
         const ano = filterAno.value;
         const titulo = filterSearch.value;
         const params = new URLSearchParams({
-            page: currentPage,
-            limit: itemsPerPage,
             idioma: 'PT-BR'
         });
 
         if (ano) params.append('ano', ano);
-        if (titulo) params.append('titulo', titulo);
-
-        const response = await fetch(`/api/publicacao?${params}`);
+        if (titulo) params.append('titulo', titulo);;
+        
+        const url = `http://localhost:3030/publicacao?${params.toString()}`;
+        console.log(url)
+        const response = await fetch(url); 
         const data = await response.json();
 
         if (response.ok) {
@@ -85,69 +71,38 @@ async function fetchPublications() {
     }
 }
 
-// Render publications grid
 function renderPublications(publications) {
     publicationsGrid.innerHTML = publications.map(pub => `
-        <div class="publication-card" onclick="showPublicationDetail(${pub.PublicacaoID})">
-            ${pub.PublicacaoImamgem ? `
-                <img src="${pub.PublicacaoImamgem}" 
-                     alt="${pub.PublicacaoTitulo}" 
-                     class="card-image">
-            ` : ''}
+        <div 
+            class="publication-card"
+            ${pub.PublicacaoLinkExterno ? `onclick="window.open('${pub.PublicacaoLinkExterno}', '_blank')"` : ''}
+            style="${pub.PublicacaoLinkExterno ? 'cursor: pointer;' : ''}"
+        >
             <div class="card-content">
                 <h3 class="card-title">${pub.PublicacaoTitulo}</h3>
-                <div class="card-year">${pub.PublicacaoAno}</div>
-                ${pub.PublicacaoCitacao ? `
-                    <p class="card-excerpt">${pub.PublicacaoCitacao}</p>
+                
+                ${pub.PublicacaoImagem ? `
+                    <img src="${pub.PublicacaoImagem}" 
+                        alt="${pub.PublicacaoTitulo}" 
+                        class="card-image"
+                        onerror="this.src='/public/img/publicacoes/Figura_A1_GR.jpg'">
                 ` : ''}
+
+                <div class="card-year">${pub.PublicacaoAno}</div>
             </div>
+
+            ${pub.PublicacaoCitacao ? `
+                <p class="card-excerpt">${pub.PublicacaoCitacao}</p>
+            ` : ''}
         </div>
     `).join('');
+
+
 }
 
-// Show publication detail in modal
-async function showPublicationDetail(id) {
-    try {
-        const response = await fetch(`/api/publicacoes/${id}`);
-        const pub = await response.json();
-
-        if (response.ok) {
-            document.getElementById('modal-title').textContent = pub.PublicacaoTitulo;
-            document.getElementById('modal-date').textContent = pub.PublicacaoAno;
-            
-            const modalImage = document.getElementById('modal-image');
-            if (pub.PublicacaoImamgem) {
-                modalImage.src = pub.PublicacaoImamgem;
-                modalImage.style.display = 'block';
-            } else {
-                modalImage.style.display = 'none';
-            }
-
-            document.getElementById('modal-citation').textContent = pub.PublicacaoCitacao || '';
-            
-            const linksDiv = document.getElementById('modal-links');
-            linksDiv.innerHTML = pub.PublicacaoLinkExterno ? `
-                <a href="${pub.PublicacaoLinkExterno}" target="_blank" rel="noopener noreferrer">
-                    Ver Publicação
-                </a>
-            ` : '';
-
-            modal.style.display = 'block';
-        } else {
-            console.error('Erro ao buscar detalhes da publicação:', pub.erro);
-        }
-    } catch (error) {
-        console.error('Erro ao buscar detalhes da publicação:', error);
-    }
-}
-
-// Update pagination controls
 function updatePagination(page, total) {
     currentPage = page;
     totalPages = total;
-    currentPageSpan.textContent = page;
-    prevPageBtn.disabled = page <= 1;
-    nextPageBtn.disabled = page >= total;
 }
 
 // Initial load
@@ -309,8 +264,8 @@ document.addEventListener('DOMContentLoaded', fetchPublications);
             card.className = 'publication-card';
             card.setAttribute('data-ano', pub.year);
             card.innerHTML = `
-                <img src="${pub.image}" alt="${pub.title}" onerror="this.src='/public/img/publicacoes/Figura_A1_GR.jpg'">
                 <h3>${pub.title}</h3>
+                <img src="${pub.image}" alt="${pub.title}" onerror="this.src='/public/img/publicacoes/Figura_A1_GR.jpg'">
             `;
             card.addEventListener('click', () => showDetail(pub));
             listEl.appendChild(card);

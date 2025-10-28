@@ -6,6 +6,7 @@
     <title>AgriRS</title>
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/publicacoes.css">
+    <link rel="stylesheet" href="../css/vars.css">
     <script src="../javascripts/layout.js" defer></script>
     <script src="https://kit.fontawesome.com/5e96e72d2d.js" crossorigin="anonymous"></script>
     <link
@@ -31,7 +32,9 @@
 
     <div class="container">
         <div class="header-content">
-            <h1 class="titulo">PUBLICAÇÕES</h1>
+            <div>
+                <h1 class="titulo">PUBLICAÇÕES</h1>
+            </div>
             <div class="filters">
                 <select id="filter-ano" class="filter-input">
                     <option value="">Todos os Anos</option>
@@ -44,19 +47,10 @@
                 <input id="filter-search" type="text" placeholder="Pesquisar por título" class="filter-input">
             </div>
         </div>
-        
+
         <div id="publications-grid" class="publications-grid">
-            <!-- Cards will be dynamically inserted here -->
         </div>
 
-        <!-- Pagination -->
-        <div class="pagination">
-            <button id="prev-page" class="page-btn">&lt; Anterior</button>
-            <span id="page-info">Página <span id="current-page">1</span></span>
-            <button id="next-page" class="page-btn">Próxima &gt;</button>
-        </div>
-
-        <!-- Publication Detail Modal -->
         <div id="publication-modal" class="modal">
             <div class="modal-content">
                 <span class="close-button">&times;</span>

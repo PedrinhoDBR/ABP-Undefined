@@ -7,7 +7,7 @@ const Publicacao = sequelize.define('publicacao', {
         autoIncrement: true,
         primaryKey: true
     },
-    PublicacaoImamgem: {
+    PublicacaoImagem: {
         type: DataTypes.STRING,
         allowNull: true
     },

@@ -1,14 +1,14 @@
-/* Publications Page Styles */
+
 .header-content {
-    display: flex;
-    justify-content: space-between;
+    /* display: flex; */
+    justify-content: center;
     align-items: center;
     margin-bottom: 2rem;
     padding: 0 1rem;
 }
 
 .filters {
-    display: flex;
+    /* display: flex; */
     gap: 1rem;
     align-items: center;
 }
@@ -34,6 +34,11 @@
     transition: transform 0.2s, box-shadow 0.2s;
     overflow: hidden;
     cursor: pointer;
+
+       position: relative;
+    display: flex;
+    flex-direction: column;
+    /* height: 100%; */
 }
 
 .publication-card:hover {
@@ -49,6 +54,7 @@
 
 .card-content {
     padding: 1rem;
+    flex: 1;
 }
 
 .card-title {
@@ -67,8 +73,7 @@
     color: #555;
     margin-top: 0.5rem;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
+
     overflow: hidden;
 }
 
