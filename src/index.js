@@ -3,6 +3,7 @@ const { sequelize } = require('./db/db');
 const express = require("express");
 const cors = require("cors");
 const Publicacao  = require("./routes/publicacoes.routes");
+const Projetos = require('./routes/projetos');
 
 const dotenv = require("dotenv");
 dotenv.config();
@@ -39,3 +40,5 @@ app.use('/publicacao', Publicacao);
 app.use(function(req,res){
     res.json({erro:"Rota desconhecida"});
 });
+
+app.use('/projetos', Projetos);
