@@ -4,6 +4,10 @@ const express = require("express");
 const cors = require("cors");
 const Publicacao  = require("./routes/publicacoes.routes");
 const Projetos = require('./routes/projetos.routes');
+const Membros  = require("./routes/membros.routes");
+const Noticias = require('./routes/noticias.routes')
+
+// const Projetos = require('./routes/projetos.routes');
 
 const dotenv = require("dotenv");
 dotenv.config();
@@ -53,6 +57,10 @@ app.get('/projetos', (req, res) => {
 app.use('/publicacao', Publicacao);
 app.use('/projeto', Projetos);
 
+app.use('/membros', Membros);
+
+app.use('/noticias' , Noticias)
+
 app.use(function(req,res){
     res.json({erro:"Rota desconhecida", path: req.path});
 });
@@ -64,3 +72,4 @@ app.listen(PORTA, () => {
     console.log(`📊 API Projetos: http://localhost:${PORTA}/projeto`);
     console.log(`🎨 CSS: http://localhost:${PORTA}/css/projetos.css`);
 });
+// app.use('/projetos', Projetos);
