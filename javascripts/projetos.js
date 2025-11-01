@@ -159,11 +159,12 @@
 //     "impactos-agricultura", 
 //     "acompanhamento-frutas" 
 // ];
-
 class ProjetosManager {
     constructor() {
         this.currentPage = this.getCurrentPage();
         this.currentProject = this.getProjectFromURL();
+        this.apiBaseURL = 'http://localhost:3030';
+        this.projetosCarregados = false;
         this.init();
     }
 
@@ -177,94 +178,115 @@ class ProjetosManager {
 
     getProjectFromURL() {
         const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get('project') || 'conab';
+        return urlParams.get('project') || '1';
     }
 
     init() {
+        if (this.projetosCarregados) return;
+        
+        console.log('Iniciando ProjetosManager...');
+        
         if (this.currentPage === 'project-detail') {
             this.renderProjectDetail();
         } else {
             this.renderProjectsList();
         }
+        
+        this.projetosCarregados = true;
     }
 
     async renderProjectsList() {
+        console.log('Carregando lista de projetos...');
+        
         const containers = document.querySelectorAll('.cardsProjetos');
+        console.log('Containers encontrados:', containers.length);
+
         if (!containers.length) return;
 
         try {
-            const response = await fetch('/api/projetos/todos');
-            if (!response.ok) {
-                console.error('Erro ao buscar lista de projetos:', response.status);
-                return;
-            }
+            const response = await fetch(`${this.apiBaseURL}/projeto`);
+            if (!response.ok) throw new Error(`Erro HTTP: ${response.status}`);
 
             const data = await response.json();
             const todosProjetos = data.results || [];
+            console.log('Projetos no banco:', todosProjetos.length);
 
             containers[0].classList.remove('vazia');
             containers[1].classList.remove('vazia');
             containers[0].innerHTML = '';
             containers[1].innerHTML = '';
 
-            for (let i = 0; i < todosProjetos.length; i++) {
-                const projeto = todosProjetos[i];
-                const card = this.createProjectCard(projeto);
+            if (todosProjetos.length === 0) return;
 
-                // Distribui 3 na primeira linha, o resto na segunda
-                if (i < 3) {
-                    containers[0].appendChild(card);
-                } else {
-                    containers[1].appendChild(card);
-                }
+            const projetosUnicos = this.removerDuplicatas(todosProjetos);
+            console.log('Projetos únicos:', projetosUnicos.length);
 
-            }
+            const projetosAtivos = projetosUnicos
+                .filter(projeto => projeto.Ativo !== false)
+                .sort((a, b) => (a.OrdemdeExibicao || 0) - (b.OrdemdeExibicao || 0));
 
+            console.log('Projetos ativos:', projetosAtivos.length);
 
-        }
-        catch (error) {
-            console.error('Erro de rede ou ao processar dados:', error);
-        }
+            const projetosLinha1 = projetosAtivos.slice(0, 3);
+            const projetosLinha2 = projetosAtivos.slice(3, 6);
 
-        containers[0].classList.remove('vazia');
-        containers[1].classList.remove('vazia');
-
-        containers[0].innerHTML = '';
-        containers[1].innerHTML = '';
-
-        for (let i = 0; i < 3; i++) {
-            if (projetosOrdenados[i]) {
-                const projetoId = projetosOrdenados[i];
-                const projeto = projetosData[projetoId];
+            projetosLinha1.forEach(projeto => {
                 const card = this.createProjectCard(projeto);
                 containers[0].appendChild(card);
-            }
-        }
+            });
 
-        for (let i = 3; i < 6; i++) {
-            if (projetosOrdenados[i]) {
-                const projetoId = projetosOrdenados[i];
-                const projeto = projetosData[projetoId];
+            projetosLinha2.forEach(projeto => {
                 const card = this.createProjectCard(projeto);
                 containers[1].appendChild(card);
-            }
+            });
+
+            console.log('Cards linha 1:', containers[0].children.length);
+            console.log('Cards linha 2:', containers[1].children.length);
+
+        } catch (error) {
+            console.error('Erro ao carregar projetos:', error);
         }
+    }
+
+    removerDuplicatas(projetos) {
+        const idsVistos = new Set();
+        return projetos.filter(projeto => {
+            if (idsVistos.has(projeto.ProjetosId)) {
+                console.log('Removendo duplicata:', projeto.ProjetosId);
+                return false;
+            }
+            idsVistos.add(projeto.ProjetosId);
+            return true;
+        });
     }
 
     createProjectCard(projeto) {
         const card = document.createElement('div');
         card.className = 'PROJETOScard';
 
-
-
+        let imagemCard = '';
+        
+        if (projeto.ImagemCard) {
+            let imagemPath = projeto.ImagemCard;
+            if (imagemPath.startsWith('/public')) {
+                imagemPath = imagemPath.replace('/public', '');
+            }
+            if (!imagemPath.startsWith('/')) {
+                imagemPath = '/' + imagemPath;
+            }
+            imagemCard = `${this.apiBaseURL}${imagemPath}`;
+        } else {
+            imagemCard = `${this.apiBaseURL}/img/projetos/Carrosel.png`;
+        }
 
         card.innerHTML = `
-            <a href="projetoCONAB.html?project=${projeto.id}" title="${projeto.titulo}" class="card-link">
+            <a href="/pages/projetoCONAB.html?project=${projeto.ProjetosId}" title="${projeto.ProjetosTitulo}" class="card-link">
                 <div class="card-img-container">
-                    <img src="${projeto.imagemCard}" alt="${projeto.titulo}" class="card-img">
+                    <img src="${imagemCard}" alt="${projeto.ProjetosTitulo}" class="card-img" onerror="this.style.display='none'">
                 </div>
                 <div class="cardText">
-                    <p>${projeto.resumo}</p>
+                    <h4>${projeto.ProjetosTituloCard || projeto.ProjetosTitulo}</h4>
+                    <p>${projeto.CardResumo || 'Descrição não disponível'}</p>
                 </div>
             </a>
         `;
@@ -273,59 +295,52 @@ class ProjetosManager {
     }
 
     async renderProjectDetail() {
-        // const project = projetosData[this.currentProject];
-        // if (!project) {
-        //     window.location.href = 'projetoCONAB.html?project=conab';
-        //     return;
-        // }
-
-        // this.updateProjectDetail(project);
         const projetoId = this.currentProject;
-        if (!projetoId) {
-            window.location.href = '/error.html';
-            return;
-        }
-        const backendUrl = `/api/projetos/${projetoId}`;
+        console.log('Carregando detalhes do projeto:', projetoId);
+
         try {
-            const response = await fetch(backendUrl);
-
-            if (response.status === 404) {
-                console.error(`Projeto ${projetoId} não encontrado.`);
-                return;
-            }
-
+            const response = await fetch(`${this.apiBaseURL}/projeto/${projetoId}`);
             if (!response.ok) {
-                console.error('Erro ao buscar detalhes do projeto:', response.status);
+                console.error('Erro na resposta da API:', response.status);
                 return;
             }
 
             const project = await response.json();
-
-
+            console.log('Projeto carregado:', project);
             this.updateProjectDetail(project);
 
         } catch (error) {
-            console.error('Erro de rede ou ao buscar detalhes:', error);
+            console.error('Erro ao carregar detalhes:', error);
         }
     }
 
-
-
-
     updateProjectDetail(project) {
-        const tituloElement = document.querySelector('.projeto-conteudo h1');
-        if (tituloElement) {
-            tituloElement.textContent = project.titulo;
+        const tituloElement = document.getElementById('projeto-titulo');
+        if (tituloElement && project.ProjetosTitulo) {
+            tituloElement.textContent = project.ProjetosTitulo;
         }
 
-        const descricaoElement = document.querySelector('.projeto-descricao');
-        if (descricaoElement) {
-            descricaoElement.innerHTML = project.descricao;
+        const descricaoElement = document.getElementById('projeto-descricao');
+        if (descricaoElement && project.ProjetoDescricao) {
+            descricaoElement.innerHTML = project.ProjetoDescricao;
         }
 
-        const infoElement = document.querySelector('.projeto-info');
-        if (infoElement) {
-            const infoItems = Object.entries(project.informacoes)
+        const carrosselImg = document.getElementById('carrossel-imagem');
+        if (carrosselImg && project.ImagemCarrossel) {
+            let imagemPath = project.ImagemCarrossel;
+            if (imagemPath.startsWith('/public')) {
+                imagemPath = imagemPath.replace('/public', '');
+            }
+            if (!imagemPath.startsWith('/')) {
+                imagemPath = '/' + imagemPath;
+            }
+            carrosselImg.src = `${this.apiBaseURL}${imagemPath}`;
+            carrosselImg.alt = project.ProjetosTitulo;
+        }
+
+        const infoElement = document.getElementById('projeto-info');
+        if (infoElement && project.Informacoes) {
+            const infoItems = Object.entries(project.Informacoes)
                 .map(([key, value]) => `
                     <div class="info-item">
                         <h3>${key}</h3>
@@ -335,50 +350,15 @@ class ProjetosManager {
             infoElement.innerHTML = infoItems;
         }
 
-        const carrosselImg = document.querySelector('.carrosel-img');
-        if (carrosselImg && project.imagemCarrossel) {
-            carrosselImg.src = project.imagemCarrossel;
-            carrosselImg.alt = project.titulo;
+        if (project.ProjetosTitulo) {
+            document.title = `AgriRS - ${project.ProjetosTitulo}`;
         }
     }
 }
 
-function atualizarConteudoProjeto(project) {
-    document.title = `AgriRS - ${project.titulo}`;
-
-    const tituloElement = document.getElementById('projeto-titulo');
-    if (tituloElement) {
-        tituloElement.textContent = project.titulo;
-    }
-
-    const descricaoElement = document.getElementById('projeto-descricao');
-    if (descricaoElement) {
-        descricaoElement.innerHTML = project.descricao;
-    }
-
-    const infoElement = document.getElementById('projeto-info');
-    if (infoElement) {
-        const infoItems = Object.entries(project.informacoes)
-            .map(([key, value]) => `
-                <div class="info-item">
-                    <h3>${key}</h3>
-                    <p>${value}</p>
-                </div>
-            `).join('');
-        infoElement.innerHTML = infoItems;
-    }
-
-    const carrosselImg = document.getElementById('carrossel-imagem');
-    if (carrosselImg && project.imagemCarrossel) {
-        carrosselImg.src = project.imagemCarrossel;
-        carrosselImg.alt = project.titulo;
-    }
-}
-
-ProjetosManager.prototype.updateProjectDetail = function (project) {
-    atualizarConteudoProjeto(project);
-};
-
+let managerInstancia = null;
 document.addEventListener('DOMContentLoaded', function () {
-    new ProjetosManager();
+    if (!managerInstancia) {
+        managerInstancia = new ProjetosManager();
+    }
 });
