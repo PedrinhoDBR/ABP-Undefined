@@ -91,7 +91,7 @@
 
 button {
     margin-bottom: 1rem;
-    background-color: #21A866;
+    background-color: #000000;
     color: white;
     border: none;
     padding: 12px 24px;
@@ -101,7 +101,7 @@ button {
 }
 
 button:hover {
-    background-color: #1a8752;
+    background-color: #333333;
 }
 
 @media (max-width: 768px) {
