@@ -4,6 +4,8 @@ const express = require("express");
 const cors = require("cors");
 const Publicacao  = require("./routes/publicacoes.routes");
 const Membros  = require("./routes/membros.routes");
+const Noticias = require('./routes/noticias.routes')
+
 // const Projetos = require('./routes/projetos.routes');
 
 const dotenv = require("dotenv");
@@ -39,6 +41,8 @@ app.listen(PORTA, () => {
 app.use('/publicacao', Publicacao);
 
 app.use('/membros', Membros);
+
+app.use('/noticias' , Noticias)
 
 app.use(function(req,res){
     res.json({erro:"Rota desconhecida"});
