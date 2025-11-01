@@ -1,0 +1,2 @@
+    POST https://api.example.com/your-endpoint
+    Content-Type: application/json

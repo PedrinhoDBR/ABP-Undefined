@@ -3,7 +3,8 @@ const { sequelize } = require('./db/db');
 const express = require("express");
 const cors = require("cors");
 const Publicacao  = require("./routes/publicacoes.routes");
-const Projetos = require('./routes/projetos');
+const Membros  = require("./routes/membros.routes");
+// const Projetos = require('./routes/projetos.routes');
 
 const dotenv = require("dotenv");
 dotenv.config();
@@ -37,8 +38,10 @@ app.listen(PORTA, () => {
 //rotas publicas
 app.use('/publicacao', Publicacao);
 
+app.use('/membros', Membros);
+
 app.use(function(req,res){
     res.json({erro:"Rota desconhecida"});
 });
 
-app.use('/projetos', Projetos);
+// app.use('/projetos', Projetos);

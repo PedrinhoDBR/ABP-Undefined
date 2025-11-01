@@ -20,7 +20,7 @@ const Membros = sequelize.define('membros', {
         allowNull: true
     },
     MembrosDescricao: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING (2000),
         allowNull: true
     },
     MembrosLattes: {
