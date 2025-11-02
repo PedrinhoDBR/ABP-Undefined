@@ -207,7 +207,7 @@ body {
     }
 }
 
-/* Para telas muito pequenas (smartphones pequenos) */
+
 @media (max-width: 320px) {
     .titulo-noticia-geral {
         min-height: 100px;

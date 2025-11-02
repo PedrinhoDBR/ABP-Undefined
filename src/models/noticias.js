@@ -1,40 +1,50 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../db/db').sequelize;
 
-const Membros = sequelize.define('membros', {
-    MembrosID:{
+const Noticias = sequelize.define('noticias' , {
+    NoticiasID: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true
     },
-    MembrosNome: {
+    NoticiasImagens: {
         type: DataTypes.STRING,
         allowNull: true
     },
-    MembrosCargo: {
+    NoticiasData: {
+        type: DataTypes.DATE,
+        allowNull: true
+    },
+    NoticiasTitulo: {
         type: DataTypes.STRING,
         allowNull: true
     },
-    MembrosImagem: {
+    NoticiasSubtitulo: {
         type: DataTypes.STRING,
         allowNull: true
     },
-    MembrosDescricao: {
-        type: DataTypes.STRING (2000),
-        allowNull: true
-    },
-    MembrosLattes: {
+    NoticiasConteudo: {
         type: DataTypes.STRING,
         allowNull: true
     },
-    MembrosIdioma: {
+    NoticiasCardcitacao: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    NoticiasIdioma: {
+        type: DataTypes.STRING,
+        allowNull: true
+    }, 
+    NoticiasTipo: {
         type: DataTypes.STRING,
         allowNull: true
     }
-}, {
-    tableName: 'membros',
+},
+  {
+    tableName: 'noticias',
     timestamps: true,
     paranoid: true
-});
 
-module.exports = Membros;
+ });
+
+ module.exports = Noticias;
