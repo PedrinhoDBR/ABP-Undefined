@@ -141,21 +141,25 @@ body {
 
         /*-------- Area dos Filtros de Pesquisa ---------*/
             
-        .container-filtro {
-            background-color: #fff;
+        .container-filtro   {
+            background-color: rgb(0, 0, 0 , 0.7);
             border-radius: 12px;
-            padding: 25px;
+            padding: 20px ;
             box-shadow:0 10px 30px rgba(0, 0, 0, 0.2) ;
             margin-top: 30px;
             margin-bottom: 0px;
-            width: 700px;
+            width: 800px;
+            
             
         }
 
-        .filtro-titulo {
+        .filtro-titulo > input {
+            
             display: flex;
             flex-direction: column;
             margin-bottom: 10px;
+            box-sizing: border-box;
+            
         }
 
         .filtro-data {
@@ -172,8 +176,8 @@ body {
         label {
             display: block;
             margin-bottom: 8px;
-            font-weight: 600;
-            color: #555;
+            font-weight: 500;
+            color: #ffffff;
         }
 
         input, select {
@@ -191,11 +195,13 @@ body {
             box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.2);
         }
 
-        .botoes {
+        .botoes-filtro {
             display: flex;
             gap: 15px;
             margin-top: 18px;
             flex-wrap: wrap;
+             
+            
         }
 
         button {
@@ -328,6 +334,12 @@ body {
       max-width: auto;
     }
 
+    .container-filtro {
+        width: 90%;
+    }
+
+    
+
     .corpo-global {
          gap: 12px;
         margin-bottom: 20px;
@@ -390,6 +402,8 @@ body {
       padding: 0 10px;
       width: auto;
     }
+
+    
 
     .corpo-global {
          gap: 12px;
