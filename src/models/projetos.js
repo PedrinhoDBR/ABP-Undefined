@@ -1,43 +1,72 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../db/db').sequelize;
 
-const Projetos = sequelize.define('projetos', {
-
-    ProjetosID:{
+const Projetos = sequelize.define('Projetos', {
+    ProjetosId: {
         type: DataTypes.INTEGER,
+        primaryKey: true,
         autoIncrement: true,
-        primaryKey: true
+        field: 'ProjetosId'
     },
-
-    ProjetosImagem:{
-        type: DataTypes.STRING,
-        allowNull: true
-  
+    ProjetosTitulo: {
+        type: DataTypes.STRING(255),
+        allowNull: true,
+        field: 'ProjetosTitulo'
     },
- 
-    ProjetosTitulo:{
-        type: DataTypes.STRING,
-        allowNull: true
-   
+    ProjetosTituloCard: {
+        type: DataTypes.STRING(100),
+        allowNull: true,
+        field: 'ProjetosTituloCard'
     },
-
-    ProjetosTexto:{
-        type: DataTypes.STRING,
-        allowNull: true
-       
+    CardResumo: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+        field: 'CardResumo'
     },
-
-    ProjetosIdioma:{
-        type: DataTypes.STRING,
-        allowNull: true
-        
+    ProjetoDescricao: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+        field: 'ProjetoDescricao'
+    },
+    ImagemCarrossel: {
+        type: DataTypes.STRING(255),
+        allowNull: true,
+        field: 'ImagemCarrossel'
+    },
+    ImagemCard: {
+        type: DataTypes.STRING(255),
+        allowNull: true,
+        field: 'ImagemCard'
+    },
+    Informacoes: {
+        type: DataTypes.JSONB,
+        allowNull: true,
+        field: 'Informacoes'
+    },
+    Ativo: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+        field: 'Ativo'
+    },
+    OrdemdeExibicao: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+        field: 'OrdemdeExibicao'
+    },
+    CriadoEm: {
+        type: DataTypes.DATE,
+        field: 'CriadoEm'
+    },
+    AtualizadoEm: {
+        type: DataTypes.DATE,
+        field: 'AtualizadoEm'
     }
-
-},{
-    tableName: 'publicacao',
+}, {
+    tableName: 'projetos',
     timestamps: true,
-    paranoid: true
+    createdAt: 'CriadoEm',
+    updatedAt: 'AtualizadoEm',
+    freezeTableName: true
 });
-
 
 module.exports = Projetos;
