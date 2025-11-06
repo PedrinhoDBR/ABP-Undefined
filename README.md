@@ -560,28 +560,28 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
   <tbody>
     <tr><td>ES-032</td><td>Planejar backlog sprint 2</td><td>5</td><td>Pedro</td><td>✔️</td><td></td><td></td></tr>
     <tr><td>ES-033</td><td>Burndown sprint 2</td><td>1</td><td>Pedro</td><td>✔️</td><td></td><td></td></tr>
-    <tr><td>ES-034</td><td>Organizar Trello sprint 2</td><td>3</td><td>Israel</td><td>⏳</td><td></td><td></td></tr>
-    <tr><td>DW-035</td><td>Trabalhar responsividade da página inicial</td><td>3</td><td>Rainan</td><td>⏳</td><td></td><td></td></tr>
-    <tr><td>DW-036</td><td>Trabalhar responsividade página sobre o AgriRS</td><td>3</td><td>João</td><td>⏳</td><td></td><td></td></tr>
-    <tr><td>DW-037</td><td>Trabalhar responsividade página de membros</td><td>3</td><td>Thales</td><td>⏳</td><td></td><td></td></tr>
-    <tr><td>DW-038</td><td>Trabalhar responsividade página de notícias</td><td>3</td><td>Ronaldo</td><td>⏳</td><td></td><td></td></tr>
-    <tr><td>DW-039</td><td>Trabalhar responsividade página de publicações</td><td>3</td><td></td><td>❌</td><td></td><td></td></tr>
-    <tr><td>DW-040</td><td>Trabalhar responsividade página de Vagas</td><td>3</td><td>Nicolas</td><td>⏳</td><td></td><td></td></tr>
-    <tr><td>DW-041</td><td>Trabalhar responsividade página de Projetos</td><td>3</td><td></td><td>❌</td><td></td><td></td></tr>
-    <tr><td>DW-042</td><td>Trabalhar responsividade página de Contato</td><td>3</td><td>Marcus</td><td>⏳</td><td></td><td></td></tr>
-    <tr><td>ES-043</td><td>Diagrama de classes do banco de dados</td><td>1</td><td></td><td>❌</td><td></td><td></td></tr>
-    <tr><td>MB-044</td><td>Estrutura das tabelas do banco de dados</td><td>5</td><td></td><td>❌</td><td></td><td></td></tr>
-    <tr><td>MB-045</td><td>Configuração do banco de dados no projeto</td><td>5</td><td></td><td>❌</td><td></td><td></td></tr>
+    <tr><td>ES-034</td><td>Organizar Trello sprint 2</td><td>3</td><td>Israel</td><td>✔️</td><td></td><td></td></tr>
+    <tr><td>DW-035</td><td>Trabalhar responsividade da página inicial</td><td>3</td><td>Rainan</td><td>✔️</td><td></td><td></td></tr>
+    <tr><td>DW-036</td><td>Trabalhar responsividade página sobre o AgriRS</td><td>3</td><td>João</td><td>✔️</td><td></td><td></td></tr>
+    <tr><td>DW-037</td><td>Trabalhar responsividade página de membros</td><td>3</td><td>Thales</td><td>✔️</td><td></td><td></td></tr>
+    <tr><td>DW-038</td><td>Trabalhar responsividade página de notícias</td><td>3</td><td>Ronaldo</td><td>✔️</td><td></td><td></td></tr>
+    <tr><td>DW-039</td><td>Trabalhar responsividade página de publicações</td><td>3</td><td>Pedro</td><td>✔️</td><td></td><td></td></tr>
+    <tr><td>DW-040</td><td>Trabalhar responsividade página de Vagas</td><td>3</td><td>Nicolas</td><td>✔️</td><td></td><td></td></tr>
+    <tr><td>DW-041</td><td>Trabalhar responsividade página de Projetos</td><td>3</td><td></td>Israel<td>✔️</td><td></td><td></td></tr>
+    <tr><td>DW-042</td><td>Trabalhar responsividade página de Contato</td><td>3</td><td>Marcus</td><td>✔️</td><td></td><td></td></tr>
+    <tr><td>ES-043</td><td>Diagrama de classes do banco de dados</td><td>1</td><td></td><td>✔️</td><td></td><td></td></tr>
+    <tr><td>MB-044</td><td>Estrutura das tabelas do banco de dados</td><td>5</td><td></td><td>✔️</td><td></td><td></td></tr>
+    <tr><td>MB-045</td><td>Configuração do banco de dados no projeto</td><td>5</td><td>Pedro</td><td>✔️</td><td></td><td></td></tr>
     <tr><td>AL-046</td><td>Envio de e-mail (contato)</td><td>3</td><td></td><td>❌</td><td></td><td></td></tr>
     <tr><td>DW-047</td><td>Tela de login</td><td>1</td><td></td><td>❌</td><td></td><td></td></tr>
     <tr><td>AL-048</td><td>Rota para realizar login</td><td>1</td><td></td><td>❌</td><td></td><td></td></tr>
-    <tr><td>AL-049</td><td>Rota para pegar as informações da página inicial</td><td>3</td><td></td><td>❌</td><td></td><td></td></tr>
-    <tr><td>AL-050</td><td>Rota para pegar as informações da página sobre o AgriRS</td><td>3</td><td></td><td>❌</td><td></td><td></td></tr>
-    <tr><td>AL-051</td><td>Rota para pegar as informações da página de membros</td><td>3</td><td></td><td>❌</td><td></td><td></td></tr>
+    <tr><td>AL-049</td><td>Rota para pegar as informações da página inicial</td><td>3</td><td></td><td>⏳</td><td></td><td></td></tr>
+    <tr><td>AL-050</td><td>Rota para pegar as informações da página sobre o AgriRS</td><td>3</td><td></td><td>⏳</td><td></td><td></td></tr>
+    <tr><td>AL-051</td><td>Rota para pegar as informações da página de membros</td><td>3</td><td>Marcus / Thales</td><td>✔️</td><td></td><td></td></tr>
     <tr><td>AL-052</td><td>Rota para pegar as informações da página de notícias</td><td>3</td><td></td><td>❌</td><td></td><td></td></tr>
-    <tr><td>AL-053</td><td>Rota para pegar as informações da página de publicações</td><td>3</td><td></td><td>❌</td><td></td><td></td></tr>
+    <tr><td>AL-053</td><td>Rota para pegar as informações da página de publicações</td><td>3</td><td>Israel</td><td>✔️</td><td></td><td></td></tr>
     <tr><td>AL-054</td><td>Rota para pegar as informações da página de Vagas</td><td>3</td><td></td><td>❌</td><td></td><td></td></tr>
-    <tr><td>AL-055</td><td>Rota para pegar as informações da página de Projetos</td><td>3</td><td></td><td>❌</td><td></td><td></td></tr>
+    <tr><td>AL-055</td><td>Rota para pegar as informações da página de Projetos</td><td>3</td><td>Pedro</td><td>✔️</td><td></td><td></td></tr>
     <tr><td>AL-056</td><td>Rota para pegar as informações da página de Contato</td><td>3</td><td></td><td>❌</td><td></td><td></td></tr>
   </tbody>
 </table>

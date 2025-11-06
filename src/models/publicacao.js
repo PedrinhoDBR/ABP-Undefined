@@ -8,19 +8,19 @@ const Publicacao = sequelize.define('publicacao', {
         primaryKey: true
     },
     PublicacaoImagem: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(1000),
         allowNull: true
     },
     PublicacaoTitulo: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(1000),
         allowNull: true
     },
     PublicacaoLinkExterno: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(1000),
         allowNull: true
     },
     PublicacaoCitacao: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(2000),
         allowNull: true
     },
     PublicacaoAno: {

@@ -27,13 +27,11 @@ const app = express();
 
 app.use('/Layout', express.static(path.join(__dirname, '..', 'Layout')));
 
-// Configura o servidor para receber requisições de qualquer domínio
-app.use(cors());
+app.use(cors())
 
-// Configura o servidor para suportar JSON
 app.use(express.json());
 
-// Servir todos os arquivos estáticos corretamente
+
 app.use(express.static(path.join(__dirname, '..')));
 app.use('/public', express.static(path.join(__dirname, '..', 'public')));
 app.use('/css', express.static(path.join(__dirname, '..', 'css')));
