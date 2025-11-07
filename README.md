@@ -22,6 +22,7 @@ informações do laboratório, ampliando sua visibilidade e facilitando o acesso
       <li><a href="#requisitos-nao-funcionais">⚙️ Requisitos Não Funcionais</a></li>
     </ul>
   </li>
+  <li><a href="#user-stories">🎯 User-stories</a></li>
   <li><a href="#status-do-projeto">🚀 Status do Projeto</a></li>
   <li><a href="#integrantes">🧑 Integrantes</a></li>
   <li><a href="#licenca">📜 Licença</a></li>
@@ -30,6 +31,18 @@ informações do laboratório, ampliando sua visibilidade e facilitando o acesso
       <ul>
         <li><a href="#backlog-sprint-1">📋 Backlog</a></li>
         <li><a href="#burndown-sprint-1">📉 Burndown</a></li>
+      </ul>
+    </li>
+  <li><a href="#sprint-2">⏱️ Sprint 2</a>
+      <ul>
+        <li><a href="#backlog-sprint-2">📋 Backlog</a></li>
+        <li><a href="#burndown-sprint-2">📉 Burndown</a></li>
+      </ul>
+    </li>
+  <li><a href="#sprint-3">⏱️ Sprint 3</a>
+      <ul>
+        <li><a href="#backlog-sprint-3">📋 Backlog</a></li>
+        <li><a href="#burndown-sprint-3">📉 Burndown</a></li>
       </ul>
     </li>
 </ul>
@@ -181,6 +194,158 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
     <tr><td><strong>RNF06</strong></td><td>Identidade visual a definir em conjunto com o laboratório.</td></tr>
   </tbody>
 </table>
+
+<hr>
+
+<h2 id='user-stories'>🎯 User Stories – Critérios de Aceitação (DoR)</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Requisito</th>
+      <th>Sub-Requisito</th>
+      <th>User Story</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>RF01 - Página Inicial (Início/Home)</td>
+      <td>RF01.1 – Apresentar botões/menus de navegação para todas as páginas do site.</td>
+      <td>RF01.1 Como usuário, quero acessar uma página inicial com menus de navegação para todas as páginas, para encontrar facilmente as informações do laboratório.</td>
+    </tr>
+    <tr>
+      <td>RF01 - Página Inicial (Início/Home)</td>
+      <td>RF01.2 – Exibir seções em destaque (cards) com chamadas para notícias, projetos, publicações ou outras atualizações.</td>
+      <td>RF01.2 Como usuário, quero ver seções em destaque na página inicial com notícias, projetos e publicações, para ter acesso rápido às atualizações.</td>
+    </tr>
+    <tr>
+      <td>RF01 - Página Inicial (Início/Home)</td>
+      <td>RF01.3 – Link para redes sociais e contato no final da página.</td>
+      <td>RF01.3 Como usuário, quero encontrar links para redes sociais e contato no rodapé, para poder seguir e interagir com o laboratório.</td>
+    </tr>
+    <tr>
+      <td>RF01 - Página Inicial (Início/Home)</td>
+      <td>RF01.4 – Incluir colaboradores e financiadores (CNPq, CAPES, FAPESP).</td>
+      <td>RF01.4 Como usuário, quero visualizar na página inicial uma seção com os colaboradores e financiadores do laboratório (CNPq, CAPES e FAPESP), para reconhecer as instituições que apoiam as pesquisas e reforçam sua credibilidade.</td>
+    </tr>
+    <tr>
+      <td>RF02 - Página sobre o AgriRS (Sobre o AgriRS/About AgriRS)</td>
+      <td>RF02.1 – Descrever o laboratório, objetivo e foco.</td>
+      <td>RF02.1 Como usuário, quero acessar uma página “Sobre” que descreva o laboratório, seus objetivos e foco, para compreender sua missão e área de atuação.</td>
+    </tr>
+    <tr>
+      <td>RF02 - Página sobre o AgriRS (Sobre o AgriRS/About AgriRS)</td>
+      <td>RF02.2 – Descrever as áreas de atuação com pequenos textos explicativos.</td>
+      <td>RF02.2 Como usuário, quero visualizar as áreas de atuação do laboratório com textos explicativos breves, para entender suas principais frentes de pesquisa.</td>
+    </tr>
+    <tr>
+      <td>RF03 - Página de Membros (Equipe/Team)</td>
+      <td>RF03.1 – Listar todos os integrantes com nome, foto, função e breve descrição.</td>
+      <td>RF03.1 Como usuário, quero visualizar todos os integrantes do laboratório com nome, foto, função e breve descrição, para conhecer melhor a equipe e suas áreas de atuação.</td>
+    </tr>
+    <tr>
+      <td>RF03 - Página de Membros (Equipe/Team)</td>
+      <td>RF03.2 – Categorizar por tipo de membro (pesquisadores titulares, colaboradores, etc.).</td>
+      <td>RF03.2 Como usuário, quero que os integrantes do laboratório sejam categorizados por tipo de membro, para identificar facilmente o papel e a função de cada pessoa na equipe.</td>
+    </tr>
+    <tr>
+      <td>RF03 - Página de Membros (Equipe/Team)</td>
+      <td>RF03.3 – Ordenar cada categoria em ordem alfabética.</td>
+      <td>RF03.3 Como usuário, quero que os integrantes dentro de cada categoria sejam listados em ordem alfabética, para facilitar a localização de um membro específico.</td>
+    </tr>
+    <tr>
+      <td>RF04 - Página de Vagas (Oportunidades/Join Us)</td>
+      <td>RF04.1 – Listar oportunidades como estágios, iniciação científica, pós-graduação e parcerias.</td>
+      <td>RF04.1 Como usuário, quero visualizar uma lista de oportunidades como estágios, iniciação científica, pós-graduação e parcerias, para descobrir formas de participar das atividades do laboratório.</td>
+    </tr>
+    <tr>
+      <td>RF04 - Página de Vagas (Oportunidades/Join Us)</td>
+      <td>RF04.2 – Informar como se candidatar (documentos, critérios, prazos etc.).</td>
+      <td>RF04.2 Como usuário, quero acessar informações claras sobre como me candidatar às oportunidades, incluindo documentos necessários, critérios e prazos, para enviar minha inscrição corretamente.</td>
+    </tr>
+    <tr>
+      <td>RF05 - Página de Projetos (Projetos/Projects)</td>
+      <td>RF05.1 – Listar projetos com título, resumo, ano de início, status e equipe envolvida.</td>
+      <td>RF05.1 Como usuário, quero visualizar uma lista de projetos com título, resumo, ano de início, status e equipe envolvida, para conhecer as iniciativas do laboratório e entender quem participa de cada uma.</td>
+    </tr>
+    <tr>
+      <td>RF05 - Página de Projetos (Projetos/Projects)</td>
+      <td>RF05.2 – Permitir a inclusão de imagens ou links para mais informações.</td>
+      <td>RF05.2 Como usuário, quero que cada projeto listado possa incluir imagens ou links para mais informações, para explorar detalhes adicionais e compreender melhor o contexto de cada iniciativa.</td>
+    </tr>
+    <tr>
+      <td>RF06 - Página de Notícias (Notícias/News)</td>
+      <td>RF06.1 – Permitir a publicação de notícias com título, data, imagem e texto.</td>
+      <td>RF06.1 Como administrador, quero publicar notícias com título, data, imagem e texto, para manter o público informado sobre as atividades e novidades do laboratório.</td>
+    </tr>
+    <tr>
+      <td>RF06 - Página de Notícias (Notícias/News)</td>
+      <td>RF06.2 – Organizar notícias em ordem cronológica.</td>
+      <td>RF06.2 Como usuário, quero visualizar as notícias organizadas em ordem cronológica, para acompanhar a evolução das atividades e eventos do laboratório ao longo do tempo.</td>
+    </tr>
+    <tr>
+      <td>RF07 - Página de Publicações (Publicações/Publications)</td>
+      <td>RF07.1 – Listar artigos, livros, capítulos, etc., com título, revista, autores, ano e link.</td>
+      <td>RF07.1 Como usuário, quero visualizar uma lista de publicações (artigos, livros, capítulos etc.) com título, revista, autores, ano e link, para acessar facilmente a produção científica do laboratório.</td>
+    </tr>
+    <tr>
+      <td>RF07 - Página de Publicações (Publicações/Publications)</td>
+      <td>RF07.2 – Disponibilizar campo de pesquisa por palavra-chave.</td>
+      <td>RF07.2 Como usuário, quero pesquisar publicações por palavra-chave, para encontrar rapidamente conteúdos específicos de meu interesse.</td>
+    </tr>
+    <tr>
+      <td>RF08 - Página de Contato (Contato/Contact)</td>
+      <td>RF08.1 – Formulário com campos: nome, e-mail, assunto e mensagem.</td>
+      <td>RF08.1 Como usuário, quero preencher um formulário com nome, e-mail, assunto e mensagem, para entrar em contato diretamente com o laboratório de forma prática.</td>
+    </tr>
+    <tr>
+      <td>RF08 - Página de Contato (Contato/Contact)</td>
+      <td>RF08.2 – Exibir informações institucionais como telefone, e-mail e endereço.</td>
+      <td>RF08.2 Como usuário, quero visualizar as informações institucionais do laboratório (telefone, e-mail e endereço), para ter diferentes formas de contato e localização.</td>
+    </tr>
+    <tr>
+      <td>RF08 - Página de Contato (Contato/Contact)</td>
+      <td>RF08.3 – Incluir links para redes sociais.</td>
+      <td>RF08.3 Como usuário, quero acessar links para as redes sociais do laboratório, para acompanhar atualizações e interagir com suas publicações.</td>
+    </tr>
+    <tr>
+      <td>RF08 - Página de Contato (Contato/Contact)</td>
+      <td>RF08.4 – Incluir mapa com a localização do laboratório no INPE.</td>
+      <td>RF08.4 Como usuário, quero visualizar um mapa com a localização do laboratório dentro do INPE, para facilitar minha chegada ao local.</td>
+    </tr>
+    <tr>
+      <td>RNF01 - Responsividade</td>
+      <td>O site deve ser totalmente responsivo (funcionar em celulares, tablets e computadores).</td>
+      <td>RNF01 Como usuário, quero que o site se adapte automaticamente a diferentes tamanhos de tela, para garantir uma navegação fluida e confortável em qualquer dispositivo.</td>
+    </tr>
+    <tr>
+      <td>RNF02 - Facilidade de Atualização</td>
+      <td>O conteúdo deve ser fácil de atualizar pelos integrantes do laboratório.</td>
+      <td>RNF02 Como administrador, quero que o site tenha um sistema de gerenciamento de conteúdo simples e intuitivo, para que os integrantes possam atualizar textos e imagens sem conhecimentos técnicos.</td>
+    </tr>
+    <tr>
+      <td>RNF03 - Tempo de Carregamento</td>
+      <td>O site deve carregar rapidamente (preferência por imagens otimizadas).</td>
+      <td>RNF03 Como usuário, quero que o site carregue rapidamente com recursos otimizados, para navegar sem lentidão e ter boa experiência de uso.</td>
+    </tr>
+    <tr>
+      <td>RNF04 - Idiomas</td>
+      <td>Deve possuir versões em português e inglês.</td>
+      <td>RNF04 Como usuário, quero acessar o site em português ou inglês, para compreender o conteúdo no idioma de minha preferência.</td>
+    </tr>
+    <tr>
+      <td>RNF05 - Hospedagem e Domínio</td>
+      <td>O site deverá ser hospedado em serviço confiável e utilizar domínio próprio.</td>
+      <td>RNF05 Como administrador, quero que o site seja hospedado em um serviço confiável com domínio próprio, para garantir estabilidade e fácil acesso.</td>
+    </tr>
+    <tr>
+      <td>RNF06 - Identidade Visual</td>
+      <td>Definir com os integrantes do laboratório.</td>
+      <td>RNF06 Como usuário, quero que o site siga uma identidade visual definida pelo laboratório, para transmitir profissionalismo e reforçar a marca do grupo.</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
 
 <h3 id="status-do-projeto">🚀 Status do Projeto</h3>
 <p>🔄 <strong>Em desenvolvimento</strong> – Acompanhe os commits para ver o progresso e as novas funcionalidades adicionadas.</p>
@@ -410,7 +575,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
       </tr>
       <tr>
         <td>DW-020</td>
-        <td>Adicionar imagens do projeto / logos na pasta pública</td>
+        <td>Adicionar imagens do q    projeto / logos na pasta pública</td>
         <td>3</td>
         <td>Geral</td>
         <td>✔️</td>
@@ -560,32 +725,261 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
   <tbody>
     <tr><td>ES-032</td><td>Planejar backlog sprint 2</td><td>5</td><td>Pedro</td><td>✔️</td><td></td><td></td></tr>
     <tr><td>ES-033</td><td>Burndown sprint 2</td><td>1</td><td>Pedro</td><td>✔️</td><td></td><td></td></tr>
-    <tr><td>ES-034</td><td>Organizar Trello sprint 2</td><td>3</td><td>Israel</td><td>⏳</td><td></td><td></td></tr>
-    <tr><td>DW-035</td><td>Trabalhar responsividade da página inicial</td><td>3</td><td>Rainan</td><td>⏳</td><td></td><td></td></tr>
-    <tr><td>DW-036</td><td>Trabalhar responsividade página sobre o AgriRS</td><td>3</td><td>João</td><td>⏳</td><td></td><td></td></tr>
-    <tr><td>DW-037</td><td>Trabalhar responsividade página de membros</td><td>3</td><td>Thales</td><td>⏳</td><td></td><td></td></tr>
-    <tr><td>DW-038</td><td>Trabalhar responsividade página de notícias</td><td>3</td><td>Ronaldo</td><td>⏳</td><td></td><td></td></tr>
-    <tr><td>DW-039</td><td>Trabalhar responsividade página de publicações</td><td>3</td><td></td><td>❌</td><td></td><td></td></tr>
-    <tr><td>DW-040</td><td>Trabalhar responsividade página de Vagas</td><td>3</td><td>Nicolas</td><td>⏳</td><td></td><td></td></tr>
-    <tr><td>DW-041</td><td>Trabalhar responsividade página de Projetos</td><td>3</td><td></td><td>❌</td><td></td><td></td></tr>
-    <tr><td>DW-042</td><td>Trabalhar responsividade página de Contato</td><td>3</td><td>Marcus</td><td>⏳</td><td></td><td></td></tr>
-    <tr><td>ES-043</td><td>Diagrama de classes do banco de dados</td><td>1</td><td></td><td>❌</td><td></td><td></td></tr>
-    <tr><td>MB-044</td><td>Estrutura das tabelas do banco de dados</td><td>5</td><td></td><td>❌</td><td></td><td></td></tr>
-    <tr><td>MB-045</td><td>Configuração do banco de dados no projeto</td><td>5</td><td></td><td>❌</td><td></td><td></td></tr>
+    <tr><td>ES-034</td><td>Organizar Trello sprint 2</td><td>3</td><td>Israel</td><td>✔️</td><td></td><td></td></tr>
+    <tr><td>DW-035</td><td>Trabalhar responsividade da página inicial</td><td>3</td><td>Rainan</td><td>✔️</td><td></td><td></td></tr>
+    <tr><td>DW-036</td><td>Trabalhar responsividade página sobre o AgriRS</td><td>3</td><td>João</td><td>✔️</td><td></td><td></td></tr>
+    <tr><td>DW-037</td><td>Trabalhar responsividade página de membros</td><td>3</td><td>Thales</td><td>✔️</td><td></td><td></td></tr>
+    <tr><td>DW-038</td><td>Trabalhar responsividade página de notícias</td><td>3</td><td>Ronaldo</td><td>✔️</td><td></td><td></td></tr>
+    <tr><td>DW-039</td><td>Trabalhar responsividade página de publicações</td><td>3</td><td>Pedro</td><td>✔️</td><td></td><td></td></tr>
+    <tr><td>DW-040</td><td>Trabalhar responsividade página de Vagas</td><td>3</td><td>Nicolas</td><td>✔️</td><td></td><td></td></tr>
+    <tr><td>DW-041</td><td>Trabalhar responsividade página de Projetos</td><td>3</td><td></td>Israel<td>✔️</td><td></td><td></td></tr>
+    <tr><td>DW-042</td><td>Trabalhar responsividade página de Contato</td><td>3</td><td>Marcus</td><td>✔️</td><td></td><td></td></tr>
+    <tr><td>ES-043</td><td>Diagrama de classes do banco de dados</td><td>1</td><td></td><td>✔️</td><td></td><td></td></tr>
+    <tr><td>MB-044</td><td>Estrutura das tabelas do banco de dados</td><td>5</td><td></td><td>✔️</td><td></td><td></td></tr>
+    <tr><td>MB-045</td><td>Configuração do banco de dados no projeto</td><td>5</td><td>Pedro</td><td>✔️</td><td></td><td></td></tr>
     <tr><td>AL-046</td><td>Envio de e-mail (contato)</td><td>3</td><td></td><td>❌</td><td></td><td></td></tr>
-    <tr><td>DW-047</td><td>Tela de login</td><td>1</td><td></td><td>❌</td><td></td><td></td></tr>
-    <tr><td>AL-048</td><td>Rota para realizar login</td><td>1</td><td></td><td>❌</td><td></td><td></td></tr>
-    <tr><td>AL-049</td><td>Rota para pegar as informações da página inicial</td><td>3</td><td></td><td>❌</td><td></td><td></td></tr>
-    <tr><td>AL-050</td><td>Rota para pegar as informações da página sobre o AgriRS</td><td>3</td><td></td><td>❌</td><td></td><td></td></tr>
-    <tr><td>AL-051</td><td>Rota para pegar as informações da página de membros</td><td>3</td><td></td><td>❌</td><td></td><td></td></tr>
-    <tr><td>AL-052</td><td>Rota para pegar as informações da página de notícias</td><td>3</td><td></td><td>❌</td><td></td><td></td></tr>
-    <tr><td>AL-053</td><td>Rota para pegar as informações da página de publicações</td><td>3</td><td></td><td>❌</td><td></td><td></td></tr>
-    <tr><td>AL-054</td><td>Rota para pegar as informações da página de Vagas</td><td>3</td><td></td><td>❌</td><td></td><td></td></tr>
-    <tr><td>AL-055</td><td>Rota para pegar as informações da página de Projetos</td><td>3</td><td></td><td>❌</td><td></td><td></td></tr>
-    <tr><td>AL-056</td><td>Rota para pegar as informações da página de Contato</td><td>3</td><td></td><td>❌</td><td></td><td></td></tr>
+    <tr><td>DW-047</td>
+        <td>Tela de login</td>
+        <td>1</td>
+        <td></td>
+        <td>❌</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr><td>AL-048</td>
+        <td>Rota para realizar login</td>
+        <td>1</td>
+        <td></td>
+        <td>❌</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr><td>AL-049</td>
+        <td>Rota para pegar as informações da página inicial</td>
+        <td>3</td>
+        <td></td>
+        <td>⏳</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr><td>AL-050</td>
+        <td>Rota para pegar as informações da página sobre o AgriRS</td>
+        <td>3</td>
+        <td></td>
+        <td>⏳</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr><td>AL-051</td>
+        <td>Rota para pegar as informações da página de membros</td>
+        <td>3</td>
+        <td>Marcus / Thales</td>
+        <td>✔️</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr><td>AL-052</td>
+        <td>Rota para pegar as informações da página de notícias</td>
+        <td>3</td>
+        <td></td>
+        <td>❌</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr><td>AL-053</td>
+        <td>Rota para pegar as informações da página de publicações</td>
+        <td>3</td>
+        <td>Israel</td>
+        <td>✔️</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr><td>AL-054</td>
+        <td>Rota para pegar as informações da página de Vagas</td>
+        <td>3</td>
+        <td></td>
+        <td>❌</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr><td>AL-055</td>
+        <td>Rota para pegar as informações da página de Projetos</td>
+        <td>3</td>
+        <td>Pedro</td>
+        <td>✔️</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr><td>AL-056</td>
+        <td>Rota para pegar as informações da página de Contato</td>
+        <td>3</td>
+        <td></td>
+        <td>❌</td>
+        <td></td>
+        <td></td>
+    </tr>
   </tbody>
 </table>
 
 <h2 id="burndown-sprint-2">📉 Burndown</h2>
 
 <img src="./public/burndown/sprint2.png">
+
+<hr>
+
+<h1 id="sprint-3">⏱️ Sprint 3</h1>
+<h2 id="backlog-sprint-3">📋 Backlog</h2>
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Pontos</th>
+      <th>Responsáveis</th>
+      <th>Status</th>
+      <th>Link</th>
+      <th>Requisitos atendidos</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>AL-063</td>
+      <td>Rota para salvar as informações da página de membros</td>
+      <td>5</td>
+      <td></td>
+      <td>⏳</td>
+      <td></td>
+      <td>RF03, RNF02</td>
+    </tr>
+    <tr>
+      <td>AL-064</td>
+      <td>Rota para salvar as informações da página de notícias</td>
+      <td>5</td>
+      <td></td>
+      <td>⏳</td>
+      <td></td>
+      <td>RF06, RNF02</td>
+    </tr>
+    <tr>
+      <td>AL-065</td>
+      <td>Rota para salvar as informações da página de publicações</td>
+      <td>5</td>
+      <td></td>
+      <td>⏳</td>
+      <td></td>
+      <td>RF07, RNF02</td>
+    </tr>
+    <tr>
+      <td>AL-066</td>
+      <td>Rota para salvar as informações da página de Vagas</td>
+      <td>5</td>
+      <td></td>
+      <td>⏳</td>
+      <td></td>
+      <td>RF04, RNF02</td>
+    </tr>
+    <tr>
+      <td>AL-067</td>
+      <td>Rota para salvar as informações da página de Projetos</td>
+      <td>5</td>
+      <td></td>
+      <td>⏳</td>
+      <td></td>
+      <td>RF05, RNF02</td>
+    </tr>
+    <tr>
+      <td>DW-068</td>
+      <td>Tela para cadastro de membros</td>
+      <td>5</td>
+      <td></td>
+      <td>⏳</td>
+      <td></td>
+      <td>RF03, RNF02</td>
+    </tr>
+    <tr>
+      <td>DW-069</td>
+      <td>Tela para cadastro de notícias</td>
+      <td>5</td>
+      <td></td>
+      <td>⏳</td>
+      <td></td>
+      <td>RF06, RNF02</td>
+    </tr>
+    <tr>
+      <td>DW-070</td>
+      <td>Tela para cadastro de publicações</td>
+      <td>5</td>
+      <td></td>
+      <td>⏳</td>
+      <td></td>
+      <td>RF07, RNF02</td>
+    </tr>
+    <tr>
+      <td>DW-071</td>
+      <td>Tela para cadastro de Vagas</td>
+      <td>5</td>
+      <td></td>
+      <td>⏳</td>
+      <td></td>
+      <td>RF04, RNF02</td>
+    </tr>
+    <tr>
+      <td>DW-072</td>
+      <td>Tela para cadastro de Projetos</td>
+      <td>5</td>
+      <td></td>
+      <td>⏳</td>
+      <td></td>
+      <td>RF05, RNF02</td>
+    </tr>
+    <tr>
+      <td>AL-073</td>
+      <td>Rota para deletar as informações da página de membros</td>
+      <td>3</td>
+      <td></td>
+      <td>⏳</td>
+      <td></td>
+      <td>RF03, RNF02</td>
+    </tr>
+    <tr>
+      <td>AL-074</td>
+      <td>Rota para deletar as informações da página de notícias</td>
+      <td>3</td>
+      <td></td>
+      <td>⏳</td>
+      <td></td>
+      <td>RF06, RNF02</td>
+    </tr>
+    <tr>
+      <td>AL-075</td>
+      <td>Rota para deletar as informações da página de publicações</td>
+      <td>3</td>
+      <td></td>
+      <td>⏳</td>
+      <td></td>
+      <td>RF07, RNF02</td>
+    </tr>
+    <tr>
+      <td>AL-076</td>
+      <td>Rota para deletar as informações da página de Vagas</td>
+      <td>3</td>
+      <td></td>
+      <td>⏳</td>
+      <td></td>
+      <td>RF04, RNF02</td>
+    </tr>
+    <tr>
+      <td>AL-077</td>
+      <td>Rota para deletar as informações da página de Projetos</td>
+      <td>3</td>
+      <td></td>
+      <td>⏳</td>
+      <td></td>
+      <td>RF05, RNF02</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="burndown-sprint-3">📉 Burndown</h2>
+
+<img src="./public/burndown/sprint3.png">

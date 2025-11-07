@@ -3,7 +3,7 @@ const dotenv = require("dotenv");
 const { Sequelize } = require('sequelize');
 
 dotenv.config();
-console.log(process.env)
+
 const sequelize = new Sequelize(
   process.env.BDNOME,
   process.env.BDUSUARIO,
@@ -15,7 +15,7 @@ const sequelize = new Sequelize(
     logging: false 
   }
 );
-console.log(sequelize)
+
 module.exports = { sequelize };
 
 // EXEMPLO PRO .ENV

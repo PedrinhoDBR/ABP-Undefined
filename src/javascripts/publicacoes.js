@@ -43,20 +43,27 @@ function debounce(func, wait) {
     };
 }
 
+function getIdiomaFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('idioma') || 'PT-BR'; // valor padrão se não houver na URL
+}
+
+
 // BUSCAR AS INFOS DO BANCO
 async function fetchPublications() {
     try {
         const ano = filterAno.value;
         const titulo = filterSearch.value;
+        const idioma = getIdiomaFromURL();
+        
         const params = new URLSearchParams({
-            idioma: 'PT-BR'
+            idioma: idioma
         });
 
         if (ano) params.append('ano', ano);
         if (titulo) params.append('titulo', titulo);;
         
         const url = `http://localhost:3030/publicacao?${params.toString()}`;
-        console.log(url)
         const response = await fetch(url); 
         const data = await response.json();
 
@@ -258,7 +265,7 @@ document.addEventListener('DOMContentLoaded', fetchPublications);
 
     function renderList(items) {
         listEl.innerHTML = '';
-        console.log('Rendering', items.length, 'publications');
+
         items.forEach(pub => {
             const card = document.createElement('div');
             card.className = 'publication-card';
