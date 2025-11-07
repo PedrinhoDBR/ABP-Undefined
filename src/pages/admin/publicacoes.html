@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Administração de Publicações | AgriRS Lab</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/publicacoes.css">
+    <style>
+        .admin-header {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-bottom: 2rem;
+            gap: 1rem;
+        }
+        .admin-insert-btn {
+            background: #2e7d32;
+            color: #fff;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .admin-insert-btn:hover {
+            background: #256026;
+        }
+        .admin-grid {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+        }
+        .admin-grid th, .admin-grid td {
+            border: 1px solid #e0e0e0;
+            padding: 0.7rem 0.5rem;
+            text-align: left;
+        }
+        .admin-grid th {
+            background: #f6f6f6;
+        }
+        .admin-action-btn {
+            margin-right: 0.5rem;
+            padding: 0.4rem 1rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+        .admin-action-btn.modify {
+            background: #1976d2;
+            color: #fff;
+        }
+        .admin-action-btn.modify:hover {
+            background: #125ea2;
+        }
+        .admin-action-btn.delete {
+            background: #c62828;
+            color: #fff;
+        }
+        .admin-action-btn.delete:hover {
+            background: #8b1c1c;
+        }
+        .admin-image-thumb {
+            max-width: 60px;
+            max-height: 60px;
+            border-radius: 4px;
+        }
+        @media (max-width: 900px) {
+            .admin-grid th, .admin-grid td {
+                font-size: 0.9rem;
+                padding: 0.5rem 0.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="header-socket"></div>
+    <div class="container">
+        <div class="admin-header">
+            <button class="admin-insert-btn" id="btn-inserir">Inserir Publicação</button>
+            <h2 style="margin:0;">Administração de Publicações</h2>
+        </div>
+        <table class="admin-grid" id="admin-publicacoes-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Ano</th>
+                    <th>Imagem</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Conteúdo dinâmico -->
+            </tbody>
+        </table>
+    </div>
+    <div id="footer-socket"></div>
+    <script src="../javascripts/layout.js" defer></script>
+    <script src="../javascripts/publicacoes-admin.js" defer></script>
+</body>
+</html>

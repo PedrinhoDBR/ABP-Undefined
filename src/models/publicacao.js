@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../db/db').sequelize;
 
-const Publicacao = sequelize.define('publicacao', {
+const Publicacao = sequelize.define('publicacacoes', {
     PublicacaoID:{
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -32,7 +32,7 @@ const Publicacao = sequelize.define('publicacao', {
         allowNull: true
     }
 }, {
-    tableName: 'publicacao',
+    tableName: 'publicacacoes',
     timestamps: true,
     paranoid: true
 });
