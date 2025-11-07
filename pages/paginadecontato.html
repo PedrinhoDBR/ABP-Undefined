@@ -36,7 +36,7 @@
     <div class="container">
         <div class="contatos">
             <div class="card contatoInfo">
-                <form>
+                <form action="/contato/enviar" method="POST>
                     <h1>INFORMAÇÕES DE CONTATO</h1>
                     <div class="campoForm">
                         <input type="text" id="nome" name="nome" placeholder="Digite seu nome">
@@ -47,7 +47,7 @@
                     <div class="campoForm">
                         <textarea name="assunto" id="assunto" cols="30" rows="10" placeholder="Assunto"></textarea>
                     </div>
-                    <button>Enviar</button>
+                    <button type="submit">Enviar</button>
                 </form>
             </div>
             <div class="card localizacao">
