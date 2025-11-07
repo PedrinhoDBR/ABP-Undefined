@@ -18,7 +18,7 @@ document.getElementById('login-btn').addEventListener('click', async function() 
         const data = await res.json();
         if (res.ok) {
 
-            window.location.href = '/pages/publicacoes-admin.html';
+            window.location.href = '/admin';
         } else {
             errorDiv.textContent = data.error || 'Usuário ou senha inválidos.';
         }
