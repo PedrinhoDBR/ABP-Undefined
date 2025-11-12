@@ -1,0 +1,140 @@
+/* Base Header Styles */
+header {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  background-image: linear-gradient(180deg, #2e6a50 0%, #41c089 73%);
+  color: white;
+  text-shadow: 2px 2px 2px black;
+}
+
+.header {
+  position: relative;
+  display: flex;
+  width: 1250px; /* This is the desktop width */
+}
+
+.headerTop {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.agrirslab {
+  text-align: start;
+  display: flex;
+  align-items: end;
+}
+
+.arsl {
+  margin-bottom: 10px;
+}
+
+.title {
+  display: flex;
+  margin-left: 30px;
+}
+
+.logo {
+  margin-top: 20px;
+  margin-right: 1rem;
+}
+
+.logo a {
+  display: flex;
+  align-self: center;
+  margin-top: 10px;
+  width: 80px;
+  aspect-ratio: 1;
+}
+
+/* Navigation Styles */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 1.8rem;
+}
+
+header nav .menu-button {
+  display: flex;
+  text-decoration: none;
+  color: var(--light-blue-color);
+  transition: 200ms;
+}
+
+header nav .menu-button:hover {
+  color: var(--light-green-color);
+}
+
+.menu-button {
+  margin: 1rem;
+  margin-top: 2rem;
+  margin-bottom: 0px;
+}
+
+.sobre .menu-button,
+.atuacao .menu-button {
+  position: relative;
+  display: flex;
+  margin-right: 0px;
+}
+
+/* Submenu Styles */
+.submenu, .submenuAtuacao {
+  position: absolute;
+  display: none;
+  flex-direction: column;
+  z-index: 10;
+  top: 5rem;
+  background-color: var(--dark-blue-color);
+  width: 130px;
+  font-size: small;
+  text-align: start;
+  transition: 200ms;
+}
+
+.submenu a, .submenuAtuacao a {
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+}
+
+.submenu a:hover, .submenuAtuacao a:hover {
+  color: var(--light-green-color);
+}
+
+.sobre:hover .submenu,
+.atuacao:hover .submenuAtuacao {
+  display: flex;
+  transform: scale(1);
+}
+
+.arrow-down {
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+  border: none;
+  border-top: 5px solid var(--dark-blue-color);
+  border-left: 5px solid rgba(0, 0, 0, 0);
+  border-right: 5px solid rgba(0, 0, 0, 0);
+  margin-left: 8px;
+}
+
+/* Language Button */
+.languageButton {
+  width: 1.5rem;
+  aspect-ratio: 1;
+  right: 0px;
+  bottom: 0.5rem;
+  margin-top: 2rem;
+}
+
+.languageChangeIcon {
+  display: flex;
+}
+
+/* Material Symbols Outlined (used in header for arrows) */
+.material-symbols-outlined {
+    margin-top: 55px;
+}

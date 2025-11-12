@@ -1,11 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel Administrativo</title>
+  <link rel="icon" type="image/png" href="/public/img/logo.png">
+  <link rel="stylesheet" href="/css/admin_menu.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+
 </head>
 <body>
-    
+  <div class="admin-container">
+    <h1>Painel Administrativo</h1>
+    <p class="subtitle">Selecione o módulo que deseja gerenciar</p>
+
+  <div class="menu-grid">
+    <div class="menu-card" data-link="/admin/publicacoes">
+      <i class="fa-solid fa-book-open fa-3x"></i>
+      <h2>Publicações</h2>
+      <p>Gerenciar artigos, periódicos e relatórios.</p>
+    </div>
+
+    <div class="menu-card" data-link="/admin/membros">
+      <i class="fa-solid fa-users fa-3x" ></i>
+      <h2>Membros</h2>
+      <p>Adicionar e editar os membros da equipe.</p>
+    </div>
+
+    <div class="menu-card" data-link="/admin/noticias">
+      <i class="fa-solid fa-newspaper fa-3x"></i>
+      <h2>Notícias</h2>
+      <p>Publicar e atualizar as notícias do site.</p>
+    </div>
+
+    <div class="menu-card" data-link="/admin/projetos">
+      <i class="fa-solid fa-seedling fa-3x" style="color:#3c763d;"></i>
+      <h2>Projetos</h2>
+      <p>Gerenciar os projetos cadastrados.</p>
+    </div>
+  </div>
+
+    <button id="btn-logout">🚪 Sair</button>
+  </div>
+
+  <script src="/javascripts/admin_menu.js" defer></script>
 </body>
 </html>

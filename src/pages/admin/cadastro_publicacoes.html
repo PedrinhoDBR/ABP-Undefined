@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="/public/img/logo.png">
+  <title>Cadastro de Publicação</title>
+  <link rel="stylesheet" href="/css/admin_forms.css" />
+</head>
+<body>
+
+  <div class="form-container">
+    <h1 id="form-title">Cadastro de Publicação</h1>
+
+    <div id="loading" class="loading-message">Carregando dados...</div>
+    <div id="error" class="error-message"></div>
+
+    <form id="publicacaoForm" style="display: none;">
+      <input type="hidden" id="PublicacaoID" name="PublicacaoID">
+
+      <div class="form-group">
+        <label for="PublicacaoImagemFile">Imagem da Publicação</label>
+        <input type="file" id="PublicacaoImagemFile" name="PublicacaoImagemFile" accept="image/*">
+        <img id="imagePreview" src="" alt="Pré-visualização da imagem" style="max-width: 200px; margin-top: 10px; display: none;">
+        <!-- Campo oculto para manter o caminho da imagem existente ao editar -->
+        <input type="hidden" id="PublicacaoImagem" name="PublicacaoImagem">
+      </div>
+
+      <div class="form-group">
+        <label for="PublicacaoTitulo">Título</label>
+        <input type="text" id="PublicacaoTitulo" name="PublicacaoTitulo" maxlength="1000" required>
+      </div>
+
+      <div class="form-group">
+        <label for="PublicacaoLinkExterno">Link Externo</label>
+        <input type="url" id="PublicacaoLinkExterno" name="PublicacaoLinkExterno" maxlength="1000">
+      </div>
+
+      <div class="form-group">
+        <label for="PublicacaoCitacao">Citação</label>
+        <textarea id="PublicacaoCitacao" name="PublicacaoCitacao" maxlength="2000" rows="4"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="PublicacaoAno">Ano</label>
+        <input type="number" id="PublicacaoAno" name="PublicacaoAno" min="1900" max="2100">
+      </div>
+
+      <div class="form-group">
+        <label for="PublicacaoIdioma">Idioma</label>
+        <select id="PublicacaoIdioma" name="PublicacaoIdioma">
+          <option value="">Selecione...</option>
+          <option value="PT-BR">Português</option>
+          <option value="EN-US">Inglês</option>
+        </select>
+      </div>
+
+      <div class="switch-group">
+        <input type="checkbox" id="PublicacaoVisibilidade" name="PublicacaoVisibilidade" checked>
+        <label for="PublicacaoVisibilidade">Visível ao público</label>
+      </div>
+
+      <div class="buttons-group">
+        <button type="button" class="btn-back" onclick="window.location.href='/admin/publicacoes'">Voltar</button>
+        <button type="submit" class="btn-save" id="btn-save">Salvar</button>
+      </div>
+    </form>
+  </div>
+
+  <script src="../javascripts/admin_cadastropublicacoes.js" defer></script>
+</body>
+</html>

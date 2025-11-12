@@ -1,11 +1,34 @@
 const express = require('express');
-// const multer = require('multer');
-// const path = require('path');
+const multer = require('multer');
+const path = require('path');
+const crypto = require('crypto');
 const { Op, fn, col, where: whereFn } = require('sequelize');
 const Publicacao = require('../models/publicacao');
 const router = express.Router();
+const fs = require('fs');
+
+// Configuração do Multer para upload de imagens
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        const uploadPath = path.join(__dirname, '..', '..', 'public', 'uploads', 'publicacoes');
+
+        fs.mkdirSync(uploadPath, { recursive: true });
+
+        cb(null, uploadPath);
+    },
+    filename: (req, file, cb) => {
+        // Gera um nome de arquivo aleatório para evitar conflitos
+        const randomName = crypto.randomBytes(16).toString('hex');
+        const extension = path.extname(file.originalname);
+        cb(null, `${randomName}${extension}`);
+    }
+});
+
+const upload = multer({ storage: storage });
 
 //ROTA PARA BUSCAR TODAS AS PUBLICAÇÕES, com filtro basico
+
+
 router.get('/', async (req, res) => {
     try {
         const { id, ano, titulo, idioma} = req.query;
@@ -34,6 +57,86 @@ router.get('/', async (req, res) => {
         res.json({results: publicacoes });
     } catch (error) {
         res.status(500).json({ erro: 'Erro ao buscar publicações', detalhes: error.message });
+    }
+});
+
+// Rota para buscar uma publicação específica pelo ID
+router.get('/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        // Busca a publicação pelo ID
+        const publicacao = await Publicacao.findByPk(id);
+
+        if (!publicacao) {
+            return res.status(404).json({ erro: 'Publicação não encontrada' });
+        }
+
+        res.json(publicacao);
+    } catch (error) {
+        res.status(500).json({ erro: 'Erro ao buscar publicação', detalhes: error.message });
+    }
+});
+
+
+router.post('/', upload.single('PublicacaoImagemFile'), async (req, res) => {
+    try {
+        const dados = req.body;
+
+        // Se uma imagem foi enviada, salva o caminho dela no banco
+        if (req.file) {
+            // Salva o caminho relativo que pode ser usado no frontend
+            dados.PublicacaoImagem = `/img/publicacoes/${req.file.filename}`;
+        }
+        dados.PublicacaoID = null
+        const novaPublicacao = await Publicacao.create(dados);
+        res.status(201).json(novaPublicacao);
+    } catch (error) {
+        console.error('Erro ao criar publicação:', error);
+        res.status(500).json({ erro: 'Erro ao criar publicação', detalhes: error.message });
+    }
+});
+
+router.put('/:id', upload.single('PublicacaoImagemFile'), async (req, res) => {
+    const { id } = req.params;
+    try {
+        const dados = req.body;
+        console.log(dados)
+        // Se uma nova imagem foi enviada, atualiza o caminho
+        if (req.file) {
+            dados.PublicacaoImagem = `/public/uploads/publicacoes/${req.file.filename}`;
+        }
+
+        const [updated] = await Publicacao.update(dados, {
+            where: { PublicacaoID: id }
+        });
+
+        if (updated) {
+            const publicacaoAtualizada = await Publicacao.findByPk(id);
+            return res.json(publicacaoAtualizada);
+        }
+        throw new Error('Publicação não encontrada para atualização');
+
+    } catch (error) {
+        console.error('Erro ao atualizar publicação:', error);
+        res.status(500).json({ erro: 'Erro ao atualizar publicação', detalhes: error.message });
+    }
+});
+
+
+router.put('/inativar/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const publicacao = await Publicacao.findByPk(id);
+        if (!publicacao) {
+            return res.status(404).json({ erro: "Publicação não encontrada" });
+        }
+        publicacao.PublicacaoVisibilidade = false; // Inativa a publicação
+        await publicacao.save();
+        res.json({ mensagem: "Publicação inativada com sucesso!" });
+    } catch (error) {
+        console.error('Erro ao inativar publicação:', error);
+        res.status(500).json({ erro: 'Erro interno ao inativar publicação', detalhes: error.message });
     }
 });
 
