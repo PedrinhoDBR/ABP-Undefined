@@ -1,38 +1,43 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../db/db').sequelize;
 
-const Publicacao = sequelize.define('publicacao', {
+const Publicacao = sequelize.define('publicacacoes', {
     PublicacaoID:{
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true
     },
     PublicacaoImagem: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(1000),
         allowNull: true
     },
     PublicacaoTitulo: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(1000),
         allowNull: true
     },
     PublicacaoLinkExterno: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(1000),
         allowNull: true
     },
     PublicacaoCitacao: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(2000),
         allowNull: true
     },
     PublicacaoAno: {
         type: DataTypes.INTEGER,
         allowNull: true
     },
+    PublicacaoVisibilidade: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+        defaultValue: true
+    },
     PublicacaoIdioma: {
         type: DataTypes.STRING,
         allowNull: true
     }
 }, {
-    tableName: 'publicacao',
+    tableName: 'publicacacoes',
     timestamps: true,
     paranoid: true
 });

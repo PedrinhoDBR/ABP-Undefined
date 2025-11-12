@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriRS</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/publicacoes.css">
+    <link rel="stylesheet" href="../css/vars.css">
+    <link rel="icon" type="image/png" href="/public/img/logo.png">
+
+    <script src="../javascripts/layout.js" defer></script>
+    <script src="https://kit.fontawesome.com/5e96e72d2d.js" crossorigin="anonymous"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Itim&family=Jacquard+24&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 24
+        }
+    </style>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_forward_ios" />
+    <script src="../javascripts/publicacoes.js" defer></script>
+</head>
+
+<body>
+
+    <div id="header-socket"></div>
+
+    <div class="container">
+        <div class="header-content">
+            <div>
+                <h1 class="titulo">PUBLICAÇÕES</h1>
+            </div>
+            <div class="filters">
+                <select id="filter-ano" class="filter-input">
+                    <option value="">Todos os Anos</option>
+                    <option value="2025">2025</option>
+                    <option value="2024">2024</option>
+                    <option value="2023">2023</option>
+                    <option value="2022">2022</option>
+                    <option value="2021">2021</option>
+                </select>
+                <input id="filter-search" type="text" placeholder="Pesquisar por título" class="filter-input">
+            </div>
+        </div>
+
+        <div id="publications-grid" class="publications-grid">
+        </div>
+
+        <div id="publication-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h2 id="modal-title"></h2>
+                <span id="modal-date" class="pub-date"></span>
+                <img id="modal-image" src="" alt="" style="max-width:100%;height:auto;display:none;">
+                <h3 id="modal-subtitle"></h3>
+                <p id="modal-text"></p>
+                <p id="modal-citation" style="font-style:italic;color:#666;"></p>
+                <div id="modal-links" class="modal-links"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer-socket"></div>
+
+
+</body>
+
+</html>

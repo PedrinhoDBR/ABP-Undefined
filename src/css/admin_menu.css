@@ -1,0 +1,80 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f8f9fa;
+  margin: 0;
+  padding: 0;
+}
+
+.admin-container {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.subtitle {
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  justify-items: center;
+}
+
+.menu-card {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  max-width: 250px;
+}
+
+.menu-card:hover {
+  background: #eef8ef;
+  transform: translateY(-3px);
+  border-color: #28a745;
+}
+
+.menu-card img {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 15px;
+}
+
+.menu-card h2 {
+  margin: 8px 0;
+  color: #000;
+}
+
+.menu-card p {
+  font-size: 0.9em;
+  color: #555;
+}
+
+#btn-logout {
+  margin-top: 40px;
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#btn-logout:hover {
+  background: #c82333;
+}

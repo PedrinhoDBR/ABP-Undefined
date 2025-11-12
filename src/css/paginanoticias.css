@@ -1,0 +1,473 @@
+body {
+    /* display: flex; */
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    width: 100vw;
+    height: 100vh;
+    font-family: "Kanit";
+}
+
+/* Container -> ///////////////////////////////////////*/
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+}
+
+.container>* {
+
+    width: 900px;
+}
+
+.container>section {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/*----------Area do Carrosel de Noticias------*/
+
+        .carrosel-noticias {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            height: 500px;
+        }
+
+        .slide {
+            min-width: 100%;
+            position: relative;
+        }
+
+        .slide-content {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            
+        }
+
+        .imagem-carrosel {
+            flex: 1;
+            overflow: hidden;
+
+        }
+
+        .imagem-carrosel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease-in-out, 
+            box-shadow 0.3s ease-in-out;
+        }
+
+        .imagem-carrosel img:hover {
+              transform: translateY(-0.5%) scale(1.05);
+              transition: 0.5s ease-in;
+        }
+
+        .carrosel-texto {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .carrosel-texto h3 {
+            font-size: 18px;
+            font-weight: normal;
+            line-height: 1.4;
+        }
+
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2.5rem;
+            color: rgb(0, 0, 0);
+            cursor: pointer;
+            z-index: 10;
+            transition: color 0.3s;
+        }
+
+        .arrow:hover {
+            color: #00eeff;
+        }
+
+        .leftArrow {
+            left: 15px;
+        }
+
+        .rightArrow {
+            right: 15px;
+        }
+
+        .indicators {
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .indicator.active {
+            background-color: white;
+        }
+
+
+        /*-------- Area dos Filtros de Pesquisa ---------*/
+            
+        .container-filtro   {
+            background-color: rgb(0, 0, 0 , 0.7);
+            border-radius: 12px;
+            padding: 20px ;
+            box-shadow:0 10px 30px rgba(0, 0, 0, 0.2) ;
+            margin-top: 30px;
+            margin-bottom: 0px;
+            width: 800px;
+            
+            
+        }
+
+        .filtro-titulo > input {
+            
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            
+        }
+
+        .filtro-data {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .filtro-grupo{
+            flex: 1;
+            min-width: 200px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #ffffff;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e5ee;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #2a5298;
+            box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.2);
+        }
+
+        .botoes-filtro {
+            display: flex;
+            gap: 15px;
+            margin-top: 18px;
+            flex-wrap: wrap;
+             
+            
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            flex: 1;
+            min-width: 150px;
+        }
+   #btn-filtrar {
+            background-color: #2a5298;
+            color: white;
+        }
+        
+        #btn-filtrar:hover {
+            background-color: #1e3c72;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        #btn-limpar {
+            background-color: #f8f9fa;
+            color: #2a5298;
+            border: 2px solid #2a5298;
+        }
+        
+        #btn-limpar:hover {
+            background-color: #e9ecef;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+/*-------- Area dos Cards de Noticias ---------*/
+
+.cards-noticias-global {
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 50px;
+            margin-bottom: 40px;
+           
+        }
+
+        .cards-noticia-geral {
+            text-align: left; 
+            width: 220px;
+            height: 420px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            border-radius: 0px 20px 0 20px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column; /* Define a direção como coluna que eu defini */
+        }
+
+        .cards-noticia-geral:hover {
+            transform: translateY(-5px);
+        }
+
+        .cards-imagens {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            width: 100%;
+            height: 100px;
+        }
+
+        .cards-imagens>img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .card-conjunto-texto {
+            padding: 8px;
+            flex-grow: 1; /* com este cpdigo eu consigo ocupar o espaço disponível */
+            display: flex;
+            flex-direction: column; /* Organiza o conteúdo do texto feito em coluna */
+        }
+
+        .card-noticia-data {
+            font-size: 11px;
+            color: #3F936E;
+            margin-bottom: 5px;
+        }
+
+        .card-titulo {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            line-height: 1.3; /* espaço entre as linhas do texto */
+        }
+
+        .card-conteudo {
+            font-style: normal;
+            font-size: 13px;
+            color: #555;
+            line-height: 1.5;
+            margin-bottom: 20px; 
+            flex-grow: 1; /* com este cpdigo eu consigo ocupar o espaço disponível */
+        }
+
+        .card-leiamais {
+            font-size: 14px;
+            color: #3F936E;
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: auto; /* Empurra o elemento para o final do card quee eu montei */
+            padding-top: 15px;
+            flex-grow: 1;
+        } 
+
+/* ========== MEDIA QUERIES ========== */
+
+/* ------RESPONSIVIDADE-------*/
+        
+/* telas de até 1000px */
+@media screen and (max-width: 1000px) {
+
+     .container > * {
+      padding: 0 10px;
+      max-width: auto;
+    }
+
+    .container-filtro {
+        width: 90%;
+    }
+
+    
+
+    .corpo-global {
+         gap: 12px;
+        margin-bottom: 20px;
+        width: 100%;
+
+    }
+     .carrosel-noticias{
+
+        height: auto;
+        width: 95%;
+    }
+
+   .carrosel-texto {
+        padding: 0px 8px;
+        height: 150px;
+    }
+    .carrosel-texto > h3 {
+          font-size: 1.5rem;
+    }
+
+    .cards-noticias-global {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        width: 95%;
+        height: 2500px;
+        
+    }
+
+    .cards-noticia-geral{
+
+        width: 95%;
+        height: 100%;
+    }
+
+    .cards-imagens {
+        height: 175px;
+    }
+     .card-noticia-data{
+
+        font-size: 1.2rem;
+    }
+
+    .card-titulo {
+        font-size: 1.7rem;
+    }
+
+    .card-conteudo {
+        font-size: 1.3rem;
+    }
+
+    .card-leiamais {
+        font-size: 1.2rem;
+    }
+}
+
+/* Celulares de até 580px */
+@media screen and (max-width: 580px) {
+
+      .container > * {
+      padding: 0 10px;
+      width: auto;
+    }
+
+    
+
+    .corpo-global {
+         gap: 12px;
+        margin-bottom: 20px;
+        width: 95%;
+
+    }
+
+    .carrosel-noticias{
+
+        height: 450px;
+        width: 95%;
+    }
+
+    .imagem-carrosel{
+
+        height: 300px;
+    }
+    .carrosel-texto {
+         height: 230px;
+        padding: 0px 8px;
+    }
+    
+    .carrosel-texto > h3 {
+        font-size: 1.2rem;
+    }
+
+    .arrow {
+        width: 30px;
+        font-size: 2rem;
+        
+    }
+    
+    .cards-noticias-global {
+        grid-template-columns: 1fr;
+        gap: 50px;
+        width: 85%;
+        height: 5000px;
+    }
+
+    .cards-noticia-geral{
+
+        width: auto;
+        height: auto;
+    }
+
+    .cards-imagens {
+        height: 180px;
+    }
+
+    .card-noticia-data{
+
+        font-size: 1rem;
+    }
+
+    .card-titulo {
+        font-size: 1.5rem;
+    }
+
+    .card-conteudo {
+        font-size: 1.1rem;
+    }
+
+    .card-leiamais {
+        font-size: 1rem;
+    }
+}
