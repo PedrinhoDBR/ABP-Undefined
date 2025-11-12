@@ -2,7 +2,6 @@ const express = require('express');
 const Users = require('../models/user');
 const router = express.Router();
 
-// Rota para validar login
 router.post('/login', async (req, res) => {
     const { username, password } = req.body;
     try {
@@ -21,5 +20,19 @@ router.post('/login', async (req, res) => {
         res.status(500).json({ error: 'Erro ao validar login', detalhes: error.message });
     }
 });
+
+
+router.post('/logout', async (req, res) => {
+    console.log('Logout request received');
+    req.session.destroy((err) => {
+        if (err) {
+            console.error('Erro ao encerrar sessão:', err);
+            return res.status(500).json({ error: 'Erro ao encerrar sessão' });
+        }
+        res.clearCookie('connect.sid');
+        res.redirect('/'); 
+    });
+});
+
 
 module.exports = router;

@@ -1,107 +1,153 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const tableBody = document.querySelector('#admin-publicacoes-table tbody');
-    const btnInserir = document.getElementById('btn-inserir');
+  const tbody = document.querySelector('#admin-publicacoes-table tbody');
+  const rowTemplate = document.getElementById('row-template'); // Assuming this template is in carteira_publicacoes.html
+  const btnInserir = document.getElementById('btn-inserir');
+  const searchInput = document.getElementById('search-input');
+  const prevBtn = document.getElementById('prev-page');
+  const nextBtn = document.getElementById('next-page');
+  const pageInfo = document.getElementById('page-info');
 
-    // Carregar publicações da API
-    async function loadPublicacoes() {
-        try {
-            const res = await fetch('http://localhost:3030/publicacao?limit=1000');
-            const data = await res.json();
-            renderGrid(data.results || []);
-        } catch (err) {
-            tableBody.innerHTML = `<tr><td colspan="5">Erro ao carregar publicações.</td></tr>`;
-        }
+  let allPublicacoes = [];
+  let filtered = [];
+  let currentPage = 1;
+  const pageSize = 10;
+
+  async function loadPublicacoes() {
+    tbody.innerHTML = `<tr><td colspan="6" class="loading">Carregando publicações...</td></tr>`;
+    try {
+      const res = await fetch('/publicacao?limit=1000'); // Use relative path
+      const data = await res.json();
+      allPublicacoes = data.results || [];
+      filtered = allPublicacoes;
+      currentPage = 1;
+      renderGrid();
+    } catch (err) {
+      console.error(err);
+      tbody.innerHTML = `<tr><td colspan="6" class="loading">Erro ao carregar publicações.</td></tr>`;
+    }
+  }
+
+  function renderGrid() {
+    tbody.innerHTML = '';
+    const totalPages = Math.ceil(filtered.length / pageSize);
+    if (currentPage > totalPages) currentPage = totalPages || 1;
+
+    const start = (currentPage - 1) * pageSize;
+    const current = filtered.slice(start, start + pageSize);
+
+    if (!current.length) {
+      tbody.innerHTML = `<tr><td colspan="6" class="loading">Nenhuma publicação encontrada.</td></tr>`;
+      updatePagination();
+      return;
     }
 
-    // Renderizar grid
-    function renderGrid(publicacoes) {
-        if (!publicacoes.length) {
-            tableBody.innerHTML = `<tr><td colspan="5">Nenhuma publicação encontrada.</td></tr>`;
-            return;
+    const fragment = document.createDocumentFragment();
+    current.forEach(pub => {
+      const row = rowTemplate.content.cloneNode(true);
+      row.querySelector('.titulo').textContent = pub.PublicacaoTitulo || '';
+      row.querySelector('.ano').textContent = pub.PublicacaoAno || '';
+      row.querySelector('.idioma').textContent = pub.PublicacaoIdioma || '';
+      row.querySelector('.visivel').innerHTML = `
+        <span class="status-tag ${pub.PublicacaoVisibilidade ? 'status-true' : 'status-false'}">
+          ${pub.PublicacaoVisibilidade ? 'Visível' : 'Oculto'}
+        </span>
+      `;
+      row.querySelector('.imagem').innerHTML = pub.PublicacaoImagem
+        ? `<img src="${pub.PublicacaoImagem}" loading="lazy" alt="Imagem da publicação">`
+        : '';
+
+      const showBtn = row.querySelector('.show');
+      const modifyBtn = row.querySelector('.modify');
+      const deleteBtn = row.querySelector('.delete');
+      const menuBtn = row.querySelector('.admin-menu-btn');
+
+      showBtn.addEventListener('click', () => {
+        window.location.href = `/admin/publicacao?modo=visualizar&Id=${pub.PublicacaoID}`;
+      });
+
+      modifyBtn.addEventListener('click', () => {
+        window.location.href = `/admin/publicacao?modo=modificar&Id=${pub.PublicacaoID}`;
+      });
+
+      deleteBtn.addEventListener('click', async () => {
+        if (confirm(`Deseja realmente inativar a publicação "${pub.PublicacaoTitulo}"?`)) {
+          await deletePublicacao(pub.PublicacaoID);
+          await loadPublicacoes();
         }
-        tableBody.innerHTML = '';
-        publicacoes.forEach(pub => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-            <td>
-                <div class="admin-menu-dropdown">
-                    <button class="admin-menu-btn">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                    <div class="admin-menu-list">
-                        <button class="admin-menu-item show" data-id="${pub.PublicacaoID}">
-                            <i class="fas fa-magnifying-glass"></i><span class="text">Mostrar</span>
-                        </button>
-                        <button class="admin-menu-item modify" data-id="${pub.PublicacaoID}">
-                            <i class="fas fa-pen"></i><span class="text">Modificar</span>
-                        </button>
-                        <button class="admin-menu-item delete" data-id="${pub.PublicacaoID}">
-                            <i class="fas fa-times"></i><span class="text">Inativar</span>
-                        </button>
-                    </div>
-                </div>
-            </td>
-            <td>${pub.PublicacaoTitulo || ''}</td>
-            <td>${pub.PublicacaoAno || ''}</td>
-            <td>
-                ${pub.PublicacaoImagem ? `<img src="${pub.PublicacaoImagem}" class="admin-image-thumb" alt="Imagem">` : ''}
-            </td>
-            `;
-            tableBody.appendChild(tr);
-        });
+      });
 
-        // Adiciona eventos aos menus hamburguer e itens do menu APÓS renderizar a grid
-        tableBody.querySelectorAll('.admin-menu-btn').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                document.querySelectorAll('.admin-menu-dropdown.open').forEach(drop => {
-                    if (drop !== btn.parentElement) drop.classList.remove('open');
-                });
-                btn.parentElement.classList.toggle('open');
-            });
-        });
+      menuBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        document.querySelectorAll('.admin-menu-dropdown.open').forEach(d => d.classList.remove('open'));
+        menuBtn.parentElement.classList.toggle('open');
+      });
 
-        // Fecha menu ao clicar fora
-        document.addEventListener('click', () => {
-            document.querySelectorAll('.admin-menu-dropdown.open').forEach(drop => drop.classList.remove('open'));
-        });
-
-        // Ações dos itens do menu
-        tableBody.querySelectorAll('.admin-menu-item.show').forEach(btn => {
-            btn.addEventListener('click', () => {
-                alert('Mostrar publicação: ' + btn.getAttribute('data-id'));
-            });
-        });
-        tableBody.querySelectorAll('.admin-menu-item.modify').forEach(btn => {
-            btn.addEventListener('click', () => {
-                alert('Modificar publicação: ' + btn.getAttribute('data-id'));
-            });
-        });
-        tableBody.querySelectorAll('.admin-menu-item.delete').forEach(btn => {
-            btn.addEventListener('click', async () => {
-                const id = btn.getAttribute('data-id');
-                if (confirm('Deseja realmente inativar esta publicação?')) {
-                    await deletePublicacao(id);
-                    loadPublicacoes();
-                }
-            });
-        });
-    }
-
-    // Função para deletar publicação
-    async function deletePublicacao(id) {
-        try {
-            await fetch(`http://localhost:3030/publicacao/${id}`, { method: 'DELETE' });
-        } catch (err) {
-            alert('Erro ao deletar publicação.');
-        }
-    }
-
-    // Evento do botão inserir
-    btnInserir.addEventListener('click', () => {
-        alert('Abrir formulário de inserção de publicação');
+      fragment.appendChild(row);
     });
 
-    // Inicialização
-    loadPublicacoes();
+    tbody.appendChild(fragment);
+    updatePagination();
+  }
+
+  function updatePagination() {
+    const totalPages = Math.ceil(filtered.length / pageSize) || 1;
+    pageInfo.textContent = `Página ${currentPage} de ${totalPages}`;
+    prevBtn.disabled = currentPage <= 1;
+    nextBtn.disabled = currentPage >= totalPages;
+  }
+
+  searchInput.addEventListener('input', () => {
+    const term = searchInput.value.toLowerCase();
+    filtered = allPublicacoes.filter(pub => {
+        const titulo = (pub.PublicacaoTitulo || '').toLowerCase();
+        const ano = (pub.PublicacaoAno || '').toString().toLowerCase();
+        const idioma = (pub.PublicacaoIdioma || '').toLowerCase();
+        const status = pub.PublicacaoVisibilidade
+        ? 'visível visivel true ativo'
+        : 'oculto false inativo';
+
+        return (
+        titulo.includes(term) ||
+        ano.includes(term) ||
+        idioma.includes(term) ||
+        status.includes(term)
+        );
+    });
+    currentPage = 1;
+    renderGrid();
+  });
+
+  prevBtn.addEventListener('click', () => {
+    if (currentPage > 1) {
+      currentPage--;
+      renderGrid();
+    }
+  });
+
+  nextBtn.addEventListener('click', () => {
+    const totalPages = Math.ceil(filtered.length / pageSize);
+    if (currentPage < totalPages) {
+      currentPage++;
+      renderGrid();
+    }
+  });
+
+  async function deletePublicacao(id) {
+    try {
+      await fetch(`/publicacao/inativar/${id}`, { method: 'PUT' }); // Call inactivation endpoint
+      alert('Publicação inativada com sucesso!');
+    } catch (err) {
+      alert('Erro ao inativar publicação.');
+    }
+  }
+
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.admin-menu-dropdown.open').forEach(d => d.classList.remove('open'));
+  });
+
+  btnInserir.addEventListener('click', () => {
+    window.location.href = '/admin/publicacao?modo=inserir';
+  });
+
+  loadPublicacoes();
 });

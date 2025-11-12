@@ -15,3 +15,12 @@ async function loadFooter() {
 }
 
 loadFooter()
+
+async function AdmLoadHeader() {
+    const AdmEspacoDoMeuHeader = document.querySelector("#adm-header-socket")
+    const AdmHeader = await fetch("/Layout/admin_header.html")
+    const AdmHeaderText = await AdmHeader.text()
+    AdmEspacoDoMeuHeader.innerHTML = AdmHeaderText
+}
+
+AdmLoadHeader()

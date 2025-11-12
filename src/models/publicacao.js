@@ -27,6 +27,11 @@ const Publicacao = sequelize.define('publicacacoes', {
         type: DataTypes.INTEGER,
         allowNull: true
     },
+    PublicacaoVisibilidade: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+        defaultValue: true
+    },
     PublicacaoIdioma: {
         type: DataTypes.STRING,
         allowNull: true

@@ -1,173 +1,189 @@
-
-.login-container {
-    max-width: 350px;
-    margin: 80px auto;
-    padding: 2rem;
-    background: #f8f8f8;
-    border-radius: 8px;
-    box-shadow: 0 2px 12px #0001;
-}
-.login-container h2 {
-    text-align: center;
-    margin-bottom: 1.5rem;
-}
-.login-container input {
-    width: 100%;
-    padding: 0.7rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-.login-container button {
-    width: 100%;
-    padding: 0.7rem;
-    background: #21A866;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    font-weight: bold;
-    cursor: pointer;
-}
-.login-container .error {
-    color: #c62828;
-    margin-bottom: 1rem;
-    text-align: center;
+body {
+  font-family: Arial, sans-serif;
+  background: #f8f9fa;
+  margin: 0;
+  padding: 20px;
 }
 
-.admin-header {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    margin-bottom: 2rem;
-    gap: 1rem;
+.containeradmin {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  max-width: 1200px;
+  margin: 0 auto;
 }
-.admin-insert-btn {
-    background: #2e7d32;
-    color: #fff;
-    border: none;
-    padding: 0.7rem 1.5rem;
-    border-radius: 4px;
-    font-size: 1rem;
-    cursor: pointer;
-    font-weight: bold;
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
 }
-.admin-insert-btn:hover {
-    background: #256026;
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
 }
-.admin-grid {
-    /* width: 100%; */
-    border-collapse: collapse;
-    margin-bottom: 2rem;
+
+#search-input {
+  width: 60%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
 }
-.admin-grid th, .admin-grid td {
-    border: 1px solid #e0e0e0;
-    padding: 0.7rem 0.5rem;
-    text-align: left;
+
+#btn-inserir {
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: 0.2s;
 }
-.admin-grid th {
-    background: #f6f6f6;
+
+#btn-inserir:hover {
+  background: #218838;
 }
-.admin-action-btn {
-    margin-right: 0.5rem;
-    padding: 0.4rem 1rem;
-    border: none;
-    border-radius: 4px;
-    font-size: 0.95rem;
-    cursor: pointer;
+
+#btn-voltar {
+  background: #888;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: 0.2s;
 }
-/* .admin-action-btn.modify {
-    background: #1976d2;
-    color: #fff;
+
+#btn-voltar:hover {
+  background: #747474;
 }
-.admin-action-btn.modify:hover {
-    background: #125ea2;
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
 }
-.admin-action-btn.delete {
-    background: #c62828;
-    color: #fff;
+
+th, td {
+  padding: 10px 8px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+  vertical-align: middle;
 }
-.admin-action-btn.delete:hover {
-    background: #8b1c1c;
+
+th {
+  background: #f1f1f1;
+}
+/* 
+td.ano, td.imagem {
+  text-align: center;
+  width: 80px;
 } */
-.admin-image-thumb {
-    max-width: 60px;
-    max-height: 60px;
-    border-radius: 4px;
+
+td.imagem img {
+  max-width: 60px;
+  max-height: 60px;
+  border-radius: 4px;
+  display: block;
+  margin: 0 auto;
 }
-@media (max-width: 900px) {
-    .admin-grid th, .admin-grid td {
-        font-size: 0.9rem;
-        padding: 0.5rem 0.3rem;
-    }
+
+/* 🔘 Menu de ações */
+.admin-menu {
+  position: relative;
+  display: inline-block;
+}
+
+.admin-menu-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
 }
 
 .admin-menu-dropdown {
-    position: relative;
-    display: inline-block;
-}
-.admin-menu-btn {
-    background: #fff;
-    border: 1px solid #bbb;
-    border-radius: 4px;
-    padding: 6px 10px;
-    cursor: pointer;
-    font-size: 1.2rem;
-}
-
-.admin-menu-dropdown.open .admin-menu-list {
-    display: block;
-}
-
-.admin-menu-list {
   display: none;
   position: absolute;
-  right: 0;
-  top: 110%;
-  min-width: 160px;
-  background: #fff;
-  border: 1px solid #ddd;
+  top: 25px;
+  left: 0;
+  background: white;
+  border: 1px solid #ccc;
   border-radius: 6px;
-  box-shadow: 0 2px 8px #0002;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
   z-index: 10;
-  padding: 0.3rem 0;
+  min-width: 120px;
 }
 
-.admin-menu-item {
-  display: grid;
-  grid-template-columns: 28px auto; /* ícone + texto */
-  align-items: center;
+.admin-menu-dropdown button {
+  display: block;
   width: 100%;
-  background: none;
   border: none;
-  padding: 0.5rem 1rem;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: background 0.2s;
-  color: #222;
+  background: none;
+  padding: 8px;
   text-align: left;
+  cursor: pointer;
 }
 
-.admin-menu-item:hover {
-  background: #f0f0f0;
+.admin-menu-dropdown button:hover {
+  background: #f8f8f8;
 }
 
-.admin-menu-item i {
+.admin-menu.open .admin-menu-dropdown {
+  display: block;
+}
+
+/* 🟢🔴 Tags de status */
+.status-tag {
+  padding: 4px 8px;
+  border-radius: 10px;
+  font-weight: bold;
   text-align: center;
-  font-size: 1rem;
-  color: #444;
+  font-size: 0.9em;
+  display: inline-block;
 }
 
-.admin-menu-item .text {
-  white-space: nowrap;
+.status-true {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
 }
 
-
-/* .admin-menu-item.delete {
-    color: #c62828;
+.status-false {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
 }
-.admin-menu-item.modify {
-    color: #1976d2;
-} */
-/* .admin-menu-item.show {
-    color: #333;
-} */
+
+/* 🔁 Paginação */
+.pagination {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 6px 12px;
+  margin: 0 5px;
+  background: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.pagination button:hover:not(:disabled) {
+  background: #e9ecef;
+}
+
+.pagination button:disabled {
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+.loading {
+  text-align: center;
+  color: #888;
+  font-style: italic;
+}
+

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - Publicações</title>
+    <link rel="icon" type="image/png" href="/public/img/logo.png">
+    <link rel="stylesheet" href="../css/admin.css" />
+    <link rel="stylesheet" href="../css/global.css" />
+    <link rel="stylesheet" href="../css/vars.css" />
+</head>
+<body>
+  <div id="adm-header-socket"></div>
+
+  <div class="containeradmin">
+    <h1>Gerenciamento de Publicações</h1>
+
+    <div class="top-bar">
+      <button id="btn-voltar" onclick="window.location.href='/admin'">
+        <i class="fa-solid fa-arrow-left"></i> Voltar
+      </button>
+      <button id="btn-inserir">➕ Nova Publicação</button>
+      <input type="text" id="search-input" placeholder="🔍 Buscar por título..." />
+    </div>
+
+    <table id="admin-publicacoes-table">
+      <thead>
+        <tr>
+          <th>Ações</th>
+          <th>Título</th>
+          <th>Ano</th>
+          <th>Idioma</th>
+          <th>Status</th>
+          <th>Imagem</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <div class="pagination">
+      <button id="prev-page">⬅️ Anterior</button>
+      <span id="page-info">Página 1 de 1</span>
+      <button id="next-page">Próxima ➡️</button>
+    </div>
+  </div>
+
+  <!-- Template da linha -->
+  <template id="row-template">
+    <tr>
+      <td class="actions">
+        <div class="admin-menu">
+          <button class="admin-menu-btn">☰</button>
+          <div class="admin-menu-dropdown">
+            <button class="show">👁️ Ver</button>
+            <button class="modify">✏️ Editar</button>
+            <button class="delete">🗑️ Excluir</button>
+          </div>
+        </div>
+      </td>
+      <td class="titulo"></td>
+      <td class="ano"></td>
+      <td class="idioma"></td>
+      <td class="visivel"></td>
+      <td class="imagem"></td>
+    </tr>
+  </template>
+
+  <script src="../javascripts/layout.js" defer></script>
+  <script src="../javascripts/admin_publicacoes.js" defer></script>
+  <div id="footer-socket"></div>
+
+</body>
+</html>
