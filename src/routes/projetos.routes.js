@@ -2,6 +2,25 @@ const express = require('express');
 const Projetos = require('../models/projetos');
 const router = express.Router();
 
+
+
+
+router.get('/ultimos', async (req, res) => {
+    try {
+        const projetos = await Projetos.findAll({
+            limit: 3, 
+            order: [['ProjetosId', 'DESC']]
+        });
+        
+    
+        res.status(200).json({ results: projetos }); 
+        
+    } catch (error) {
+        console.error("ERRO CRÍTICO NA ROTA /ultimos:", error);
+        res.status(500).json({ erro: 'Erro interno ao buscar dados do banco' });
+    }
+});
+
 // Rota para todos os projetos - RESPONDE A /projeto/
 router.get('/', async (req, res) => {
     try {
@@ -38,5 +57,8 @@ router.get('/:projetoId', async (req, res) => {
     }
 
 })
+
+
+
 
 module.exports = router;
