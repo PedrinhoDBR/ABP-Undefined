@@ -27,6 +27,11 @@ const Membros = sequelize.define('membros', {
         type: DataTypes.STRING,
         allowNull: true
     },
+    MembrosVisibilidade: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+        defaultValue: true
+    },
     MembrosIdioma: {
         type: DataTypes.STRING,
         allowNull: true
