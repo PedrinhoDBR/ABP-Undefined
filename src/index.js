@@ -87,6 +87,9 @@ app.use('/css', express.static(path.join(__dirname, 'css')));
 app.use('/javascripts', express.static(path.join(__dirname, 'javascripts')));
 app.use('/img', express.static(path.join(__dirname, 'public', 'img')));
 app.use('/pages', express.static(path.join(__dirname, 'pages')));
+app.use(express.static(path.join(__dirname, '..', 'public')));
+app.use('/img', express.static(path.join(__dirname, '..', 'public', 'img')));
+
 
 app.use(cors());
 app.use(express.json());
@@ -139,6 +142,15 @@ app.get('/admin/publicacao', requireLogin, (req, res) => {
     res.sendFile(path.join(__dirname, 'pages', '/admin/cadastro_publicacoes.html'));
 });
 
+app.get('/admin/projetos', requireLogin, (req, res) => {
+    const { Id } = req.query;
+    res.sendFile(path.join(__dirname, 'pages', '/admin/carteira_projetos.html'));
+});
+
+app.get('/admin/projeto', requireLogin, (req, res) => {
+    const { Id } = req.query;
+    res.sendFile(path.join(__dirname, 'pages', '/admin/cadastro_projetos.html'));
+});
 
 //rotas publicas
 app.use('/publicacao', Publicacao);
@@ -147,6 +159,8 @@ app.use('/membros', Membros);
 app.use('/noticias', Noticias);
 app.use('/user', UserRoutes);
 app.use('/contato', contato);
+
+
 
 
 app.use(function(req, res){

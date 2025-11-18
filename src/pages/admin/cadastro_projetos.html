@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="/public/img/logo.png">
+  <title>Cadastro de Projeto</title>
+  <link rel="stylesheet" href="/css/admin_forms.css" />
+</head>
+<body>
+
+  <div class="form-container">
+    <h1 id="form-title">Cadastro de Projeto</h1>
+
+    <div id="loading" class="loading-message">Carregando dados...</div>
+    <div id="error" class="error-message"></div>
+
+    <form id="projetoForm" style="display: none;">
+      <input type="hidden" id="ProjetosId" name="ProjetosId">
+
+      <div class="form-group">
+        <label for="ProjetosTitulo">Título do Projeto *</label>
+        <input type="text" id="ProjetosTitulo" name="ProjetosTitulo" maxlength="255" required>
+      </div>
+
+      <div class="form-group">
+        <label for="ProjetosTituloCard">Título do Card</label>
+        <input type="text" id="ProjetosTituloCard" name="ProjetosTituloCard" maxlength="100">
+        <small style="color: #666;">Título que aparecerá no card (opcional)</small>
+      </div>
+
+      <div class="form-group">
+        <label for="CardResumo">Resumo do Card</label>
+        <textarea id="CardResumo" name="CardResumo" maxlength="500" rows="3" placeholder="Breve descrição que aparecerá no card..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="ProjetoDescricao">Descrição Completa</label>
+        <textarea id="ProjetoDescricao" name="ProjetoDescricao" rows="6" placeholder="Descrição detalhada do projeto..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="ImagemCarrosselFile">Imagem do Carrossel</label>
+        <input type="file" id="ImagemCarrosselFile" name="ImagemCarrosselFile" accept="image/*">
+        <img id="carrosselPreview" src="" alt="Pré-visualização da imagem do carrossel" style="max-width: 200px; margin-top: 10px; display: none;">
+        <input type="hidden" id="ImagemCarrossel" name="ImagemCarrossel">
+        <small style="color: #666;">Imagem que aparecerá no carrossel da página de projetos</small>
+      </div>
+
+      <div class="form-group">
+        <label for="ImagemCardFile">Imagem do Card</label>
+        <input type="file" id="ImagemCardFile" name="ImagemCardFile" accept="image/*">
+        <img id="cardPreview" src="" alt="Pré-visualização da imagem do card" style="max-width: 200px; margin-top: 10px; display: none;">
+        <input type="hidden" id="ImagemCard" name="ImagemCard">
+        <small style="color: #666;">Imagem que aparecerá no card da lista de projetos</small>
+      </div>
+
+      <div class="form-group">
+        <label for="OrdemdeExibicao">Ordem de Exibição</label>
+        <input type="number" id="OrdemdeExibicao" name="OrdemdeExibicao" min="0" value="0">
+        <small style="color: #666;">Número para ordenar os projetos (menor número aparece primeiro)</small>
+      </div>
+
+      <div class="form-group">
+        <label for="Informacoes">Informações Adicionais (JSON)</label>
+        <textarea id="Informacoes" name="Informacoes" rows="4" placeholder='{"campo1": "valor1", "campo2": "valor2"}'></textarea>
+        <small style="color: #666;">Informações extras em formato JSON (opcional)</small>
+      </div>
+
+      <div class="switch-group">
+        <input type="checkbox" id="Ativo" name="Ativo" checked>
+        <label for="Ativo">Projeto ativo</label>
+      </div>
+
+      <div class="buttons-group">
+        <button type="button" class="btn-back" onclick="window.location.href='/admin/projetos'">Voltar</button>
+        <button type="submit" class="btn-save" id="btn-save">Salvar</button>
+      </div>
+    </form>
+  </div>
+
+  <script src="../javascripts/admin_cadastroprojetos.js" defer></script>
+</body>
+</html>
