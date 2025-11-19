@@ -48,10 +48,10 @@ document.addEventListener('DOMContentLoaded', () => {
         row.querySelector('.cargo').textContent = pub.MembrosCargo || '';
         row.querySelector('.idioma').textContent = pub.MembrosIdioma || '';
         row.querySelector('.visivel').innerHTML = `
-          <span class="status-tag ${pub.MembrosVisibilidade ? 'status-true' : 'status-false'}">
-            ${pub.MembroVisibilidade ? 'Visível' : 'Oculto'}
-          </span>
-        `;
+    <span class="status-tag ${pub.MembrosVisibilidade ? 'status-true' : 'status-false'}">
+        ${pub.MembrosVisibilidade ? 'Visível' : 'Oculto'} 
+    </span>
+`;
         row.querySelector('.imagem').innerHTML = pub.MembrosImagem
           ? `<img src="${pub.MembrosImagem}" loading="lazy" alt="Imagem do membro">`
           : '';

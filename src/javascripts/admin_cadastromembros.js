@@ -4,13 +4,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     const id = params.get("Id");
 
     const form = document.getElementById('membroForm');
-    const nome = document.getElementById('MembroNome');
+    // CORREÇÃO: Usar MembrosNome (Plural)
+    const formTitle = document.getElementById('form-title'); 
     const loadingDiv = document.getElementById('loading');
     const errorDiv = document.getElementById('error');
     const saveButton = document.getElementById('btn-save');
     const imagePreview = document.getElementById('imagePreview');
-    const imageFileInput = document.getElementById('MembroImagemFile');
-    const existingImagePathInput = document.getElementById('MembroImagem');
+    // CORREÇÃO: Usar MembrosImagemFile (Plural)
+    const imageFileInput = document.getElementById('MembrosImagemFile');
+    // CORREÇÃO: Usar MembrosImagem (Plural)
+    const existingImagePathInput = document.getElementById('MembrosImagem');
 
     // Pré-visualização da imagem
     imageFileInput.addEventListener('change', () => {
@@ -33,22 +36,26 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         });
         saveButton.style.display = isReadOnly ? 'none' : 'block';
-        imageFileInput.style.display = isReadOnly ? 'none' : 'block';
+        // CORREÇÃO: Ocultar o input de arquivo (MembrosImagemFile) em modo visualização
+        imageFileInput.style.display = isReadOnly ? 'none' : 'block'; 
     };
 
     const fillForm = (data) => {
         for (const key in data) {
-            const el = document.getElementById(key);
+            // O ID do elemento no HTML agora é Membros[NomeDoCampo]
+            const el = document.getElementById(key); 
             if (!el) continue;
+            
             if (el.type === "checkbox") {
                 el.checked = data[key];
             } else {
-                el.value = data[key];
+                el.value = data[key] || ''; // Garante que campos vazios não causem erro
             }
         }
-        // Exibe a imagem existente
-        if (data.MembroImagem) {
-            imagePreview.src = data.MembroImagem;
+        
+        // CORREÇÃO: Usar a chave MembrosImagem do objeto de dados
+        if (data.MembrosImagem) { 
+            imagePreview.src = data.MembrosImagem;
             imagePreview.style.display = 'block';
         }
     };
@@ -57,11 +64,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         loadingDiv.style.display = 'none';
         errorDiv.textContent = message;
         errorDiv.style.display = 'block';
+        form.style.display = 'none';
     };
 
     if (modo === 'inserir') {
-        nome.textContent = 'Novo Membro';
+        formTitle.textContent = 'Novo Membro';
+        loadingDiv.style.display = 'none';
         form.style.display = 'block';
+        setFormState(false);
     } else if (modo === 'modificar' || modo === 'visualizar') {
         if (!id) {
             showError("ID do membro não fornecido.");
@@ -70,7 +80,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         loadingDiv.style.display = 'block';
 
         try {
-            const response = await fetch(`/membro/${id}`);
+            // CORREÇÃO: A URL da API é /membros (plural)
+            const response = await fetch(`/membros/${id}`); 
             if (!response.ok) {
                 throw new Error(`Erro ao buscar dados: ${response.statusText}`);
             }
@@ -81,10 +92,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             fillForm(data);
 
             if (modo === 'visualizar') {
-                nome.textContent = 'Visualizar Membro';
+                formTitle.textContent = 'Visualizar Membro';
                 setFormState(true); // Bloqueia os campos
             } else {
-                nome.textContent = 'Editar Membro';
+                formTitle.textContent = 'Editar Membro';
                 setFormState(false); // Garante que os campos estão editáveis
             }
         } catch (err) {
@@ -101,23 +112,26 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const formData = new FormData(form);
         
-        // O FormData já pega o valor do checkbox se ele tiver um 'name'
-        // Mas para garantir que 'false' seja enviado se desmarcado, fazemos isso:
-        if (!formData.has('MembroVisibilidade')) {
-            formData.set('MembroVisibilidade', false);
+        // CORREÇÃO: Usar a chave MembrosVisibilidade (Plural)
+        if (!formData.has('MembrosVisibilidade')) {
+            formData.set('MembrosVisibilidade', false);
         } else {
-            formData.set('MembroVisibilidade', true);
+            // O valor do checkbox, se marcado, é geralmente "on". 
+            // Para garantir que o Sequelize receba um booleano:
+            formData.set('MembrosVisibilidade', true);
         }
-
-        // O arquivo já é adicionado ao FormData pelo navegador se tiver um 'name'
+        
+        // O input hidden MembrosImagem (caminho antigo) é mantido, 
+        // e o novo arquivo (MembrosImagemFile) é enviado pelo FormData.
 
         const method = modo === 'inserir' ? 'POST' : 'PUT';
-        const url = modo === 'inserir' ? '/membro' : `/membro/${id}`;
+        // CORREÇÃO: A URL da API é /membros (plural)
+        const url = modo === 'inserir' ? '/membros' : `/membros/${id}`; 
 
         try {
             const response = await fetch(url, {
                 method: method,
-                body: formData // Não defina o 'Content-Type', o navegador fará isso
+                body: formData
             });
 
             if (!response.ok) {

@@ -1,9 +1,23 @@
 const express = require('express');
-// const multer = require('multer');
-// const path = require('path');
+const multer = require('multer');
+const path = require('path');
 const { Op, fn, col, where: whereFn } = require('sequelize');
 const Membros = require('../models/membros');
 const router = express.Router();
+
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        // Ajuste o caminho conforme a estrutura do seu projeto
+        cb(null, path.join(__dirname, '..', '..', 'public', 'img', 'membros')); 
+    },
+    filename: (req, file, cb) => {
+        const ext = path.extname(file.originalname);
+        cb(null, file.fieldname + '-' + Date.now() + ext);
+    }
+});
+
+const upload = multer({ storage: storage });
 
 //ROTA PARA BUSCAR TODAS OS MEMBROS, com filtro basico
 
@@ -83,7 +97,7 @@ router.put('/:id', upload.single('MembroImagemFile'), async (req, res) => {
         }
 
         const [updated] = await Membros.update(dados, {
-            where: { PMembrosID: id }
+            where: { MembrosID: id }
         });
 
         if (updated) {
@@ -107,7 +121,7 @@ router.put('/inativar/:id', async (req, res) => {
             return res.status(404).json({ erro: "Membro não encontrado" });
         }
         membro.MembrosVisibilidade = false; // Inativa o membro
-        await Membros.save();
+        await membro.save();
         res.json({ mensagem: "Membro inativado com sucesso!" });
     } catch (error) {
         console.error('Erro ao inativar membro:', error);
