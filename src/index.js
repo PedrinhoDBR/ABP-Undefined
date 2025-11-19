@@ -139,6 +139,19 @@ app.get('/admin/publicacao', requireLogin, (req, res) => {
     res.sendFile(path.join(__dirname, 'pages', '/admin/cadastro_publicacoes.html'));
 });
 
+app.get('/admin/publicacao', requireLogin, (req, res) => {
+    const { Id } = req.query;
+    res.sendFile(path.join(__dirname, 'pages', '/admin/cadastro_publicacoes.html'));
+});
+
+app.get('/admin/membros', requireLogin, (req, res) => {
+    res.sendFile(path.join(__dirname, 'pages', '/admin/carteira_membros.html'));
+});
+
+app.get('/admin/membro', requireLogin, (req, res) => {
+    res.sendFile(path.join(__dirname, 'pages', '/admin/cadastro_membros.html'));
+});
+
 
 //rotas publicas
 app.use('/publicacao', Publicacao);

@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const tbody = document.querySelector('#admin-publicacoes-table tbody');
-    const rowTemplate = document.getElementById('row-template'); // Assuming this template is in carteira_publicacoes.html
+    const tbody = document.querySelector('#admin-membros-table tbody');
+    const rowTemplate = document.getElementById('row-template'); // Assuming this template is in carteira_membros.html
     const btnInserir = document.getElementById('btn-inserir');
     const searchInput = document.getElementById('search-input');
     const prevBtn = document.getElementById('prev-page');
@@ -13,17 +13,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const pageSize = 10;
   
     async function loadMembros() {
-      tbody.innerHTML = `<tr><td colspan="6" class="loading">Carregando publicações...</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="6" class="loading">Carregando membros...</td></tr>`;
       try {
-        const res = await fetch('/equipe?limit=1000'); // Use relative path
+        const res = await fetch('/membros?limit=1000'); // Use relative path
         const data = await res.json();
         allMembros = data.results || [];
-        filtered = allPublicacoes;
+        filtered = allMembros;
         currentPage = 1;
         renderGrid();
       } catch (err) {
         console.error(err);
-        tbody.innerHTML = `<tr><td colspan="6" class="loading">Erro ao carregar publicações.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="6" class="loading">Erro ao carregar membros.</td></tr>`;
       }
     }
   
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const current = filtered.slice(start, start + pageSize);
   
       if (!current.length) {
-        tbody.innerHTML = `<tr><td colspan="6" class="loading">Nenhuma publicação encontrada.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="6" class="loading">Nenhum membro encontrado.</td></tr>`;
         updatePagination();
         return;
       }
@@ -44,16 +44,16 @@ document.addEventListener('DOMContentLoaded', () => {
       const fragment = document.createDocumentFragment();
       current.forEach(pub => {
         const row = rowTemplate.content.cloneNode(true);
-        row.querySelector('.nome').textContent = pub.PublicacaoTitulo || '';
-        row.querySelector('.cargo').textContent = pub.PublicacaoAno || '';
-        row.querySelector('.idioma').textContent = pub.PublicacaoIdioma || '';
+        row.querySelector('.nome').textContent = pub.MembrosNome || '';
+        row.querySelector('.cargo').textContent = pub.MembrosCargo || '';
+        row.querySelector('.idioma').textContent = pub.MembrosIdioma || '';
         row.querySelector('.visivel').innerHTML = `
-          <span class="status-tag ${pub.PublicacaoVisibilidade ? 'status-true' : 'status-false'}">
+          <span class="status-tag ${pub.MembrosVisibilidade ? 'status-true' : 'status-false'}">
             ${pub.MembroVisibilidade ? 'Visível' : 'Oculto'}
           </span>
         `;
-        row.querySelector('.imagem').innerHTML = pub.PublicacaoImagem
-          ? `<img src="${pub.MembroImagem}" loading="lazy" alt="Imagem do membro">`
+        row.querySelector('.imagem').innerHTML = pub.MembrosImagem
+          ? `<img src="${pub.MembrosImagem}" loading="lazy" alt="Imagem do membro">`
           : '';
   
         const showBtn = row.querySelector('.show');
@@ -62,17 +62,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const menuBtn = row.querySelector('.admin-menu-btn');
   
         showBtn.addEventListener('click', () => {
-          window.location.href = `/admin/equipe?modo=visualizar&Id=${pub.MembroID}`;
+          window.location.href = `/admin/membro?modo=visualizar&Id=${pub.MembrosID}`;
         });
   
         modifyBtn.addEventListener('click', () => {
-          window.location.href = `/admin/equipe?modo=modificar&Id=${pub.MembroID}`;
+          window.location.href = `/admin/membro?modo=modificar&Id=${pub.MembrosID}`;
         });
   
         deleteBtn.addEventListener('click', async () => {
-          if (confirm(`Deseja realmente inativar a publicação "${pub.MembroNome}"?`)) {
-            await deleteMembro(pub.MembroID);
-            await loadPublicacoes();
+          if (confirm(`Deseja realmente inativar o membro "${pub.MembrosNome}"?`)) {
+            await deleteMembro(pub.MembrosID);
+            await loadMembros();
           }
         });
   
@@ -107,8 +107,8 @@ document.addEventListener('DOMContentLoaded', () => {
           : 'oculto false inativo';
   
           return (
-          titulo.includes(term) ||
-          ano.includes(term) ||
+          nome.includes(term) ||
+          cargo.includes(term) ||
           idioma.includes(term) ||
           status.includes(term)
           );
@@ -132,12 +132,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   
-    async function deletePublicacao(id) {
+    async function deleteMembros(id) {
       try {
-        await fetch(`/publicacao/inativar/${id}`, { method: 'PUT' }); // Call inactivation endpoint
-        alert('Publicação inativada com sucesso!');
+        await fetch(`/membros/inativar/${id}`, { method: 'PUT' }); // Call inactivation endpoint
+        alert('Membro inativado com sucesso!');
       } catch (err) {
-        alert('Erro ao inativar publicação.');
+        alert('Erro ao inativar membro.');
       }
     }
   
@@ -146,9 +146,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   
     btnInserir.addEventListener('click', () => {
-      window.location.href = '/admin/publicacao?modo=inserir';
+      window.location.href = '/admin/membro?modo=inserir';
     });
   
-    loadPublicacoes();
+    loadMembros();
   });
   
