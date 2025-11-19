@@ -143,12 +143,14 @@ router.put('/inativar/:id', async (req, res) => {
 router.get('/ultimas', async (req, res) => {
     try {
         const publicacoes = await Publicacao.findAll({
-            attributes: ['PublicacaoID', 'PublicacaoTitulo', 'PublicacaoImagem', 'PublicacaoCitacao'],
             limit: 3, // <--- CRUCIAL: Limita a 3 resultados
-            order: [['createdAt', 'DESC']] // Ordena pelo mais recente
+            order: [['PublicacaoID', 'DESC']] // Ordena pelo mais recente
         });
-        res.json({ results: publicacoes });
+
+         res.status(200).json({ results: publicacoes}); 
+
     } catch (error) {
+        console.error("ERRO CRÍTICO NA ROTA /ultimas:", error);
         res.status(500).json({ erro: 'Erro ao buscar últimas publicações' });
     }
 });
