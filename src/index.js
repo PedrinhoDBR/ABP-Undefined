@@ -15,6 +15,9 @@ const session = require('express-session');
 const dotenv = require("dotenv");
 const axios = require('axios');
 
+
+
+
 dotenv.config();
 
 //CRIAR AS TABELAS NO POSTGRES
@@ -71,6 +74,8 @@ const PORTA = process.env.PORTA || 3030;
 const secret = process.env.SESSION_SECRET || 'MYSECRETCOOKIEKEY';
 
 const app = express(); 
+
+app.set('view-engine', 'ejs')
 
 //SESSION STORAGE
 app.use(session({

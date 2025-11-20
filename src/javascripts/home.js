@@ -102,3 +102,5 @@ function renderizarCards(dados, containerId, tipo) {
 }
 
 document.addEventListener("DOMContentLoaded", carregarFeedInicial);
+
+
