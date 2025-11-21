@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="/public/img/logo.png">
+  <title>Cadastro de Notícia</title>
+  <link rel="stylesheet" href="/css/admin_forms.css" />
+</head>
+<body>
+
+  <div class="form-container">
+    <h1 id="form-title">Cadastro de Notícia</h1>
+
+    <div id="loading" class="loading-message">Carregando dados...</div>
+    <div id="error" class="error-message"></div>
+
+    <form id="noticiaForm" style="display: none;">
+      <input type="hidden" id="NoticiasID" name="NoticiasID">
+
+      <div class="form-group">
+        <label for="NoticiasImagemFile">Imagem da Notícia</label>
+        <input type="file" id="NoticiasImagemFile" name="NoticiasImagemFile" accept="image/*">
+        <img id="imagePreview" src="" alt="Pré-visualização da imagem" style="max-width: 200px; margin-top: 10px; display: none;">
+        <input type="hidden" id="NoticiasImagem" name="NoticiasImagem">
+      </div>
+
+      <div class="form-group">
+        <label for="NoticiasData">Data da Notícia *</label>
+        <input type="date" id="NoticiasData" name="NoticiasData" required>
+      </div>
+
+      <div class="form-group">
+        <label for="NoticiasTitulo">Título *</label>
+        <input type="text" id="NoticiasTitulo" name="NoticiasTitulo" maxlength="255" required>
+      </div>
+
+      <div class="form-group">
+        <label for="NoticiasSubtitulo">Subtítulo</label>
+        <input type="text" id="NoticiasSubtitulo" name="NoticiasSubtitulo" maxlength="500" placeholder="Breve descrição da notícia">
+      </div>
+
+     
+      <div class="form-group">
+        <label for="NoticiasConteudo">Conteúdo Principal *</label>
+        <textarea id="NoticiasConteudo" name="NoticiasConteudo" rows="6" required placeholder="Início do conteúdo da notícia..."></textarea>
+        <small>Este é o primeiro parágrafo do conteúdo</small>
+      </div>
+      
+      <div class="form-group">
+        <label for="NoticiasCardcitacao">Citação (Opcional)</label>
+        <textarea id="NoticiasCardcitacao" name="NoticiasCardcitacao" rows="3" maxlength="1000" placeholder='Texto da citação entre aspas...'></textarea>
+        <small>Aparecerá em destaque após o conteúdo principal</small>
+      </div>
+
+      <div class="form-group">
+        <label for="NoticiasConteudoPosCitacao">Conteúdo após Citação (Opcional)</label>
+        <textarea id="NoticiasConteudoPosCitacao" name="NoticiasConteudoPosCitacao" rows="4" placeholder="Continuação do conteúdo após a citação..."></textarea>
+        <small>Texto que aparece depois da citação</small>
+      </div>
+
+          <div class="form-group">
+        <label for="NoticiasTituloCorpo">Título no Corpo do Texto (Opcional)</label>
+        <input type="text" id="NoticiasTituloCorpo" name="NoticiasTituloCorpo" maxlength="200" placeholder="Ex: Vantagens da Tecnologia">
+        <small>Um subtítulo dentro do conteúdo</small>
+      </div>
+
+           <div class="form-group">
+        <label for="NoticiasConteudoTituloCorpo">Conteúdo do Título (Opcional)</label>
+        <textarea id="NoticiasConteudoTituloCorpo" name="NoticiasConteudoTituloCorpo" rows="4" placeholder="Conteúdo relacionado ao título acima..."></textarea>
+        <small>Texto que aparece após o título no corpo</small>
+      </div>
+
+      <div class="form-group">
+        <label for="NoticiasIdioma">Idioma *</label>
+        <select id="NoticiasIdioma" name="NoticiasIdioma" required>
+          <option value="">Selecione...</option>
+          <option value="PT-BR">Português</option>
+          <option value="EN-US">Inglês</option>
+        </select>
+      </div>
+
+      <div class="buttons-group">
+        <button type="button" class="btn-back" onclick="window.location.href='/admin/noticias'">Voltar</button>
+        <button type="submit" class="btn-save" id="btn-save">Salvar</button>
+      </div>
+    </form>
+  </div>
+
+  <script src="../javascripts/admin_cadastronoticias.js" defer></script>
+  
+   <div id="footer-socket"></div>
+</body>
+</html>
