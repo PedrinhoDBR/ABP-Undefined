@@ -781,8 +781,8 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
     <tr><td>AL-052</td>
         <td>Rota para pegar as informações da página de notícias</td>
         <td>3</td>
-        <td></td>
-        <td>❌</td>
+        <td>Ronaldo</td>
+        <td>✔️</td>
         <td></td>
         <td></td>
     </tr>
@@ -855,8 +855,8 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
       <td>AL-064</td>
       <td>Rota para salvar as informações da página de notícias</td>
       <td>5</td>
-      <td></td>
-      <td>⏳</td>
+      <td>Ronaldo</td>
+      <td>✔️</td>
       <td></td>
       <td>RF06, RNF02</td>
     </tr>
@@ -900,8 +900,8 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
       <td>DW-069</td>
       <td>Tela para cadastro de notícias</td>
       <td>5</td>
-      <td></td>
-      <td>⏳</td>
+      <td>Ronaldo</td>
+      <td>✔️</td>
       <td></td>
       <td>RF06, RNF02</td>
     </tr>
@@ -945,8 +945,8 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
       <td>AL-074</td>
       <td>Rota para deletar as informações da página de notícias</td>
       <td>3</td>
-      <td></td>
-      <td>⏳</td>
+      <td>Ronaldo</td>
+      <td>✔️</td>
       <td></td>
       <td>RF06, RNF02</td>
     </tr>
