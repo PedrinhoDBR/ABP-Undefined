@@ -1,163 +1,148 @@
 const express = require('express');
-// const multer = require('multer');
-// const path = require('path');
-const { Op, fn, col, where: whereFn } = require('sequelize');
+const multer = require('multer');
+const path = require('path');
+const crypto = require('crypto');
+const { Op } = require('sequelize');
 const Noticias = require('../models/noticias');
 const router = express.Router();
+const fs = require('fs');
 
-/// Rota para todas as Noticias
-
-
-router.get('/', async (res, req) => {
-
-
-    try {
-        const paginanoticias = await Noticias.findAll({
-            order: [
-                ['id', 'ASC']
-            ]
-        });
-
-        res.json({ results: paginanoticias });
-    } catch(error){
-        console.error('Erro ao buscar a pagina de noticias:', error);
-        res.status(500).json({erro: 'Erro ao buscar noticias', detalhes: error.message});
+// Salvar em public/img/noticias
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        const uploadPath = path.join(__dirname, '..', '..', 'public', 'img', 'noticias');
+        fs.mkdirSync(uploadPath, { recursive: true });
+        cb(null, uploadPath);
+    },
+    filename: (req, file, cb) => {
+        const randomName = crypto.randomBytes(16).toString('hex');
+        const extension = path.extname(file.originalname);
+        cb(null, `${randomName}${extension}`);
     }
+});
 
+const upload = multer({ storage: storage });
 
-})
-
-
-/// Rota pra noticia especifica 
-
-router.get('/:paginanoticiasId', async (req, res) => {
-    const { paginanoticiasId } = req.params;
-
+// GET todas as notícias
+router.get('/', async (req, res) => {
     try {
-
-        const paginanoticias = await Noticias.findByPk(paginanoticiasId)
-
-        if (!paginanoticias) {
-            return res.status(404).json({ erro: "Pagina noticia não pode ser encontrado" })
+        const { idioma, titulo } = req.query;
+        const where = {};
+        
+        if (idioma) {
+            where.NoticiasIdioma = idioma;
+        }
+        
+        if (titulo) {
+            where.NoticiasTitulo = { [Op.like]: `%${titulo}%` };
         }
 
+        const noticias = await Noticias.findAll({
+            where: where,
+            order: [['NoticiasData', 'DESC']]
+        });
 
-        res.json(projeto)
-
-
+        res.json({ results: noticias });
+    } catch(error) {
+        console.error('Erro ao buscar notícias:', error);
+        res.status(500).json({erro: 'Erro ao buscar notícias', detalhes: error.message});
     }
-    catch (error) {
-        console.error('Erro ao buscar noticia:', error);
+});
+
+// GET notícia específica
+router.get('/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const noticia = await Noticias.findByPk(id);
+        if (!noticia) {
+            return res.status(404).json({ erro: "Notícia não encontrada" });
+        }
+        res.json(noticia);
+    } catch (error) {
+        console.error('Erro ao buscar notícia:', error);
         res.status(500).json({
-            erro: 'Erro interno ao buscar noticia',
+            erro: 'Erro interno ao buscar notícia',
             detalhes: error.message
         });
     }
+});
 
-})
-
-router.post('/default' , async (req , res) => {
-    
-    const seed = [
-    {
-       imagem :'../public/img/noticias/imagemcarroselnoticias1.png', 
-       titulo:'Distribuição espacial dos grupos de pesquisa responsáveis pelos artigos identificados e produção (megatons) de cana-de-açúcar para 2021.',
-       Tipo: 'carrosel'
-     
-    },
-   {
-       imagem :'../public/img/1paginanoticia.png',
-       data:'12 de Maio de 2025',
-       titulo:'Sistemas de Irrigação Inteligente Economizam até 50% de Água',
-       subtitulo:'Tecnologia que combina sensores de umidade do solo e dados meteorológicos está revolucionando a forma como a agricultura utiliza recursos hídricos.',
-       conteudo:'',
-       cardcitacao:'',
-       idioma:'PT-BR'
-    },
-  {
-       imagem :'../public/img/noticias/2hovernoticia.png',
-       data:'10 de Maio de 2025',
-       titulo:'Novo Sensor Portátil Realiza Análise de Solo em Tempo Real',
-       subtitulo:'Pesquisadores desenvolvem dispositivo capaz de medir nutrientes do solo instantaneamente, eliminando a espera por laboratórios.',
-       conteudo:'',
-       cardcitacao:'',
-       idioma:'PT-BR'
-    },
-    {
-       imagem :'../public/img/noticias/3hovernoticia.png',
-       data:'07 de Maio de 2025',
-       titulo:'Tecnologias Verdes Transformam a Agricultura Sustentável',
-       subtitulo:'Combinação de sensoriamento remoto e inteligência artificial está criando novas possibilidades para uma agricultura mais ecológica e eficiente.',
-       conteudo:'',
-       cardcitacao:'',
-       idioma:'PT-BR'
-    },
-    {
-       imagem :'../public/img/noticias/4hovernoticia.jpg',
-       data:'29 de Abril de 2025',
-       titulo:'Plataforma Integrada de Monitoramento Agrícola Ganha Prêmio Internacional',
-       subtitulo:'Sistema brasileiro que une dados de satélite, drones e sensores terrestres é reconhecido como inovação do ano no agronegócio.',
-       conteudo:'',
-       cardcitacao:'',
-       idioma:'PT-BR'
-    },
-    {
-       imagem :'../public/img/noticias/5hovernoticia.jpg',
-       data:'14 de Abril de 2025',
-       titulo:'Agricultura Digital: Como a Tecnologia Está Transformando o Campo',
-       subtitulo:'Agricultura Digital: Como a Tecnologia Está Transformando o Campo',
-       conteudo:'',
-       cardcitacao:'',
-       idioma:'PT-BR'
-    },
-    {
-       imagem :'../public/img/noticias/6hovernoticia.jpg',
-       data:'30 de Março de 2025',
-       titulo:'Sistemas de Gestão Agrícola Aumentam Lucratividade em 40%',
-       subtitulo:'Plataformas integradas de gestão estão ajudando produtores a reduzir custos e aumentar a produtividade através de dados em tempo real.',
-       conteudo:'',
-       cardcitacao:'',
-       idioma:'PT-BR'
-    },
-    {
-       imagem :'../public/img/noticias/7hovernoticia.jpg',
-       data:'17 de Março de 2025',
-       titulo:'Monitoramento Climático Preciso Aumenta Segurança na Agricultura',
-       subtitulo:'Tecnologias de previsão do tempo e monitoramento climático estão ajudando agricultores a mitigar riscos e tomar decisões mais assertivas.',
-       conteudo:'',
-       cardcitacao:'',
-       idioma:'PT-BR'
-    },
-    {
-       imagem :'../public/img/noticias/8hovernoticia.jpg',
-       data:'18 de Fevereiro de 2025',
-       titulo:'nergia Solar se Torna Opção Viável para Propriedades Rurais',
-       subtitulo:'Cada vez mais agricultores estão adotando sistemas de energia solar para reduzir custos e aumentar a sustentabilidade de suas operações.',
-       conteudo:'',
-       cardcitacao:'',
-       idioma:'PT-BR'
-    }
-];
+// POST nova notícia
+router.post('/', upload.single('NoticiasImagemFile'), async (req, res) => {
     try {
-        const mapped = seed.map(n => ({
-            //NoticiasTipo: n.type || null,
-            NoticiasImagem: n.imagem ||null,
-            NoticiasData: n.data || null,
-            NoticiasTitulo: n.titulo ||null,
-            NoticiasSubtitulo: n.subtitulo || null,
-            NoticiasConteudo: n.conteudo || null,
-            NoticiasCardcitacao: n.cardcitacao || null,
-            NoticiasIdioma: n.idioma || 'PT-BR'
+        const dados = req.body;
 
-        }));
-   
-        const created = await Noticias.bulkCreate(mapped, { validate: true });
-        res.json({ inserted: created.length, results: created });
+        if (dados.NoticiasID === '') {
+            delete dados.NoticiasID;
+        }
+
+        //  Caminho para /img/noticias/
+        if (req.file) {
+            dados.NoticiasImagem = `/img/noticias/${req.file.filename}`;
+        }
+
+        
+        if (dados.NoticiasData) {
+            // Já deve vir no formato correto do input date
+        }
+
+        console.log('Dados a serem salvos:', dados);
+
+        const novaNoticia = await Noticias.create(dados);
+        res.status(201).json(novaNoticia);
     } catch (error) {
-        console.error('Erro ao inserir noticias padrão:', error);
-        res.status(500).json({ erro: 'Erro ao inserir noticias padrão', detalhes: error.message });
+        console.error('Erro ao criar notícia:', error);
+        res.status(500).json({ 
+            erro: 'Erro ao criar notícia', 
+            detalhes: error.message,
+            stack: error.stack 
+        });
     }
-  
+});
+
+// PUT atualizar notícia
+router.put('/:id', upload.single('NoticiasImagemFile'), async (req, res) => {
+    const { id } = req.params;
+    try {
+        const dados = req.body;
+
+       
+        if (req.file) {
+            dados.NoticiasImagem = `/img/noticias/${req.file.filename}`;
+        }
+
+        const [updated] = await Noticias.update(dados, {
+            where: { NoticiasID: id }
+        });
+
+        if (updated) {
+            const noticiaAtualizada = await Noticias.findByPk(id);
+            return res.json(noticiaAtualizada);
+        }
+        throw new Error('Notícia não encontrada para atualização');
+
+    } catch (error) {
+        console.error('Erro ao atualizar notícia:', error);
+        res.status(500).json({ erro: 'Erro ao atualizar notícia', detalhes: error.message });
+    }
+});
+
+// DELETE notícia
+router.delete('/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const deleted = await Noticias.destroy({
+            where: { NoticiasID: id }
+        });
+
+        if (deleted) {
+            return res.json({ mensagem: "Notícia excluída com sucesso!" });
+        }
+        throw new Error('Notícia não encontrada para exclusão');
+    } catch (error) {
+        console.error('Erro ao excluir notícia:', error);
+        res.status(500).json({ erro: 'Erro interno ao excluir notícia', detalhes: error.message });
+    }
 });
 
 module.exports = router;
