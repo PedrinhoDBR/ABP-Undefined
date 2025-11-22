@@ -125,11 +125,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                 throw new Error(errorResult.erro || 'Erro ao salvar os dados.');
             }
 
-            alert('Publicação salva com sucesso!');
             window.location.href = '/admin/publicacoes';
 
         } catch (err) {
-            alert(`Erro: ${err.message}`);
+            showError(`Erro: ${err.message}`);
         }
     });
 });
