@@ -1,18 +1,17 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const params = new URLSearchParams(window.location.search);
-    const modo = params.get("modo"); // inserir, modificar, visualizar
+    const modo = params.get("modo");
     const id = params.get("Id");
 
-    const form = document.getElementById('membroForm');
-    const formTitle = document.getElementById('form-title'); 
+    const form = document.getElementById('noticiaForm');
+    const title = document.getElementById('form-title');
     const loadingDiv = document.getElementById('loading');
     const errorDiv = document.getElementById('error');
     const saveButton = document.getElementById('btn-save');
     const imagePreview = document.getElementById('imagePreview');
-    const imageFileInput = document.getElementById('MembrosImagemFile');
-    const existingImagePathInput = document.getElementById('MembrosImagem');
+    const imageFileInput = document.getElementById('NoticiasImagemFile');
+    const existingImagePathInput = document.getElementById('NoticiasImagem');
 
-    // Pré-visualização da imagem
     imageFileInput.addEventListener('change', () => {
         const file = imageFileInput.files[0];
         if (file) {
@@ -25,33 +24,36 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
 
-    const setFormState = (isReadOnly) => {
-        const elements = form.querySelectorAll('input, textarea, select');
-        elements.forEach(el => {
-            if (el.type !== 'hidden') {
-                el.disabled = isReadOnly;
-            }
-        });
-        saveButton.style.display = isReadOnly ? 'none' : 'block';
-
-        imageFileInput.style.display = isReadOnly ? 'none' : 'block'; 
-    };
+    //  Formata data para exibição
+    function formatarDataParaInput(data) {
+        if (!data) return '';
+        
+        try {
+            const dataObj = new Date(data);
+            // Ajusta fuso horário para exibição
+            const dataAjustada = new Date(dataObj.getTime() + dataObj.getTimezoneOffset() * 60000);
+            return dataAjustada.toISOString().split('T')[0];
+        } catch (e) {
+            console.error('Erro ao formatar data:', e);
+            return '';
+        }
+    }
 
     const fillForm = (data) => {
         for (const key in data) {
-
-            const el = document.getElementById(key); 
+            const el = document.getElementById(key);
             if (!el) continue;
             
-            if (el.type === "checkbox") {
-                el.checked = data[key];
+            if (key === 'NoticiasData' && data[key]) {
+                // ✅ USA FUNÇÃO CORRIGIDA
+                el.value = formatarDataParaInput(data[key]);
             } else {
-                el.value = data[key] || ''; 
+                el.value = data[key] || '';
             }
         }
         
-        if (data.MembrosImagem) { 
-            imagePreview.src = data.MembrosImagem;
+        if (data.NoticiasImagem) {
+            imagePreview.src = data.NoticiasImagem;
             imagePreview.style.display = 'block';
         }
     };
@@ -60,23 +62,22 @@ document.addEventListener('DOMContentLoaded', async () => {
         loadingDiv.style.display = 'none';
         errorDiv.textContent = message;
         errorDiv.style.display = 'block';
-        form.style.display = 'none';
     };
 
     if (modo === 'inserir') {
-        formTitle.textContent = 'Novo Membro';
-        loadingDiv.style.display = 'none';
+        title.textContent = 'Nova Notícia';
         form.style.display = 'block';
-        setFormState(false);
-    } else if (modo === 'modificar' || modo === 'visualizar') {
+        // DATA ATUAL CORRETA
+        document.getElementById('NoticiasData').value = new Date().toISOString().split('T')[0];
+    } else if (modo === 'modificar') {
         if (!id) {
-            showError("ID do membro não fornecido.");
+            showError("ID da notícia não fornecido.");
             return;
         }
         loadingDiv.style.display = 'block';
 
         try {
-            const response = await fetch(`/api/membros/${id}`); 
+            const response = await fetch(`/api/noticias/${id}`);
             if (!response.ok) {
                 throw new Error(`Erro ao buscar dados: ${response.statusText}`);
             }
@@ -85,41 +86,38 @@ document.addEventListener('DOMContentLoaded', async () => {
             loadingDiv.style.display = 'none';
             form.style.display = 'block';
             fillForm(data);
-
-            if (modo === 'visualizar') {
-                formTitle.textContent = 'Visualizar Membro';
-                setFormState(true); 
-            } else {
-                formTitle.textContent = 'Editar Membro';
-                setFormState(false); 
-            }
+            title.textContent = 'Editar Notícia';
+            
         } catch (err) {
-            showError(`Não foi possível carregar o membro. ${err.message}`);
+            showError(`Não foi possível carregar a notícia. ${err.message}`);
         }
     } else {
         showError("Modo de operação inválido.");
     }
 
-    // Lógica de envio do formulário
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
-        if (modo === 'visualizar') return;
 
         const formData = new FormData(form);
         
-      
-        if (!formData.has('MembrosVisibilidade')) {
-            formData.set('MembrosVisibilidade', false);
-        } else {
-            formData.set('MembrosVisibilidade', true);
+        const noticiasID = formData.get('NoticiasID');
+        if (noticiasID === '') {
+            formData.delete('NoticiasID');
         }
-        
 
+        // Data correta para envio (sem ajuste de fuso)
+        const dataInput = document.getElementById('NoticiasData').value;
+        if (dataInput) {
+            // Mantém a data como está para o servidor
+            formData.set('NoticiasData', dataInput + 'T00:00:00.000Z');
+        }
 
         const method = modo === 'inserir' ? 'POST' : 'PUT';
-        const url = modo === 'inserir' ? '/api/membros' : `/api/membros/${id}`; 
+        const url = modo === 'inserir' ? '/api/noticias' : `/api/noticias/${id}`;
 
         try {
+            console.log('Enviando dados...', Object.fromEntries(formData));
+            
             const response = await fetch(url, {
                 method: method,
                 body: formData
@@ -130,10 +128,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                 throw new Error(errorResult.erro || 'Erro ao salvar os dados.');
             }
 
-            alert('Membro salvo com sucesso!');
-            window.location.href = '/admin/membros';
+            alert('Notícia salva com sucesso!');
+            window.location.href = '/admin/noticias';
 
         } catch (err) {
+            console.error('Erro completo:', err);
             alert(`Erro: ${err.message}`);
         }
     });

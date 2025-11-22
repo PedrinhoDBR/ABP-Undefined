@@ -33,7 +33,13 @@
 
       <div class="form-group">
         <label for="MembrosCargo">Cargo</label>
-        <input type="text" id="MembrosCargo" name="MembrosCargo" maxlength="1000">
+        <select id="MembrosCargo" name="MembrosCargo" class="form-control" required>
+          <option value="" disabled selected>Selecione um Cargo</option>
+          <option value="Pesquisador Coordenador">Pesquisador Coordenador</option>
+          <option value="Pesquisador Associado">Pesquisador Associado</option>
+          <option value="Doutorando">Doutorando</option>
+          <option value="Bolsista">Bolsista</option>
+        </select>
       </div>
 
       <div class="form-group">

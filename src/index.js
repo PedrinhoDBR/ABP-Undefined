@@ -17,7 +17,7 @@ const axios = require('axios');
 
 dotenv.config();
 
-//CRIAR AS TABELAS NO POSTGRES
+// CRIAR AS TABELAS NO POSTGRES
 sequelize.sync({ alter: true })
   .then(async () => {
     console.log('Tabelas sincronizadas com sucesso!');
@@ -28,44 +28,10 @@ sequelize.sync({ alter: true })
         await Users.create({ UserName: 'admin', UserPassword: 'admin123' });
         console.log('Usuário admin criado automaticamente!');
     }
-
-    // default publicacoes
-    const pubCount = await PublicacaoModel.count();
-    if (pubCount === 0) {
-        const publicacoesDefault = require('./routes/publicacoes.routes');
-        if (typeof publicacoesDefault.seedDefault === 'function') {
-            await publicacoesDefault.seedDefault();
-        } else {
-            try {
-                await axios.post(`http://localhost:${process.env.PORTA || 3030}/publicacao/default`);
-                console.log('Seed de publicações executado!');
-            } catch (err) {
-                console.error('Erro ao executar seed de publicações:', err.message);
-            }
-        }
-    }
-
-    // default membros
-    const membrosCount = await MembrosModel.count();
-    if (membrosCount === 0) {
-        const membrosDefault = require('./routes/membros.routes');
-        if (typeof membrosDefault.seedDefault === 'function') {
-            await membrosDefault.seedDefault();
-        } else {
-            try {
-                await axios.post(`http://localhost:${process.env.PORTA || 3030}/membros/default`);
-                console.log('Seed de membros executado!');
-            } catch (err) {
-                console.error('Erro ao executar seed de membros:', err.message);
-            }
-        }
-    }
   })
   .catch((err) => {
     console.error('Erro ao sincronizar tabelas:', err);
   });
-
-//LOGIN DEFAULT
 
 const PORTA = process.env.PORTA || 3030;
 const secret = process.env.SESSION_SECRET || 'MYSECRETCOOKIEKEY';
@@ -80,19 +46,20 @@ app.use(session({
   cookie: { maxAge: 1 * 30 * 60 * 1000 } // 30 min
 }));
 
-
 app.use('/Layout', express.static(path.join(__dirname, 'Layout')));
 app.use('/public', express.static(path.join(__dirname, '..', 'public')));
 app.use('/css', express.static(path.join(__dirname, 'css')));
 app.use('/javascripts', express.static(path.join(__dirname, 'javascripts')));
 app.use('/img', express.static(path.join(__dirname, 'public', 'img')));
 app.use('/pages', express.static(path.join(__dirname, 'pages')));
+app.use(express.static(path.join(__dirname, '..', 'public')));
+app.use('/img', express.static(path.join(__dirname, '..', 'public', 'img')));
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-//paginas html
+// ✅✅✅ ROTAS DE PÁGINAS PRIMEIRO - ESSENCIAIS!
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'pages', 'index.html'));
 });
@@ -117,6 +84,7 @@ app.get('/facaparte', (req, res) => {
     res.sendFile(path.join(__dirname, 'pages', 'facaparte.html'));
 });
 
+
 app.get('/noticias', (req, res) => {
     res.sendFile(path.join(__dirname, 'pages', 'paginanoticias.html'));
 });
@@ -125,17 +93,21 @@ app.get('/equipe', (req, res) => {
     res.sendFile(path.join(__dirname, 'pages', 'membros.html'));
 });
 
-//ROTAS DE ADMIN, ADICIONAR O requireLogin PARA VALIDAR SE O USUARIO ESTÁ LOGADDO
-app.get('/admin',requireLogin, (req, res) => {
+
+app.get('/noticia', (req, res) => {
+    res.sendFile(path.join(__dirname, 'pages', 'noticia_detalhe.html'));
+});
+
+// ROTAS DE ADMIN
+app.get('/admin', requireLogin, (req, res) => {
     res.sendFile(path.join(__dirname, 'pages', '/admin/index.html'));
 });
 
-app.get('/admin/publicacoes',requireLogin, (req, res) => {
+app.get('/admin/publicacoes', requireLogin, (req, res) => {
     res.sendFile(path.join(__dirname, 'pages', '/admin/carteira_publicacoes.html'));
 });
 
 app.get('/admin/publicacao', requireLogin, (req, res) => {
-    const { Id } = req.query;
     res.sendFile(path.join(__dirname, 'pages', '/admin/cadastro_publicacoes.html'));
 });
 
@@ -152,23 +124,39 @@ app.get('/admin/membro', requireLogin, (req, res) => {
     res.sendFile(path.join(__dirname, 'pages', '/admin/cadastro_membros.html'));
 });
 
+app.get('/admin/projetos', requireLogin, (req, res) => {
+    res.sendFile(path.join(__dirname, 'pages', '/admin/carteira_projetos.html'));
+});
 
-//rotas publicas
+app.get('/admin/projeto', requireLogin, (req, res) => {
+    res.sendFile(path.join(__dirname, 'pages', '/admin/cadastro_projetos.html'));
+});
+
+app.get('/admin/noticias', requireLogin, (req, res) => {
+    res.sendFile(path.join(__dirname, 'pages', '/admin/carteira_noticias.html'));
+});
+
+app.get('/admin/noticia', requireLogin, (req, res) => {
+    res.sendFile(path.join(__dirname, 'pages', '/admin/cadastro_noticias.html'));
+});
+
+
+app.use('/api/noticias', Noticias); 
 app.use('/publicacao', Publicacao);
 app.use('/projeto', Projetos);
-app.use('/membros', Membros);
-app.use('/noticias', Noticias);
+app.use('/api/membros', Membros);
 app.use('/user', UserRoutes);
 app.use('/contato', contato);
 
-
+// Rota para qualquer outra requisição
 app.use(function(req, res){
     res.json({erro:"Rota desconhecida", path: req.path});
 });
 
-app.listen(PORTA,'0.0.0.0', () => {
-    console.log(`Rodando na porta ${PORTA}...`);
+app.listen(PORTA, '0.0.0.0', () => {
+    console.log(`✅ Servidor rodando na porta ${PORTA}...`);
     console.log(`🏠 Página principal: http://localhost:${PORTA}/`);
+    console.log(`👨‍💼 Admin : http://localhost:${PORTA}/admin/`);
 });
 
 function requireLogin(req, res, next) {

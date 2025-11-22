@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function loadMembros() {
       tbody.innerHTML = `<tr><td colspan="6" class="loading">Carregando membros...</td></tr>`;
       try {
-        const res = await fetch('/membros?limit=1000'); // Use relative path
+        const res = await fetch('/api/membros?limit=1000'); // Use relative path
         const data = await res.json();
         allMembros = data.results || [];
         filtered = allMembros;
@@ -70,8 +70,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
   
         deleteBtn.addEventListener('click', async () => {
-          if (confirm(`Deseja realmente inativar o membro "${pub.MembrosNome}"?`)) {
-            await deleteMembro(pub.MembrosID);
+          if (confirm(`Deseja realmente excluir o membro "${pub.MembrosNome}"?`)) {
+            await deleteMembros(pub.MembrosID);
             await loadMembros();
           }
         });
@@ -133,13 +133,28 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   
     async function deleteMembros(id) {
-      try {
-        await fetch(`/membros/inativar/${id}`, { method: 'PUT' }); // Call inactivation endpoint
-        alert('Membro inativado com sucesso!');
-      } catch (err) {
-        alert('Erro ao inativar membro.');
-      }
+    try {
+        const response = await fetch(`/api/membros/${id}`, {
+            method: 'DELETE' 
+        });
+        
+        if (response.status === 204) {
+            alert('Membro excluído permanentemente com sucesso!');
+            return; 
+        }
+        
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.erro || response.statusText);
+        }
+        alert('Membro excluído permanentemente com sucesso!');
+
+    } catch (err) {
+        console.error('Erro ao excluir membro:', err);
+        alert(`Erro ao excluir membro: ${err.message}`); 
+        throw err;
     }
+}
   
     document.addEventListener('click', () => {
       document.querySelectorAll('.admin-menu-dropdown.open').forEach(d => d.classList.remove('open'));

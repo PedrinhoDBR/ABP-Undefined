@@ -68,7 +68,7 @@ router.get('/:id', async (req, res) => {
 });
 
 
-router.post('/', upload.single('MembroImagemFile'), async (req, res) => {
+router.post('/', upload.single('MembrosImagemFile'), async (req, res) => {
     try {
         const dados = req.body;
 
@@ -86,7 +86,7 @@ router.post('/', upload.single('MembroImagemFile'), async (req, res) => {
     }
 });
 
-router.put('/:id', upload.single('MembroImagemFile'), async (req, res) => {
+router.put('/:id', upload.single('MembrosImagemFile'), async (req, res) => {
     const { id } = req.params;
     try {
         const dados = req.body;
@@ -126,6 +126,23 @@ router.put('/inativar/:id', async (req, res) => {
     } catch (error) {
         console.error('Erro ao inativar membro:', error);
         res.status(500).json({ erro: 'Erro interno ao inativar membro', detalhes: error.message });
+    }
+});
+
+router.delete('/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const deleted = await Membros.destroy({
+            where: { MembrosID: id }
+        });
+
+        if (deleted) {
+            return res.status(204).send(); 
+        }
+        return res.status(404).json({ erro: 'Membro não encontrado para exclusão' });
+    } catch (error) {
+        console.error('Erro ao deletar membro:', error);
+        res.status(500).json({ erro: 'Erro interno ao deletar membro', detalhes: error.message });
     }
 });
 
