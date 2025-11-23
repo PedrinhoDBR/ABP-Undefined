@@ -165,6 +165,11 @@ header {
   margin-right: 0px;
 }
 
+.idioma .menu-button {
+  position: relative;
+  display: flex;
+  margin-right: 0px;
+}
 
 .atuacao .menu-button {
   position: relative;
@@ -223,6 +228,12 @@ header {
   transform: scale(1);
   display: flex;
 }
+
+.idioma:hover .submenu {
+  transform: scale(1);
+  display: flex;
+}
+
 
 .atuacao:hover .submenuAtuacao {
   display: flex;
@@ -540,19 +551,12 @@ footer a {
     max-width: 7rem;
   }
 
-
-
-  #footer2 img{
-    height: 2rem;
-    width: 2rem;
-
+    #footer2 img{
+      height: 2rem;
+      width: 2rem;
+    }
   }
 
-  
-
-  
 
 
 
-
-}

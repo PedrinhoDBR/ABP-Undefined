@@ -47,7 +47,7 @@ module.exports = router;
 // Rota para criar/ inserir um novo projeto - RESPONDE A POST /projeto/
 router.post('/', async (req, res) => {
     // configurar dest para imagens
-    const uploadDir = path.join(__dirname, '..', '..', 'public', 'img', 'projetos');
+    const uploadDir = path.join(__dirname, '..', '..', 'public', 'uploads', 'projetos');
     if (!fs.existsSync(uploadDir)) {
         fs.mkdirSync(uploadDir, { recursive: true });
     }
@@ -77,13 +77,13 @@ router.post('/', async (req, res) => {
 
             // Imagens: se arquivo enviado, use o arquivo, senão use valor do campo hidden (campos ImagemCarrossel/ImagemCard)
             if (files && files.ImagemCarrosselFile && files.ImagemCarrosselFile[0]) {
-                data.ImagemCarrossel = '/img/projetos/' + files.ImagemCarrosselFile[0].filename;
+                data.ImagemCarrossel = '/uploads/projetos/' + files.ImagemCarrosselFile[0].filename;
             } else if (body.ImagemCarrossel) {
                 data.ImagemCarrossel = body.ImagemCarrossel;
             }
 
             if (files && files.ImagemCardFile && files.ImagemCardFile[0]) {
-                data.ImagemCard = '/img/projetos/' + files.ImagemCardFile[0].filename;
+                data.ImagemCard = '/uploads/projetos/' + files.ImagemCardFile[0].filename;
             } else if (body.ImagemCard) {
                 data.ImagemCard = body.ImagemCard;
             }

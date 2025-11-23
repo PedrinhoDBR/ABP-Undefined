@@ -1,33 +1,11 @@
 
 
-// Carrosel
-
-// const lista = new SimpleLinkedList()
-
 
 let slideAtual = 0;
 
 let slideAtualEquipe = 0;
 
 const slides = document.querySelectorAll(".carrosel")
-
-// slides.forEach((slide => {
-//     lista.add(slide)
-// }))
-
-// function paraCada(lista, func){
-//     for(let i = 0; i<lista.length ; i++){
-//         func(lista[i])
-//     }
-// }
-
-// paraCada(slides, (a) => {
-//     lista.add(a)
-// })
-
-// só nois dois no meio do ba
-
-
 
 const slide0 = document.querySelector("#slide0")
 
@@ -124,110 +102,77 @@ const leftArrowTeam = document.querySelector("#leftArrow")
 const rightArrowTeam = document.querySelector("#rightArrow")
 
 
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        // Recupera o idioma da sessão
+        const idiomaResponse = await fetch('/get-idioma');
+        const { idioma } = await idiomaResponse.json();
 
-// leftArrowTeam.addEventListener('click', () => {
-//    let click = 1
+        // Busca os dados da rota /inicial
+        const res = await fetch(`/inicial`);
+        const { publicacoes, membros, noticias, projetos } = await res.json();
 
+        // Renderiza os dados na página
+        renderNoticias(noticias, idioma);
+        renderProjetos(projetos, idioma);
+        renderPublicacoes(publicacoes, idioma);
+        renderEquipe(membros, idioma);
+    } catch (error) {
+        console.error('Erro ao carregar dados:', error);
+    }
+});
 
-//    for(i = 1; i < click; click++){}
+function renderNoticias(noticias, idioma) {
+    const container = document.querySelector('.carroselBox');
+    container.innerHTML = noticias.map((noticia, index) => `
+        <div class="carrosel" id="slide${index}">
+            <img src="${noticia.NoticiasImagem}" alt="${noticia.NoticiasTitulo}">
+            <div class="carroselText">
+                <h3>${noticia.NoticiasTitulo}</h3>
+                <p>${noticia.NoticiasResumo}</p>
+            </div>
+        </div>
+    `).join('');
+}
 
-//    slidesCarrosel.forEach((slide => {
-//       slide.style.transition = 'transform 200ms'
-//      slide.style.transform = `translate(-${click *10}px)`
-//      click++
-//    //   slide.style.transform = `translate(-(${calc(click * 10)})px)`
-     
+function renderProjetos(projetos, idioma) {
+    const container = document.querySelector('.cardsBox');
+    container.innerHTML = projetos.map(projeto => `
+        <div class="card cardWide">
+            <div class="cardImg">
+                <img src="${projeto.ProjetosImagem}" alt="${projeto.ProjetosTitulo}">
+            </div>
+            <div class="cardText">
+                <h4>${projeto.ProjetosTitulo}</h4>
+                <p>${projeto.ProjetosResumo}</p>
+            </div>
+        </div>
+    `).join('');
+}
 
-//    }))
+function renderPublicacoes(publicacoes, idioma) {
+    const container = document.querySelector('.cardsBox');
+    container.innerHTML = publicacoes.map(pub => `
+        <div class="card cardWide">
+            <div class="cardImg">
+                <img src="${pub.PublicacaoImagem}" alt="${pub.PublicacaoTitulo}">
+            </div>
+            <div class="cardText">
+                <h4>${pub.PublicacaoTitulo}</h4>
+                <p>${pub.PublicacaoResumo}</p>
+            </div>
+        </div>
+    `).join('');
+}
 
-//    if(slideAtualEquipe == 2){
-//       slideAtualEquipe--
-// slidesCarrosel.forEach((slide => {
-// slide.style.transition = 'transform 200ms'
-// slide.style.transform = "translate(-50px)"
-
-// }))
-
-// }
-// else if(slideAtualEquipe == 1){
-//               slideAtual--
-// slidesCarrosel.forEach((slide => {
-// slide.style.transition = 'transform 200ms'
-// slide.style.transform = "translate(-200px)"
-
-// }))
-
-
-// }
-// else{
-// slideAtualEquipe = 2
-// slidesCarrosel.forEach((slide => {
-// slide.style.transition = 'transform 200ms'
-// slide.style.transform = "translate(-100px)"
-
-// }))
-// }
-
-
-
-
-
-
-
-
-// outra lógica, cada vez que clica aumenta a quantidade pra uma direção, cliquei 1x = -50px, cliquei 2x = -100px...
-
-
-// })
-
-
-
-
-
-
-
-
-
-
-
-
-// class SimpleLinkedList{
-//     constructor(list=[], current=0){
-//         this.list = list
-//         this.current = current
-//     }
-
-//     renderLeft(){
-        
-//     }
-
-//     previous(){
-//         if(this.current == 0){
-//             this.current = this.list.length - 1
-//         } else {
-//             this.current--
-//         }
-//         this.renderLeft()
-//     }
-
-//     getCurrent(){
-//         return this.list[this.current]
-//     }
-
-//     next(){
-//         if(this.current == this.list.length - 1){
-//             this.current = 0
-//         } else {
-//             this.current++
-//         }
-//         this.renderRight()
-//     }
-
-//     add(data){
-//         this.list.push(data)
-//     }
-
-
-// }
-
-
+function renderEquipe(membros, idioma) {
+    const container = document.querySelector('.equipeCarrosel');
+    container.innerHTML = membros.map(membro => `
+        <div class="cardEquipeMiniatura">
+            <img src="${membro.MembrosImagem}" alt="${membro.MembrosNome}">
+            <div class="cardTextEquipe">
+                <p>${membro.MembrosNome}</p>
+            </div>
+        </div>
+    `).join('');
+}

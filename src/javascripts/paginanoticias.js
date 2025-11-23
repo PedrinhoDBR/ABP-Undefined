@@ -467,49 +467,95 @@ function limparFiltros() {
     paginaAtual = 1; // Volta para primeira página
     limparECarregarCards();
 }
+document.addEventListener('DOMContentLoaded', function () {
+    const filterAno = document.getElementById('filter-ano');
+    const filterSearch = document.getElementById('filter-search');
+    const newsGrid = document.getElementById('news-grid');
 
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('🚀 Página de notícias carregada');
-    
-    const filtroIdioma = document.getElementById('filtro-idioma');
-    const botaoFiltrar = document.getElementById('botao-filtrar');
-    const botaoLimpar = document.getElementById('botao-limpar');
-    const btnAnterior = document.getElementById('pagina-anterior');
-    const btnProximo = document.getElementById('proxima-pagina');
-    
-    // CARREGA NOTÍCIAS INICIAIS
-    carregarNoticias(idiomaAtual);
-    
-    if (filtroIdioma) {
-        filtroIdioma.addEventListener('change', function() {
-            idiomaAtual = this.value;
-            console.log(`🌐 Idioma alterado para: ${idiomaAtual}`);
-            carregarNoticias(idiomaAtual);
-        });
-    }
-    
-    if (botaoFiltrar) {
-        botaoFiltrar.addEventListener('click', aplicarFiltrosAvancados);
-    }
-    
-       if (botaoLimpar) {
-        botaoLimpar.addEventListener('click', limparFiltros);
-    }
-    
-       if (btnAnterior) {
-        btnAnterior.addEventListener('click', () => {
-            if (paginaAtual > 1) {
-                mudarPagina(paginaAtual - 1);
+    let currentPage = 1;
+    const itemsPerPage = 12;
+
+    // Função para buscar notícias do backend
+    async function fetchNews() {
+        try {
+            const ano = document.getElementById('filter-ano').value;
+            const titulo = document.getElementById('filter-search').value;
+            const idioma = await getIdiomaFromSession(); 
+            console.log('ano',ano)
+            const params = new URLSearchParams();
+            if (ano) params.append('ano', ano);
+            if (titulo) params.append('titulo', titulo);
+            params.append('idioma', idioma);
+
+            const response = await fetch(`/api/noticias?${params.toString()}`);
+            const data = await response.json();
+
+            if (response.ok) {
+                renderNews(data.results);
+                updatePagination(data.page, Math.ceil(data.total / CARDS_POR_PAGINA));
+            } else {
+                console.error('Erro ao buscar notícias:', data.erro);
             }
-        });
+        } catch (error) {
+            console.error('Erro ao buscar notícias:', error);
+        }
     }
-    
-       if (btnProximo) {
-        btnProximo.addEventListener('click', () => {
-            const totalPaginas = Math.ceil(noticiasFiltradas.length / CARDS_POR_PAGINA);
-            if (paginaAtual < totalPaginas) {
-                mudarPagina(paginaAtual + 1);
-            }
-        });
+
+async function getIdiomaFromSession() {
+    try {
+        const response = await fetch('/get-idioma');
+        const data = await response.json();
+        return data.idioma || 'PT-BR'; // Retorna o idioma ou 'PT-BR' como padrão
+    } catch (error) {
+        console.error('Erro ao buscar idioma da sessão:', error);
+        return 'PT-BR';
     }
+}
+
+    // Função para renderizar as notícias
+function renderNews(news) {
+    newsGrid.innerHTML = news.map(item => {
+        const dataNoticia = new Date(item.NoticiasData); // Converte a data
+        const anoNoticia = dataNoticia.getFullYear(); // Extrai o ano
+
+        return `
+            <div class="news-card">
+                <div class="news-image">
+                    <img src="${item.NoticiasImagem || '/public/img/placeholder.jpg'}" alt="${item.NoticiasTitulo}">
+                </div>
+                <div class="news-content">
+                    <div class="news-date">${anoNoticia}</div>
+                    <h4 class="news-title">${item.NoticiasTitulo}</h4>
+                    <p class="news-excerpt">${item.NoticiasConteudo}</p>
+                    <a href="/noticia?id=${item.NoticiasID}" class="news-read-more">Leia mais</a>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+    // Função para atualizar a paginação
+    function updatePagination(page, totalPages) {
+        const paginationContainer = document.querySelector('.pagination-container');
+        paginationContainer.style.display = totalPages > 1 ? 'flex' : 'none';
+
+        const pageInfo = document.querySelector('.page-info');
+        pageInfo.textContent = `Mostrando página ${page} de ${totalPages}`;
+    }
+
+    // Event listeners para os filtros
+    filterAno.addEventListener('change', fetchNews);
+    filterSearch.addEventListener('input', debounce(fetchNews, 300));
+
+    // Função debounce para otimizar a busca
+    function debounce(func, wait) {
+        let timeout;
+        return function (...args) {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(this, args), wait);
+        };
+    }
+
+    // Carregamento inicial
+    fetchNews();
 });

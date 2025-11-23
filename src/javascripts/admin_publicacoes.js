@@ -135,9 +135,9 @@ document.addEventListener('DOMContentLoaded', () => {
   async function deletePublicacao(id) {
     try {
       await fetch(`/publicacao/inativar/${id}`, { method: 'PUT' }); // Call inactivation endpoint
-      alert('Publicação inativada com sucesso!');
+      // alert('Publicação inativada com sucesso!');
     } catch (err) {
-      alert('Erro ao inativar publicação.');
+      // alert('Erro ao inativar publicação.');
     }
   }
 

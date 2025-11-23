@@ -9,6 +9,8 @@ const Noticias = require('./routes/noticias.routes');
 const UserRoutes = require('./routes/user.routes');
 const PublicacaoModel = require('./models/publicacao');
 const MembrosModel = require('./models/membros');
+const NoticiasModel = require('./models/noticias');
+const ProjetosModel = require('./models/projetos'); 
 const contato = require('./routes/contato.routes');
 const Users = require('./models/user');
 const session = require('express-session');
@@ -58,6 +60,14 @@ app.use('/img', express.static(path.join(__dirname, '..', 'public', 'img')));
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use((req, res, next) => {
+    if (!req.session.idioma) {
+        req.session.idioma = 'PT-BR'; 
+    }
+    res.locals.idioma = req.session.idioma; 
+    next();
+});
 
 // ✅✅✅ ROTAS DE PÁGINAS PRIMEIRO - ESSENCIAIS!
 app.get('/', (req, res) => {
@@ -148,7 +158,34 @@ app.use('/api/membros', Membros);
 app.use('/user', UserRoutes);
 app.use('/contato', contato);
 
-// Rota para qualquer outra requisição
+app.get('/inicial', async (req, res) => {
+    const idioma = req.session.idioma || 'PT-BR'; 
+    console.log('recuperando dados para o idioma:', idioma);
+    try {
+        const publicacoes = await PublicacaoModel.findAll({ where: { PublicacaoIdioma: idioma } });
+        const membros = await MembrosModel.findAll({ where: { MembrosIdioma: idioma } });
+        const noticias = await NoticiasModel.findAll({ where: { NoticiasIdioma: idioma } });
+        const projetos = await ProjetosModel.findAll({ where: { ProjetosIdioma: idioma } });
+
+        res.json({ publicacoes, membros, noticias, projetos });
+    } catch (error) {
+        console.error('Erro ao carregar dados:', error);
+        res.status(500).json({ erro: 'Erro ao carregar dados.' });
+    }
+});
+
+app.get('/get-idioma', (req, res) => {
+    res.json({ idioma: req.session.idioma || 'PT-BR' });
+});
+
+app.post('/alterar-idioma', (req, res) => {
+    const { idioma } = req.body;
+    if (idioma) {
+        req.session.idioma = idioma; 
+    }
+    res.status(200).json({ message: 'Idioma alterado com sucesso' });
+});
+
 app.use(function(req, res){
     res.json({erro:"Rota desconhecida", path: req.path});
 });
