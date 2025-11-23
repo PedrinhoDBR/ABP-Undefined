@@ -111,6 +111,19 @@ app.get('/admin/publicacao', requireLogin, (req, res) => {
     res.sendFile(path.join(__dirname, 'pages', '/admin/cadastro_publicacoes.html'));
 });
 
+app.get('/admin/publicacao', requireLogin, (req, res) => {
+    const { Id } = req.query;
+    res.sendFile(path.join(__dirname, 'pages', '/admin/cadastro_publicacoes.html'));
+});
+
+app.get('/admin/membros', requireLogin, (req, res) => {
+    res.sendFile(path.join(__dirname, 'pages', '/admin/carteira_membros.html'));
+});
+
+app.get('/admin/membro', requireLogin, (req, res) => {
+    res.sendFile(path.join(__dirname, 'pages', '/admin/cadastro_membros.html'));
+});
+
 app.get('/admin/projetos', requireLogin, (req, res) => {
     res.sendFile(path.join(__dirname, 'pages', '/admin/carteira_projetos.html'));
 });
@@ -131,7 +144,7 @@ app.get('/admin/noticia', requireLogin, (req, res) => {
 app.use('/api/noticias', Noticias); 
 app.use('/publicacao', Publicacao);
 app.use('/projeto', Projetos);
-app.use('/membros', Membros);
+app.use('/api/membros', Membros);
 app.use('/user', UserRoutes);
 app.use('/contato', contato);
 
