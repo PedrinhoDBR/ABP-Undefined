@@ -37,20 +37,44 @@ router.post('/enviar', async (req, res) => {
     const mailOptions = {
         from: `"${dadosFormulario.nome}" <${dadosFormulario.email_remetente}>`,
         to: EMAIL_DESTINO,
-        subject: `Novo contato de site de ${dadosFormulario.nome}`,
+        subject: `Novo contato de ${dadosFormulario.nome}`,
         html: `
-        <div style="font-family: Arial, sans-serif; line-height: 1.6;">
-        <h2 style="color: #333;">Mensagem de ${dadosFormulario.nome}</h2>
-        <hr>
-        <p><strong>E-mail de Resposta:</strong> <a href="mailto:${dadosFormulario.email_remetente}">${dadosFormulario.email_remetente}</a></p>
-        
-        <h3 style="color: #555;">Conteúdo:</h3>
-        <div style="border: 1px solid #ccc; padding: 15px; background-color: #f9f9f9;">
-            <p>${dadosFormulario.mensagem}</p>
+        <div style="font-family: Arial, sans-serif; line-height: 1.6; padding: 20px;">
+            
+            <h1 style="color: #1a73e8; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 20px;">
+                Novo Contato do Site
+            </h1>
+
+            <h2 style="color: #333; font-size: 18px; margin-bottom: 10px;">
+                Dados do Remetente
+            </h2>
+            <p style="margin-bottom: 10px;">
+                <strong>Nome:</strong> ${dadosFormulario.nome}
+            </p>
+            <p style="margin-bottom: 20px;">
+                <strong>E-mail para Resposta:</strong> 
+                <a href="mailto:${dadosFormulario.email_remetente}" style="color: #1a73e8; text-decoration: none;">
+                    ${dadosFormulario.email_remetente}
+                </a>
+            </p>
+
+            <h2 style="color: #333; font-size: 18px; margin-bottom: 15px;">
+                Mensagem Enviada:
+            </h2>
+            <div style="border: 1px solid #ddd; padding: 15px; background-color: #f9f9f9; border-radius: 4px;">
+                <p style="margin: 0; white-space: pre-wrap;">
+                    ${dadosFormulario.mensagem}
+                </p>
+            </div>
+            
+            <p style="margin-top: 30px; font-size: 12px; color: #999;">
+                Esta mensagem foi enviada automaticamente pelo formulário de contato do site.
+            </p>
         </div>
-    </div>
     `
     };
+
+
     try {
         await transporter.sendMail(mailOptions);
         console.log(`E-mail enviado com sucesso de ${dadosFormulario.email_remetente}`);
