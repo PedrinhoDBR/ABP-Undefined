@@ -270,7 +270,7 @@ class ProjetosManager {
         }
 
         card.innerHTML = `
-            <a href="/pages/projetoCONAB.html?project=${projeto.ProjetosId}" title="${projeto.ProjetosTitulo}" class="card-link">
+            <a href="/projeto?project=${projeto.ProjetosId}" title="${projeto.ProjetosTitulo}" class="card-link">
                 <div class="card-img-container">
                     <img src="${imagemCard}" alt="${projeto.ProjetosTitulo}" class="card-img" onerror="this.style.display='none'">
                 </div>

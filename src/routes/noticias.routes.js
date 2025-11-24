@@ -47,6 +47,7 @@ router.get('/', async (req, res) => {
             where: where,
             order: [['NoticiasData', 'DESC']]
         });
+        console.log(noticias.length);
 
         res.json({ results: noticias });
     } catch (error) {

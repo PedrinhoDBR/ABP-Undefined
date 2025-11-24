@@ -513,6 +513,7 @@ function renderNews(news) {
     newsGrid.innerHTML = news.map(item => {
         const dataNoticia = new Date(item.NoticiasData);
         let dataFormatada = '';
+        console.log(dataNoticia)
         if (!isNaN(dataNoticia.getTime())) {
             const dia = String(dataNoticia.getDate()).padStart(2, '0');
             const mes = String(dataNoticia.getMonth() + 1).padStart(2, '0');

@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const menuBtn = row.querySelector('.admin-menu-btn');
 
       showBtn.addEventListener('click', () => {
-        window.open(`/pages/projetoCONAB.html?project=${projeto.ProjetosId}`, '_blank');
+        window.open(`/projeto?project=${projeto.ProjetosId}`, '_blank');
       });
 
       modifyBtn.addEventListener('click', () => {
