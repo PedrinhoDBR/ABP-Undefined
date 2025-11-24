@@ -183,9 +183,7 @@ class ProjetosManager {
 
     init() {
         if (this.projetosCarregados) return;
-        
-        console.log('Iniciando ProjetosManager...');
-        
+
         if (this.currentPage === 'project-detail') {
             this.renderProjectDetail();
         } else {
@@ -196,10 +194,8 @@ class ProjetosManager {
     }
 
     async renderProjectsList() {
-        console.log('Carregando lista de projetos...');
-        
+   
         const containers = document.querySelectorAll('.cardsProjetos');
-        console.log('Containers encontrados:', containers.length);
 
         if (!containers.length) return;
 
@@ -209,7 +205,6 @@ class ProjetosManager {
 
             const data = await response.json();
             const todosProjetos = data.results || [];
-            console.log('Projetos no banco:', todosProjetos.length);
 
             containers[0].classList.remove('vazia');
             containers[1].classList.remove('vazia');
@@ -219,13 +214,11 @@ class ProjetosManager {
             if (todosProjetos.length === 0) return;
 
             const projetosUnicos = this.removerDuplicatas(todosProjetos);
-            console.log('Projetos únicos:', projetosUnicos.length);
 
             const projetosAtivos = projetosUnicos
                 .filter(projeto => projeto.Ativo !== false)
                 .sort((a, b) => (a.OrdemdeExibicao || 0) - (b.OrdemdeExibicao || 0));
 
-            console.log('Projetos ativos:', projetosAtivos.length);
 
             const projetosLinha1 = projetosAtivos.slice(0, 3);
             const projetosLinha2 = projetosAtivos.slice(3, 6);
@@ -240,9 +233,6 @@ class ProjetosManager {
                 containers[1].appendChild(card);
             });
 
-            console.log('Cards linha 1:', containers[0].children.length);
-            console.log('Cards linha 2:', containers[1].children.length);
-
         } catch (error) {
             console.error('Erro ao carregar projetos:', error);
         }
@@ -252,7 +242,7 @@ class ProjetosManager {
         const idsVistos = new Set();
         return projetos.filter(projeto => {
             if (idsVistos.has(projeto.ProjetosId)) {
-                console.log('Removendo duplicata:', projeto.ProjetosId);
+
                 return false;
             }
             idsVistos.add(projeto.ProjetosId);
@@ -296,7 +286,6 @@ class ProjetosManager {
 
     async renderProjectDetail() {
         const projetoId = this.currentProject;
-        console.log('Carregando detalhes do projeto:', projetoId);
 
         try {
             const response = await fetch(`${this.apiBaseURL}/projeto/${projetoId}`);
@@ -306,7 +295,7 @@ class ProjetosManager {
             }
 
             const project = await response.json();
-            console.log('Projeto carregado:', project);
+
             this.updateProjectDetail(project);
 
         } catch (error) {

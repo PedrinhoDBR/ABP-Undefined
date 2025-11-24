@@ -36,7 +36,7 @@
 
 <body>
 
-    <div id="header-socket"></div>
+  <div id="header-socket"></div>
 
     <div class="container">
         <section>
@@ -56,36 +56,7 @@
                 </div>
  <a href="/noticias">
                 <div class="carrosel" id="slide0">
-                    <img src="../public/img/2hovernoticia.png" alt="">
-
-
-                    <div class="carroselText">
-                        <h3>Novo Sensor Portátil Realiza Análise de Solo em Tempo Real</h3>
-                        <p>Pesquisadores desenvolvem dispositivo capaz de medir nutrientes do solo instantaneamente,
-                            eliminando a espera por laboratórios.
-
-                        </p>
-                        <div>
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="carrosel" id="slide1">
-                    <img src="../public/img/imagemCarroselNoticia.png" alt="">
-
-
-                    <div class="carroselText">
-                        <h3>Sistemas de Irrigação Inteligente Economizam até 50% de Água</h3>
-                        <p>Tecnologia que combina sensores de umidade do solo e dados meteorológicos está revolucionando
-                            a
-                            forma como a agricultura utiliza recursos hídricos.</p>
-                        <div>
-
-                        </div>
-                    </div>
-
-
+                    <!-- Notícias serão carregadas dinamicamente -->
                 </div>
                 <div class="carrosel" id="slide2">
                     <img src="../public/img/3hovernoticia.png" alt="">
@@ -107,6 +78,7 @@
                 
 
             </div>
+            <button type="button" id="btnMaisNoticias">Mais Notícias</button>
         </section>
         <section>
             <a href="/noticias"><button type="button">Mais Notícias</button></a>
@@ -127,123 +99,66 @@
         <section>
             <h2>EQUIPE</h2>
             <div class="equipeBox">
-                <div class="arrowEquipe">
-                    <span class="material-symbols-outlined setasEquipe" id="leftArrow">
-                        arrow_forward_ios
-                    </span>
-                    <span class="material-symbols-outlined setasEquipe" id="rightArrow">
-                        arrow_forward_ios
-                    </span>
-                </div>
-
                 <div class="equipeCarrosel">
-
-                    <div class="cardEquipeMiniatura" id="cardEquipe1">
-                        <img src="../public/img/equipe/Andre_Garcia.jpeg" alt="">
-                        <div class="cardTextEquipe">
-                            <p>André Garcia</p>
-                        </div>
-                    </div>
-                    <div class="cardEquipeMiniatura" id="cardEquipe2">
-                        <img src="../public/img/equipe/Cleverton_Santana.jpeg" alt="">
-                        <div class="cardTextEquipe">
-                            <p>Cleverton Santana</p>
-                        </div>
-                    </div>
-                    <div class="cardEquipeMiniatura" id="cardEquipe3">
-                        <img src="../public/img/equipe/Darlan_Teles.jpeg" alt="">
-                        <div class="cardTextEquipe">
-                            <p>Darlan Teles</p>
-                        </div>
-                    </div>
-                    <div class="cardEquipeMiniatura" id="cardEquipe4">
-                        <img src="../public/img/equipe/Gabriel_Sansigolo.jpeg" alt="">
-                        <div class="cardTextEquipe">
-                            <p>Gabriel Sansigolo</p>
-                        </div>
-                    </div>
-                    <div class="cardEquipeMiniatura" id="cardEquipe5">
-                        <img src="../public/img/equipe/Grazieli_Rodigheri.jpeg" alt="">
-                        <div class="cardTextEquipe">
-                            <p>Grazieli Rodigheri</p>
-                        </div>
-                    </div>
-                    <div class="cardEquipeMiniatura" id="cardEquipe6">
-                        <img src="../public/img/equipe/Lorrany_Colegnac.jpg" alt="">
-                        <div class="cardTextEquipe">
-                            <p>Lorrany Colegnac</p>
-                        </div>
-                    </div>
-                    <div class="cardEquipeMiniatura" id="cardEquipe7">
-                        <img src="../public/img/equipe/Marcos_Adami.jpg" alt="">
-                        <div class="cardTextEquipe">
-                            <p>Marcos Adami</p>
-                        </div>
-                    </div>
+                    <!-- Membros da equipe serão carregados dinamicamente aqui -->
                 </div>
-
-            </div>
-
-
-        </section>
-        <section class="formSection">
-            <div class="formSection">
-                <div class="map">
-                    <h2>NOSSA LOCALIZAÇÃO:</h2>
-                    <div class="inpeMAP"><img src="../public/img/Basemap image.png" alt="" width="400"></div>
-                    <p>Avenida dos Astronautas, 1.758 - Jd. Granja - CEP 12227-010 São José dos Campos - SP - Brasil
-                    </p>
-                </div>
-
-                <div class="form">
-                    <h2>ENTRE EM CONTATO:</h2>
-                    <form action="" method="post">
-                        <input type="text" name="nome" id="" placeholder="Seu nome...">
-                    </form>
-                    <form action="" method="post">
-                        <input type="email" name="email" placeholder="Seu email...">
-                    </form>
-                    <div id="assuntoBox">
-                        <form action="" method="post">
-                            <textarea name="textarea" id="" placeholder="Assunto..."></textarea>
-                    </div>
-
-                    </form>
-                    <div class="buttonForm">
-                        <button type="submit">ENVIAR</button>
-                    </div>
-
-                </div>
-
             </div>
         </section>
-        <section>
-            <h2>COLABORADORES</h2>
-            <div class="areaColaboradores">
-                <div class="colabBox">
-                    <a target="_blank" href="https://www.gov.br/capes/pt-br"><img
-                            src="../public/img/colaboradores/capesLogo.png" alt=""></a>
-                    <a target="_blank" href="https://www.gov.br/inpe/pt-br"><img src="../public/img/inpeLogo.png"
-                            alt=""></a>
-                    <a target="_blank" href="https://www.gov.br/conab/pt-br"><img
-                            src="../public/img/colaboradores/conabLogo.png" alt=""></a>
-                </div>
-                <div class="colabBox">
-                    <a target="_blank" href="http://portal-adm.cnpq.br/web/guest/pagina-inicial"><img
-                            src="../public/img/colaboradores/cnpqLogo.png" alt=""></a>
-                    <a target="_blank" href="https://fapesp.br/"><img src="../public/img/colaboradores/fapespLogo.png"
-                            alt=""></a>
-                    <a target="_blank" href="https://data.inpe.br/bdc/"><img
-                            src="../public/img/colaboradores/brazil-data-cube.png" alt=""></a>
-                </div>
-        </section>
-
-
     </div>
 
+    <section class="formSection">
+        <div class="formSection">
+            <div class="map">
+                <h2>NOSSA LOCALIZAÇÃO:</h2>
+                <div class="inpeMAP"><img src="../public/img/Basemap image.png" alt="" width="400"></div>
+                <p>Avenida dos Astronautas, 1.758 - Jd. Granja - CEP 12227-010 São José dos Campos - SP - Brasil
+                </p>
+            </div>
+
+            <div class="form">
+                <h2>ENTRE EM CONTATO:</h2>
+                <form action="" method="post">
+                    <input type="text" name="nome" id="" placeholder="Seu nome...">
+                </form>
+                <form action="" method="post">
+                    <input type="email" name="email" placeholder="Seu email...">
+                </form>
+                <div id="assuntoBox">
+                    <form action="" method="post">
+                        <textarea name="textarea" id="" placeholder="Assunto..."></textarea>
+                </div>
+
+                </form>
+                <div class="buttonForm">
+                    <button type="submit">ENVIAR</button>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+    <section>
+        <h2>COLABORADORES</h2>
+        <div class="areaColaboradores">
+            <div class="colabBox">
+                <a target="_blank" href="https://www.gov.br/capes/pt-br"><img
+                        src="../public/img/colaboradores/capesLogo.png" alt=""></a>
+                <a target="_blank" href="https://www.gov.br/inpe/pt-br"><img src="../public/img/inpeLogo.png"
+                        alt=""></a>
+                <a target="_blank" href="https://www.gov.br/conab/pt-br"><img
+                        src="../public/img/colaboradores/conabLogo.png" alt=""></a>
+            </div>
+            <div class="colabBox">
+                <a target="_blank" href="http://portal-adm.cnpq.br/web/guest/pagina-inicial"><img
+                        src="../public/img/colaboradores/cnpqLogo.png" alt=""></a>
+                <a target="_blank" href="https://fapesp.br/"><img src="../public/img/colaboradores/fapespLogo.png"
+                        alt=""></a>
+                <a target="_blank" href="https://data.inpe.br/bdc/"><img
+                        src="../public/img/colaboradores/brazil-data-cube.png" alt=""></a>
+            </div>
+    </section>
 
     <div id="footer-socket"></div>
-
 
 </body>
 

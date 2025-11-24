@@ -16,39 +16,45 @@
     <div id="error" class="error-message"></div>
 
     <form id="membroForm" style="display: none;">
-      <input type="hidden" id="MembroID" name="MembroID">
+      <input type="hidden" id="MembrosID" name="MembrosID">
 
       <div class="form-group">
-        <label for="MembroImagemFile">Foto</label>
-        <input type="file" id="MembroImagemFile" name="MembroImagemFile" accept="image/*">
+        <label for="MembrosImagemFile">Foto</label>
+        <input type="file" id="MembrosImagemFile" name="MembrosImagemFile" accept="image/*">
         <img id="imagePreview" src="" alt="Pré-visualização da imagem" style="max-width: 200px; margin-top: 10px; display: none;">
         <!-- Campo oculto para manter o caminho da imagem existente ao editar -->
-        <input type="hidden" id="MembroImagem" name="MembroImagem">
+        <input type="hidden" id="MembrosImagem" name="MembrosImagem">
       </div>
 
       <div class="form-group">
-        <label for="MembroNome">Nome</label>
-        <input type="text" id="MembroNome" name="MembroNome" maxlength="1000" required>
+        <label for="MembrosNome">Nome</label>
+        <input type="text" id="MembrosNome" name="MembrosNome" maxlength="1000" required>
       </div>
 
       <div class="form-group">
-        <label for="MembroCargo">Cargo</label>
-        <input type="text" id="MembroCargo" name="MembroCargo" maxlength="1000">
+        <label for="MembrosCargo">Cargo</label>
+        <select id="MembrosCargo" name="MembrosCargo" class="form-control" required>
+          <option value="" disabled selected>Selecione um Cargo</option>
+          <option value="Pesquisador Coordenador">Pesquisador Coordenador</option>
+          <option value="Pesquisador Associado">Pesquisador Associado</option>
+          <option value="Doutorando">Doutorando</option>
+          <option value="Bolsista">Bolsista</option>
+        </select>
       </div>
 
       <div class="form-group">
-        <label for="MembroDescricao">Descrição</label>
-        <textarea id="MembroDescricao" name="MembroDescricao" maxlength="2000" rows="4"></textarea>
+        <label for="MembrosDescricao">Descrição</label>
+        <textarea id="MembrosDescricao" name="MembrosDescricao" maxlength="2000" rows="4"></textarea>
       </div>
 
       <div class="form-group">
-        <label for="MembroLattes">Lattes</label>
-        <input type="url" id="MembroLattes" name="MembroLattes" min="1900" max="2100">
+        <label for="MembrosLattes">Lattes</label>
+        <input type="url" id="MembrosLattes" name="MembrosLattes" min="1900" max="2100">
       </div>
 
       <div class="form-group">
-        <label for="MembroIdioma">Idioma</label>
-        <select id="MembroIdioma" name="MembroIdioma">
+        <label for="MembrosIdioma">Idioma</label>
+        <select id="MembrosIdioma" name="MembrosIdioma">
           <option value="">Selecione...</option>
           <option value="PT-BR">Português</option>
           <option value="EN-US">Inglês</option>
@@ -56,17 +62,17 @@
       </div>
 
       <div class="switch-group">
-        <input type="checkbox" id="MembroVisibilidade" name="MembroVisibilidade" checked>
-        <label for="MembroVisibilidade">Visível ao público</label>
+        <input type="checkbox" id="MembrosVisibilidade" name="MembrosVisibilidade" checked>
+        <label for="MembrosVisibilidade">Visível ao público</label>
       </div>
 
       <div class="buttons-group">
-        <button type="button" class="btn-back" onclick="window.location.href='/admin/publicacoes'">Voltar</button>
+        <button type="button" class="btn-back" onclick="window.location.href='/admin/membros'">Voltar</button>
         <button type="submit" class="btn-save" id="btn-save">Salvar</button>
       </div>
     </form>
   </div>
 
-  <script src="../javascripts/admin_cadastropublicacoes.js" defer></script>
+  <script src="../javascripts/admin_cadastromembros.js" defer></script>
 </body>
 </html>

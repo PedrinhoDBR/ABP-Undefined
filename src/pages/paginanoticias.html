@@ -1,36 +1,16 @@
-<!--COPIA ISSO EM TODAS AS PAGINAS QUE FOREM FAZER  -->
-
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AgriRS</title>
+    <title>AgriRS - Notícias</title>
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/paginanoticias.css">
     <link rel="stylesheet" href="../css/vars.css">
     <link rel="icon" type="image/png" href="/public/img/logo.png">
 
     <script src="/javascripts/layout.js" defer></script>
-    <script src="https://kit.fontawesome.com/5e96e72d2d.js" crossorigin="anonymous"></script>
     <script src="/javascripts/paginanoticias.js" defer></script>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Itim&family=Jacquard+24&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
-    <style>
-        .material-symbols-outlined {
-            font-variation-settings:
-                'FILL' 0,
-                'wght' 400,
-                'GRAD' 0,
-                'opsz' 24
-        }
-    </style>
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_forward_ios" />
-
-        
 </head>
 
 <body>
@@ -38,203 +18,49 @@
     <div id="header-socket"></div>
 
     <div class="container">
-   
-      <div class="titulo-da-pagina">
-            <h1>AgriNews</h1>
-        </div>
-    <section class="corpo-global">
-          <div class="carrosel-noticias">
-        <div class="slider" id="slider">
-            <div class="slide slide-1">
-                <div class="slide-content">
-                    <div class="imagem-carrosel">
-                        <img src="../public/img/imagemcarroselnoticias1.png" alt="Distribuição espacial dos grupos de pesquisa">
-                    </div>
-                    <div class="carrosel-texto">
-                        <h3>Distribuição espacial dos grupos de pesquisa responsáveis pelos artigos identificados e produção (megatons) de cana-de-açúcar para 2021.</h3>
-                    </div>
-                </div>
+        <div class="header-content">
+            <div>
+                <h1 class="titulo">NOTÍCIAS</h1>
             </div>
-
-            <div class="slide slide-2">
-                <div class="slide-content">
-                    <div class="imagem-carrosel">
-                        <img src="../public/img/imagemcarroselnoticias2.png" alt="Distribuição espacial dos grupos de pesquisa">
-                    </div>
-                    <div class="carrosel-texto">
-                        <h3>UHE Jirau no Rio Madeira, ontem, na cota 82.5m, segundo a ANA ( máx. 90m, min. 78m). As barragens são as linhas brancas, um pouco à dir. do centro da imagem. </h3>
-                    </div>
-                </div>
-            </div>
-
-            <div class="slide slide-3">
-                <div class="slide-content">
-                    <div class="imagem-carrosel">
-                        <img src="../public/img/imagemcarroselnoticias3.png" alt="Distribuição espacial dos grupos de pesquisa">
-                    </div>
-                    <div class="carrosel-texto">
-                        <h3>Artigo na Remote Sensing discute desafios e limitações sobre produtos de Uso e Cobertura da terra para aplicações de mapeamento agrícola no Brasil.</h3>
-                    </div>
-                </div>
+            <div class="filters">
+                <select id="filter-ano" class="filter-input">
+                    <option value="">Todos os Anos</option>
+                    <option value="2025">2025</option>
+                    <option value="2024">2024</option>
+                    <option value="2023">2023</option>
+                    <option value="2022">2022</option>
+                    <option value="2021">2021</option>
+                </select>
+                <input id="filter-search" type="text" placeholder="Pesquisar por título" class="filter-input">
             </div>
         </div>
-        
-      
-                <div class="arrow leftArrow" id="prevBtn"><i class="fa-solid fa-circle-chevron-left"></i></div>
-                <div class="arrow rightArrow" id="nextBtn"><i class="fa-solid fa-circle-chevron-right"></i></div>
 
-              
-                <div class="indicators" id="indicators">
-                    <div class="indicator active" data-index="0"></div>
-                    <div class="indicator" data-index="1"></div>
-                    <div class="indicator" data-index="2"></div>
-                </div>
-            </div>
+        <div id="news-grid" class="news-grid">
+            <!-- Cards de notícias serão carregados dinamicamente via JavaScript -->
+        </div>
 
-            <div class="container-filtro">
-                <div class="filtro-titulo">
-                    <label for="filtro-titulo">Pesquisa por Título:</label>
-                    <input type="text" id="filtro-titulo" placeholder="Insira o Título da Notícia">   
-                </div>
-
-                <div class="filtro-data">
-                    <div class="filtro-grupo">
-                        <label for="filtro-mes">Filtrar por mês:</label>
-                        <select id="filtro-mes">
-                            <option value="">Todos os meses</option>
-                            <option value="1">Janeiro</option>
-                            <option value="2">Fevereiro</option>
-                            <option value="3">Março</option>
-                            <option value="4">Abril</option>
-                            <option value="5">Maio</option>
-                            <option value="6">Junho</option>
-                            <option value="7">Julho</option>
-                            <option value="8">Agosto</option>
-                            <option value="9">Setembro</option>
-                            <option value="10">Outubro</option>
-                            <option value="11">Novembro</option>
-                            <option value="12">Dezembro</option>
-                        </select>
-                    </div>
-
-                    <div class="filtro-grupo">
-                        <label for="filtro">Filtar por Ano:</label>
-                        <select id="filtro-ano">
-                            <option value="">Todos os Anos</option>
-                            <option value="2024">2024</option>
-                            <option value="2025">2025</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="botoes-filtro">
-                    <button id="botao-filtrar">Aplicar Filtros</button>
-                    <button id="botao-limpar">Limpar Filtros</button>
-                </div>
-            </div>
- 
-            <div class="cards-noticias-global">
-                <div class="cards-noticia-geral"><a href="/pages/noticias.html" target="_blank">
-                    <div class="cards-imagens">
-                        <img src="../public/img/1paginanoticia.png">
-                    </div>
-                    <div class="card-conjunto-texto">
-                        <div class="card-noticia-data">12 de Maio de 2025</div>
-                        <h4 class="card-titulo">Sistemas de Irrigação Inteligente Economizam até 50% de Água</h4>
-                        <p class="card-conteudo">Tecnologia que combina sensores de umidade do solo e dados meteorológicos está revolucionando a forma como a agricultura utiliza recursos hídricos.</p>
-                        <a class="card-leiamais">Leia mais</a>
-                    </div>
-                </a></div>
+        <div class="pagination-container">
+            <div class="pagination">
+                <button id="prev-page" class="pagination-btn" disabled>
+                    <i class="fas fa-chevron-left"></i> Anterior
+                </button>
                 
-                <div class="cards-noticia-geral">
-                    <div class="cards-imagens">
-                        <img src="../public/img/2hovernoticia.png">
-                    </div>
-                    <div class="card-conjunto-texto">
-                        <div class="card-noticia-data">10 de Maio de 2025</div>
-                        <h4 class="card-titulo">Novo Sensor Portátil Realiza Análise de Solo em Tempo Real</h4>
-                        <p class="card-conteudo">Pesquisadores desenvolvem dispositivo capaz de medir nutrientes do solo instantaneamente, eliminando a espera por laboratórios.</p>
-                        <a class="card-leiamais">Leia mais</a>
-                    </div>
-                </div>
-
-                <div class="cards-noticia-geral">
-                    <div class="cards-imagens">
-                        <img src="../public/img/3hovernoticia.png">
-                    </div>
-                    <div class="card-conjunto-texto">
-                        <div class="card-noticia-data">07 de Maio de 2025</div>
-                        <h4 class="card-titulo">Tecnologias Verdes Transformam a Agricultura Sustentável</h4>
-                        <p class="card-conteudo">Combinação de sensoriamento remoto e inteligência artificial está criando novas possibilidades para uma agricultura mais ecológica e eficiente.</p>
-                        <a class="card-leiamais">Leia mais</a>
-                    </div>
+                <div class="page-numbers" id="page-numbers">
+                    <!-- Os números das páginas serão gerados dinamicamente -->
                 </div>
                 
-                <div class="cards-noticia-geral">
-                    <div class="cards-imagens">
-                        <img src="../public/img/4hovernoticia.jpg">
-                    </div>
-                    <div class="card-conjunto-texto">
-                        <div class="card-noticia-data">29 de Abril de 2025</div>
-                        <h4 class="card-titulo">Plataforma Integrada de Monitoramento Agrícola Ganha Prêmio Internacional</h4>
-                        <p class="card-conteudo">Sistema brasileiro que une dados de satélite, drones e sensores terrestres é reconhecido como inovação do ano no agronegócio.</p>
-                        <a class="card-leiamais">Leia mais</a>
-                    </div>
-                </div>
-
-                <div class="cards-noticia-geral">
-                    <div class="cards-imagens">
-                        <img src="../public/img/5hovernoticia.jpg">
-                    </div>
-                    <div class="card-conjunto-texto">
-                        <div class="card-noticia-data">14 de Abril de 2025</div>
-                        <h4 class="card-titulo">Agricultura Digital: Como a Tecnologia Está Transformando o Campo</h4>
-                        <p class="card-conteudo">Agricultura Digital: Como a Tecnologia Está Transformando o Campo</p>
-                        <a class="card-leiamais">Leia mais</a>
-                    </div>
-                </div>
-
-                <div class="cards-noticia-geral">
-                    <div class="cards-imagens"> 
-                        <img src="../public/img/6hovernoticia.jpg">
-                    </div>
-                    <div class="card-conjunto-texto">
-                        <div class="card-noticia-data">30 de Março de 2025</div>
-                        <h4 class="card-titulo">Sistemas de Gestão Agrícola Aumentam Lucratividade em 40%</h4>
-                        <p class="card-conteudo">Plataformas integradas de gestão estão ajudando produtores a reduzir custos e aumentar a produtividade através de dados em tempo real.</p>
-                        <a class="card-leiamais">Leia mais</a>
-                    </div>
-                </div>
-
-                <div class="cards-noticia-geral">
-                    <div class="cards-imagens" >
-                        <img src="../public/img/7hovernoticia.jpg">
-                    </div>
-                    <div class="card-conjunto-texto">
-                        <div class="card-noticia-data">17 de Março de 2025</div>
-                        <h4 class="card-titulo">Monitoramento Climático Preciso Aumenta Segurança na Agricultura</h4>
-                        <p class="card-conteudo">Tecnologias de previsão do tempo e monitoramento climático estão ajudando agricultores a mitigar riscos e tomar decisões mais assertivas.</p>
-                        <a class="card-leiamais">Leia mais</a>
-                    </div>
-                </div>
-
-                <div class="cards-noticia-geral">
-                    <div class="cards-imagens">
-                        <img src="../public/img/8hovernoticia.jpg">
-                    </div>
-                    <div class="card-conjunto-texto">
-                        <div class="card-noticia-data">18 de Fevereiro de 2025</div>
-                        <h4 class="card-titulo">Energia Solar se Torna Opção Viável para Propriedades Rurais</h4>
-                        <p class="card-conteudo">Cada vez mais agricultores estão adotando sistemas de energia solar para reduzir custos e aumentar a sustentabilidade de suas operações.</p>
-                        <a class="card-leiamais">Leia mais</a>
-                    </div>
-                </div>
+                <button id="next-page" class="pagination-btn">
+                    Próxima <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
-        </section>
+            
+            <div class="page-info">
+                Mostrando <span id="cards-shown">0</span> de <span id="total-cards">0</span> notícias
+            </div>
+        </div>
     </div>
-    
+
     <div id="footer-socket"></div>
 
-   
 </body>
 </html>

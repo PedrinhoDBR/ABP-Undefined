@@ -1,14 +1,14 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../db/db').sequelize;
 
-const Noticias = sequelize.define('noticias' , {
+const Noticias = sequelize.define('noticias', {
     NoticiasID: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true
     },
-    NoticiasImagens: {
-        type: DataTypes.STRING,
+    NoticiasImagem: {
+        type: DataTypes.STRING(1000),
         allowNull: true
     },
     NoticiasData: {
@@ -16,35 +16,41 @@ const Noticias = sequelize.define('noticias' , {
         allowNull: true
     },
     NoticiasTitulo: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(500),
         allowNull: true
     },
     NoticiasSubtitulo: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(1000),
         allowNull: true
     },
     NoticiasConteudo: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: true
     },
     NoticiasCardcitacao: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
+        allowNull: true
+    },
+    NoticiasConteudoPosCitacao: {
+        type: DataTypes.TEXT,
+        allowNull: true
+    },
+    NoticiasTituloCorpo: {
+        type: DataTypes.STRING(200),
+        allowNull: true
+    },
+    NoticiasConteudoTituloCorpo: {
+        type: DataTypes.TEXT,
         allowNull: true
     },
     NoticiasIdioma: {
-        type: DataTypes.STRING,
-        allowNull: true
-    }, 
-    NoticiasTipo: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(10),
         allowNull: true
     }
-},
-  {
+}, {
     tableName: 'noticias',
     timestamps: true,
     paranoid: true
+});
 
- });
-
- module.exports = Noticias;
+module.exports = Noticias;

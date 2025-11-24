@@ -6,6 +6,7 @@ const { Op, fn, col, where: whereFn } = require('sequelize');
 const Publicacao = require('../models/publicacao');
 const router = express.Router();
 const fs = require('fs');
+const cloudinary = require('cloudinary').v2;
 
 // Configuração do Multer para upload de imagens
 const storage = multer.diskStorage({
@@ -96,12 +97,22 @@ router.post('/', upload.single('PublicacaoImagemFile'), async (req, res) => {
     try {
         const dados = req.body;
 
-        // Se uma imagem foi enviada, salva o caminho dela no banco
         if (req.file) {
-            // Salva o caminho relativo que pode ser usado no frontend
-            dados.PublicacaoImagem = `/img/publicacoes/${req.file.filename}`;
+            cloudinary.config({ 
+                cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
+                api_key: process.env.CLOUDINARY_API_KEY, 
+                api_secret: process.env.CLOUDINARY_API_SECRET
+            });
+
+            const uploadResult = await cloudinary.uploader.upload(req.file.path, {
+                folder: 'publicacoes',
+                public_id: `publicacao_${Date.now()}`
+            });
+
+            dados.PublicacaoImagem = uploadResult.secure_url;
         }
-        dados.PublicacaoID = null
+
+        dados.PublicacaoID = null;
         const novaPublicacao = await Publicacao.create(dados);
         res.status(201).json(novaPublicacao);
     } catch (error) {
@@ -114,10 +125,20 @@ router.put('/:id', upload.single('PublicacaoImagemFile'), async (req, res) => {
     const { id } = req.params;
     try {
         const dados = req.body;
-        console.log(dados)
-        // Se uma nova imagem foi enviada, atualiza o caminho
+
         if (req.file) {
-            dados.PublicacaoImagem = `/public/uploads/publicacoes/${req.file.filename}`;
+            cloudinary.config({ 
+                cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
+                api_key: process.env.CLOUDINARY_API_KEY, 
+                api_secret: process.env.CLOUDINARY_API_SECRET
+            });
+
+            const uploadResult = await cloudinary.uploader.upload(req.file.path, {
+                folder: 'publicacoes',
+                public_id: `publicacao_${Date.now()}`
+            });
+
+            dados.PublicacaoImagem = uploadResult.secure_url;
         }
 
         const [updated] = await Publicacao.update(dados, {

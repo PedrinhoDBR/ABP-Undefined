@@ -385,6 +385,12 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
       Acessar Figma
     </a>
   </li>
+  <li>
+    <strong>Sistema:</strong>
+    <a href="https://abp-undefined.onrender.com" target="_blank">
+      Acessar sistema
+    </a>
+  </li>
 </ul>
 
 <h1 id="sprint-1">⏱️ Sprint 1</h1>
@@ -737,28 +743,28 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
     <tr><td>ES-043</td><td>Diagrama de classes do banco de dados</td><td>1</td><td></td><td>✔️</td><td></td><td></td></tr>
     <tr><td>MB-044</td><td>Estrutura das tabelas do banco de dados</td><td>5</td><td></td><td>✔️</td><td></td><td></td></tr>
     <tr><td>MB-045</td><td>Configuração do banco de dados no projeto</td><td>5</td><td>Pedro</td><td>✔️</td><td></td><td></td></tr>
-    <tr><td>AL-046</td><td>Envio de e-mail (contato)</td><td>3</td><td></td><td>❌</td><td></td><td></td></tr>
+    <tr><td>AL-046</td><td>Envio de e-mail (contato)</td><td>3</td><td>Marcus</td><td>✔️</td><td></td><td></td></tr>
     <tr><td>DW-047</td>
         <td>Tela de login</td>
         <td>1</td>
-        <td></td>
-        <td>❌</td>
+        <td>Pedro</td>
+        <td>✔️</td>
         <td></td>
         <td></td>
     </tr>
     <tr><td>AL-048</td>
         <td>Rota para realizar login</td>
         <td>1</td>
-        <td></td>
-        <td>❌</td>
+        <td>Pedro</td>
+        <td>✔️</td>
         <td></td>
         <td></td>
     </tr>
     <tr><td>AL-049</td>
         <td>Rota para pegar as informações da página inicial</td>
         <td>3</td>
-        <td></td>
-        <td>⏳</td>
+        <td>Pedro</td>
+        <td>✔️</td>
         <td></td>
         <td></td>
     </tr>
@@ -781,8 +787,8 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
     <tr><td>AL-052</td>
         <td>Rota para pegar as informações da página de notícias</td>
         <td>3</td>
-        <td></td>
-        <td>❌</td>
+        <td>Ronaldo</td>
+        <td>✔️</td>
         <td></td>
         <td></td>
     </tr>
@@ -843,11 +849,65 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
   </thead>
   <tbody>
     <tr>
+      <td>MB-057</td>
+      <td>Modelagem de publicações</td>
+      <td></td>
+      <td>Israel</td>
+      <td>✔️</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>MB-058</td>
+      <td>Modelagem de Vagas</td>
+      <td></td>
+      <td>Nicolas</td>
+      <td>✔️</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>MB-059</td>
+      <td>Modelagem de Projetos</td>
+      <td></td>
+      <td>Pedro</td>
+      <td>✔️</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>MB-060</td>
+      <td>Modelagem de Usuario(login)</td>
+      <td></td>
+      <td>João</td>
+      <td>✔️</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>DW-061</td>
+      <td>Ajustar front-end</td>
+      <td></td>
+      <td>João</td>
+      <td>✔️</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>DW-063</td>
+      <td>Ajustar responsividade</td>
+      <td></td>
+      <td>Rainan</td>
+      <td>✔️</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
       <td>AL-063</td>
       <td>Rota para salvar as informações da página de membros</td>
       <td>5</td>
-      <td></td>
-      <td>⏳</td>
+      <td>Marcus</td>
+      <td>✔️</td>
       <td></td>
       <td>RF03, RNF02</td>
     </tr>
@@ -855,8 +915,8 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
       <td>AL-064</td>
       <td>Rota para salvar as informações da página de notícias</td>
       <td>5</td>
-      <td></td>
-      <td>⏳</td>
+      <td>Ronaldo</td>
+      <td>✔️</td>
       <td></td>
       <td>RF06, RNF02</td>
     </tr>
@@ -864,8 +924,8 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
       <td>AL-065</td>
       <td>Rota para salvar as informações da página de publicações</td>
       <td>5</td>
-      <td></td>
-      <td>⏳</td>
+      <td>Pedro</td>
+      <td>✔️</td>
       <td></td>
       <td>RF07, RNF02</td>
     </tr>
@@ -874,7 +934,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
       <td>Rota para salvar as informações da página de Vagas</td>
       <td>5</td>
       <td></td>
-      <td>⏳</td>
+      <td>❌</td>
       <td></td>
       <td>RF04, RNF02</td>
     </tr>
@@ -882,8 +942,8 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
       <td>AL-067</td>
       <td>Rota para salvar as informações da página de Projetos</td>
       <td>5</td>
-      <td></td>
-      <td>⏳</td>
+      <td>Israel</td>
+      <td>✔️</td>
       <td></td>
       <td>RF05, RNF02</td>
     </tr>
@@ -891,8 +951,8 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
       <td>DW-068</td>
       <td>Tela para cadastro de membros</td>
       <td>5</td>
-      <td></td>
-      <td>⏳</td>
+      <td>Thales</td>
+      <td>✔️</td>
       <td></td>
       <td>RF03, RNF02</td>
     </tr>
@@ -900,8 +960,8 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
       <td>DW-069</td>
       <td>Tela para cadastro de notícias</td>
       <td>5</td>
-      <td></td>
-      <td>⏳</td>
+      <td>Ronaldo</td>
+      <td>✔️</td>
       <td></td>
       <td>RF06, RNF02</td>
     </tr>
@@ -909,8 +969,8 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
       <td>DW-070</td>
       <td>Tela para cadastro de publicações</td>
       <td>5</td>
-      <td></td>
-      <td>⏳</td>
+      <td>Pedro</td>
+      <td>✔️</td>
       <td></td>
       <td>RF07, RNF02</td>
     </tr>
@@ -919,7 +979,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
       <td>Tela para cadastro de Vagas</td>
       <td>5</td>
       <td></td>
-      <td>⏳</td>
+      <td>❌</td>
       <td></td>
       <td>RF04, RNF02</td>
     </tr>
@@ -927,8 +987,8 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
       <td>DW-072</td>
       <td>Tela para cadastro de Projetos</td>
       <td>5</td>
-      <td></td>
-      <td>⏳</td>
+      <td>Israel</td>
+      <td>✔️</td>
       <td></td>
       <td>RF05, RNF02</td>
     </tr>
@@ -936,8 +996,8 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
       <td>AL-073</td>
       <td>Rota para deletar as informações da página de membros</td>
       <td>3</td>
-      <td></td>
-      <td>⏳</td>
+      <td>Marcus</td>
+      <td>✔️</td>
       <td></td>
       <td>RF03, RNF02</td>
     </tr>
@@ -945,8 +1005,8 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
       <td>AL-074</td>
       <td>Rota para deletar as informações da página de notícias</td>
       <td>3</td>
-      <td></td>
-      <td>⏳</td>
+      <td>Ronaldo</td>
+      <td>✔️</td>
       <td></td>
       <td>RF06, RNF02</td>
     </tr>
@@ -954,8 +1014,8 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
       <td>AL-075</td>
       <td>Rota para deletar as informações da página de publicações</td>
       <td>3</td>
-      <td></td>
-      <td>⏳</td>
+      <td>Pedro</td>
+      <td>✔️</td>
       <td></td>
       <td>RF07, RNF02</td>
     </tr>
@@ -964,7 +1024,7 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
       <td>Rota para deletar as informações da página de Vagas</td>
       <td>3</td>
       <td></td>
-      <td>⏳</td>
+      <td>❌</td>
       <td></td>
       <td>RF04, RNF02</td>
     </tr>
@@ -972,10 +1032,28 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
       <td>AL-077</td>
       <td>Rota para deletar as informações da página de Projetos</td>
       <td>3</td>
-      <td></td>
-      <td>⏳</td>
+      <td>Rainan</td>
+      <td>✔️</td>
       <td></td>
       <td>RF05, RNF02</td>
+    </tr>
+    <tr>
+      <td>SO-078</td>
+      <td>Configuração do servidor do banco de dados</td>
+      <td>3</td>
+      <td>Pedro</td>
+      <td>✔️</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>SO-079</td>
+      <td>Configuração do servidor do banco de aplicação</td>
+      <td>3</td>
+      <td>Pedro</td>
+      <td>✔️</td>
+      <td></td>
+      <td></td>
     </tr>
   </tbody>
 </table>
