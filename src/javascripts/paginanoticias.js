@@ -511,8 +511,16 @@ async function getIdiomaFromSession() {
     // Função para renderizar as notícias
 function renderNews(news) {
     newsGrid.innerHTML = news.map(item => {
-        const dataNoticia = new Date(item.NoticiasData); // Converte a data
-        const anoNoticia = dataNoticia.getFullYear(); // Extrai o ano
+        const dataNoticia = new Date(item.NoticiasData);
+        let dataFormatada = '';
+        if (!isNaN(dataNoticia.getTime())) {
+            const dia = String(dataNoticia.getDate()).padStart(2, '0');
+            const mes = String(dataNoticia.getMonth() + 1).padStart(2, '0');
+            const ano = dataNoticia.getFullYear();
+            dataFormatada = `${dia}/${mes}/${ano}`;
+        } else {
+            dataFormatada = 'Data inválida';
+        }
 
         return `
             <div class="news-card">
@@ -520,7 +528,7 @@ function renderNews(news) {
                     <img src="${item.NoticiasImagem || '/public/img/placeholder.jpg'}" alt="${item.NoticiasTitulo}">
                 </div>
                 <div class="news-content">
-                    <div class="news-date">${anoNoticia}</div>
+                    <div class="news-date">${dataFormatada}</div>
                     <h4 class="news-title">${item.NoticiasTitulo}</h4>
                     <p class="news-excerpt">${item.NoticiasConteudo}</p>
                     <a href="/noticia?id=${item.NoticiasID}" class="news-read-more">Leia mais</a>

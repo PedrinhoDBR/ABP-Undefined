@@ -114,6 +114,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         renderProjetos(projetos, idioma);
         renderPublicacoes(publicacoes, idioma);
         renderEquipe(membros, idioma);
+
+        // Botões de mais...
+        const btnNoticias = document.getElementById('btnMaisNoticias');
+        const btnProjetos = document.getElementById('btnMaisProjetos');
+        const btnPublicacoes = document.getElementById('btnMaisPublicacoes');
+        if (btnNoticias) btnNoticias.addEventListener('click', () => window.location.href = '/noticias');
+        if (btnProjetos) btnProjetos.addEventListener('click', () => window.location.href = '/projetos');
+        if (btnPublicacoes) btnPublicacoes.addEventListener('click', () => window.location.href = '/publicacoes');
     } catch (error) {
         console.error('Erro ao carregar dados:', error);
     }
