@@ -385,6 +385,12 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
       Acessar Figma
     </a>
   </li>
+  <li>
+    <strong>Sistema:</strong>
+    <a href="https://abp-undefined.onrender.com" target="_blank">
+      Acessar sistema
+    </a>
+  </li>
 </ul>
 
 <h1 id="sprint-1">⏱️ Sprint 1</h1>
