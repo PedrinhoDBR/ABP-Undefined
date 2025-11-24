@@ -7,7 +7,6 @@ function addLogoutEvent() {
 
     btn.addEventListener("click", function(e) {
         e.preventDefault();
-        console.log("Logout button clicked");
 
         fetch("/user/logout", { method: "POST" })
             .then(() => window.location.href = "/");

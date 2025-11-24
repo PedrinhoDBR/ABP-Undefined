@@ -167,8 +167,7 @@ function formatarData(data, idioma) {
 
 async function carregarNoticias(idioma = 'PT-BR') {
     try {
-        console.log(`🔍 Carregando notícias em ${idioma}...`);
-        
+
         const response = await fetch(`/api/noticias?idioma=${idioma}`);
         
         if (!response.ok) {
@@ -179,8 +178,7 @@ async function carregarNoticias(idioma = 'PT-BR') {
         noticiasCarregadas = data.results || [];
         noticiasFiltradas = [...noticiasCarregadas];
         
-        console.log(`✅ ${noticiasCarregadas.length} notícias em ${idioma} carregadas do banco`);
-        
+
         // Atualiza todos os textos da página
         atualizarTextosPagina(idioma);
         
@@ -223,7 +221,6 @@ function adicionarCardsDoBanco(noticias) {
     }
     
     if (!noticias || noticias.length === 0) {
-        console.log('ℹ️ Nenhuma notícia encontrada');
         mostrarMensagemNenhumaNoticia();
         return;
     }
@@ -454,8 +451,7 @@ function aplicarFiltrosAvancados() {
     } else {
         adicionarCardsDoBanco(noticiasFiltradas);
     }
-    
-    console.log(`🔍 ${noticiasFiltradas.length} notícias após filtros`);
+
 }
 
 function limparFiltros() {
@@ -481,7 +477,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const ano = document.getElementById('filter-ano').value;
             const titulo = document.getElementById('filter-search').value;
             const idioma = await getIdiomaFromSession(); 
-            console.log('ano',ano)
+
             const params = new URLSearchParams();
             if (ano) params.append('ano', ano);
             if (titulo) params.append('titulo', titulo);

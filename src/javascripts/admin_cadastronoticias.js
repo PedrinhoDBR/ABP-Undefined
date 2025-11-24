@@ -116,8 +116,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         const url = modo === 'inserir' ? '/api/noticias' : `/api/noticias/${id}`;
 
         try {
-            console.log('Enviando dados...', Object.fromEntries(formData));
-            
             const response = await fetch(url, {
                 method: method,
                 body: formData

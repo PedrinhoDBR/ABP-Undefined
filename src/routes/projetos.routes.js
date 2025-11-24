@@ -3,6 +3,7 @@ const Projetos = require('../models/projetos');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const cloudinary = require('cloudinary').v2;
 const router = express.Router();
 
 // Rota para todos os projetos - RESPONDE A /projeto/
@@ -46,7 +47,6 @@ module.exports = router;
 
 // Rota para criar/ inserir um novo projeto - RESPONDE A POST /projeto/
 router.post('/', async (req, res) => {
-    // configurar dest para imagens
     const uploadDir = path.join(__dirname, '..', '..', 'public', 'uploads', 'projetos');
     if (!fs.existsSync(uploadDir)) {
         fs.mkdirSync(uploadDir, { recursive: true });
@@ -65,30 +65,44 @@ router.post('/', async (req, res) => {
 
     const upload = multer({ storage: storage });
 
-    // Função auxiliar que processa os dados depois do upload
     const processBody = async (body, files) => {
+
         try {
             const data = {};
-            // Campos simples
             data.ProjetosTitulo = body.ProjetosTitulo || null;
             data.ProjetosTituloCard = body.ProjetosTituloCard || null;
             data.CardResumo = body.CardResumo || null;
             data.ProjetoDescricao = body.ProjetoDescricao || null;
+            data.ProjetosIdioma = body.ProjetosIdioma || null;    
 
-            // Imagens: se arquivo enviado, use o arquivo, senão use valor do campo hidden (campos ImagemCarrossel/ImagemCard)
             if (files && files.ImagemCarrosselFile && files.ImagemCarrosselFile[0]) {
-                data.ImagemCarrossel = '/uploads/projetos/' + files.ImagemCarrosselFile[0].filename;
+                cloudinary.config({ 
+                    cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
+                    api_key: process.env.CLOUDINARY_API_KEY, 
+                    api_secret: process.env.CLOUDINARY_API_SECRET
+                });
+
+                const uploadResult = await cloudinary.uploader.upload(files.ImagemCarrosselFile[0].path, {
+                    folder: 'projetos',
+                    public_id: `projeto_carrossel_${Date.now()}`
+                });
+
+                data.ImagemCarrossel = uploadResult.secure_url;
             } else if (body.ImagemCarrossel) {
                 data.ImagemCarrossel = body.ImagemCarrossel;
             }
 
             if (files && files.ImagemCardFile && files.ImagemCardFile[0]) {
-                data.ImagemCard = '/uploads/projetos/' + files.ImagemCardFile[0].filename;
+                const uploadResult = await cloudinary.uploader.upload(files.ImagemCardFile[0].path, {
+                    folder: 'projetos',
+                    public_id: `projeto_card_${Date.now()}`
+                });
+
+                data.ImagemCard = uploadResult.secure_url;
             } else if (body.ImagemCard) {
                 data.ImagemCard = body.ImagemCard;
             }
 
-            // Ordem e ativo
             data.OrdemdeExibicao = body.OrdemdeExibicao ? parseInt(body.OrdemdeExibicao) : 0;
             if (body.Ativo === 'true' || body.Ativo === true || body.Ativo === 'on') {
                 data.Ativo = true;
@@ -98,7 +112,6 @@ router.post('/', async (req, res) => {
                 data.Ativo = !!body.Ativo;
             }
 
-            // Informacoes: pode vir como objeto (JSON) ou string
             if (body.Informacoes) {
                 if (typeof body.Informacoes === 'object') {
                     data.Informacoes = body.Informacoes;
@@ -106,7 +119,6 @@ router.post('/', async (req, res) => {
                     try {
                         data.Informacoes = JSON.parse(body.Informacoes);
                     } catch (e) {
-                        // se não for JSON, armazenar como objeto vazio
                         data.Informacoes = {};
                     }
                 }
@@ -114,7 +126,6 @@ router.post('/', async (req, res) => {
                 data.Informacoes = {};
             }
 
-            // Criar registro
             const criado = await Projetos.create(data);
             return res.status(201).json(criado);
         } catch (err) {
@@ -123,7 +134,6 @@ router.post('/', async (req, res) => {
         }
     };
 
-    // Se for multipart/form-data, usar multer
     const contentType = req.headers['content-type'] || '';
     if (contentType.includes('multipart/form-data')) {
         upload.fields([
@@ -137,7 +147,33 @@ router.post('/', async (req, res) => {
             return processBody(req.body, req.files);
         });
     } else {
-        // JSON / x-www-form-urlencoded
         return processBody(req.body, null);
+    }
+});
+
+// Rota para atualizar um projeto - RESPONDE A PUT /projeto/1
+router.put('/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const dados = req.body;
+
+        // Atualiza o idioma se fornecido
+        if (dados.ProjetosIdioma) {
+            dados.ProjetosIdioma = dados.ProjetosIdioma;
+        }
+
+        const [updated] = await Projetos.update(dados, {
+            where: { ProjetosId: id }
+        });
+
+        if (updated) {
+            const projetoAtualizado = await Projetos.findByPk(id);
+            return res.json(projetoAtualizado);
+        }
+        throw new Error('Projeto não encontrado para atualização');
+
+    } catch (error) {
+        console.error('Erro ao atualizar projeto:', error);
+        res.status(500).json({ erro: 'Erro ao atualizar projeto', detalhes: error.message });
     }
 });

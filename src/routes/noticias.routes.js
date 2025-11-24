@@ -6,6 +6,7 @@ const { Op } = require('sequelize');
 const Noticias = require('../models/noticias');
 const router = express.Router();
 const fs = require('fs');
+const cloudinary = require('cloudinary').v2;
 
 // Salvar em public/img/noticias
 const storage = multer.diskStorage({
@@ -81,17 +82,25 @@ router.post('/', upload.single('NoticiasImagemFile'), async (req, res) => {
             delete dados.NoticiasID;
         }
 
-        //  Caminho para /img/noticias/
         if (req.file) {
-            dados.NoticiasImagem = `/uploads/noticias/${req.file.filename}`;
+            cloudinary.config({ 
+                cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
+                api_key: process.env.CLOUDINARY_API_KEY, 
+                api_secret: process.env.CLOUDINARY_API_SECRET
+            });
+
+            const uploadResult = await cloudinary.uploader.upload(req.file.path, {
+                folder: 'noticias',
+                public_id: `noticia_${Date.now()}`
+            });
+
+            dados.NoticiasImagem = uploadResult.secure_url;
         }
 
-        
         if (dados.NoticiasData) {
             // Já deve vir no formato correto do input date
         }
 
-        console.log('Dados a serem salvos:', dados);
 
         const novaNoticia = await Noticias.create(dados);
         res.status(201).json(novaNoticia);
@@ -111,9 +120,19 @@ router.put('/:id', upload.single('NoticiasImagemFile'), async (req, res) => {
     try {
         const dados = req.body;
 
-       
         if (req.file) {
-            dados.NoticiasImagem = `/uploads/noticias/${req.file.filename}`;
+            cloudinary.config({ 
+                cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
+                api_key: process.env.CLOUDINARY_API_KEY, 
+                api_secret: process.env.CLOUDINARY_API_SECRET
+            });
+
+            const uploadResult = await cloudinary.uploader.upload(req.file.path, {
+                folder: 'noticias',
+                public_id: `noticia_${Date.now()}`
+            });
+
+            dados.NoticiasImagem = uploadResult.secure_url;
         }
 
         const [updated] = await Noticias.update(dados, {

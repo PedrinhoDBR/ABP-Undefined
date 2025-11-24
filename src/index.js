@@ -108,6 +108,11 @@ app.get('/noticia', (req, res) => {
     res.sendFile(path.join(__dirname, 'pages', 'noticia_detalhe.html'));
 });
 
+// Rota para página de detalhes de projetos
+app.get('/projeto', (req, res) => {
+    res.sendFile(path.join(__dirname, 'pages', 'projetoCONAB.html'));
+});
+
 // ROTAS DE ADMIN
 app.get('/admin', requireLogin, (req, res) => {
     res.sendFile(path.join(__dirname, 'pages', '/admin/index.html'));
@@ -160,13 +165,13 @@ app.use('/contato', contato);
 
 app.get('/inicial', async (req, res) => {
     const idioma = req.session.idioma || 'PT-BR'; 
-    console.log('recuperando dados para o idioma:', idioma);
-    try {
-        const publicacoes = await PublicacaoModel.findAll({ where: { PublicacaoIdioma: idioma } });
-        const membros = await MembrosModel.findAll({ where: { MembrosIdioma: idioma } });
-        const noticias = await NoticiasModel.findAll({ where: { NoticiasIdioma: idioma } });
-        const projetos = await ProjetosModel.findAll({ where: { ProjetosIdioma: idioma } });
 
+    try {
+        const publicacoes = await PublicacaoModel.findAll({ where: { PublicacaoIdioma: idioma,PublicacaoVisibilidade: true } });
+        const membros = await MembrosModel.findAll({ where: { MembrosIdioma: idioma, MembrosVisibilidade: true } });
+        const noticias = await NoticiasModel.findAll({ where: { NoticiasIdioma: idioma } });
+        const projetos = await ProjetosModel.findAll({ where: { ProjetosIdioma: idioma,Ativo: true } });
+         
         res.json({ publicacoes, membros, noticias, projetos });
     } catch (error) {
         console.error('Erro ao carregar dados:', error);

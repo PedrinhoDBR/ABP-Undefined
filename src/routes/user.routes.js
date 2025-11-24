@@ -23,7 +23,6 @@ router.post('/login', async (req, res) => {
 
 
 router.post('/logout', async (req, res) => {
-    console.log('Logout request received');
     req.session.destroy((err) => {
         if (err) {
             console.error('Erro ao encerrar sessão:', err);
