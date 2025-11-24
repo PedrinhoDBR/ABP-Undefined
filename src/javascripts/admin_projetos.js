@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     tbody.innerHTML = `<tr><td colspan="6" class="loading">Carregando projetos...</td></tr>`;
     try {
       console.log('Fazendo requisição para /projeto...');
-      const res = await fetch('/projeto');
+      const res = await fetch('/api/projetos');
       
       if (!res.ok) {
         throw new Error(`Erro HTTP: ${res.status} ${res.statusText}`);

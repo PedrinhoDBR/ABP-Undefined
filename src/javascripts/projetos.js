@@ -163,7 +163,8 @@ class ProjetosManager {
     constructor() {
         this.currentPage = this.getCurrentPage();
         this.currentProject = this.getProjectFromURL();
-        this.apiBaseURL = 'http://localhost:3030';
+        // Base dinâmica: usa mesma origem do site para evitar CORS
+        this.apiBaseURL = window.location.origin || '';
         this.projetosCarregados = false;
         this.init();
     }
@@ -200,12 +201,19 @@ class ProjetosManager {
         if (!containers.length) return;
 
         try {
-            const response = await fetch(`${this.apiBaseURL}/projeto`);
+            const response = await fetch(`/api/projetos`, { headers: { 'Accept': 'application/json' } });
             if (!response.ok) throw new Error(`Erro HTTP: ${response.status}`);
 
-            const data = await response.json();
-            const todosProjetos = data.results || [];
+            const contentType = response.headers.get('content-type') || '';
+            if (!contentType.includes('application/json')) {
+                console.error('Resposta não é JSON. Content-Type=', contentType);
+                return; // evita tentar fazer parse de HTML
+            }
 
+            const data = await response.json();
+            
+            const todosProjetos = data.results || [];
+            console.log(data.length)
             containers[0].classList.remove('vazia');
             containers[1].classList.remove('vazia');
             containers[0].innerHTML = '';
@@ -257,16 +265,19 @@ class ProjetosManager {
         let imagemCard = '';
         
         if (projeto.ImagemCard) {
-            let imagemPath = projeto.ImagemCard;
-            if (imagemPath.startsWith('/public')) {
-                imagemPath = imagemPath.replace('/public', '');
+            let imagemPath = projeto.ImagemCard.trim();
+            // se vier a URL completa (Cloudinary etc) usa direto
+            if (/^https?:\/\//i.test(imagemPath)) {
+                imagemCard = imagemPath;
+            } else {
+                if (imagemPath.startsWith('/public')) {
+                    imagemPath = imagemPath.replace('/public', '');
+                }
+                if (!imagemPath.startsWith('/')) imagemPath = '/' + imagemPath;
+                imagemCard = `${imagemPath}`; // caminho relativo ao site
             }
-            if (!imagemPath.startsWith('/')) {
-                imagemPath = '/' + imagemPath;
-            }
-            imagemCard = `${this.apiBaseURL}${imagemPath}`;
         } else {
-            imagemCard = `${this.apiBaseURL}/img/projetos/Carrosel.png`;
+            imagemCard = `/public/img/projetos/Carrosel.png`;
         }
 
         card.innerHTML = `

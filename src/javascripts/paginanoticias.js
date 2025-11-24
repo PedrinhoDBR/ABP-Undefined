@@ -3,7 +3,7 @@ let noticiasCarregadas = [];
 let noticiasFiltradas = [];
 let idiomaAtual = 'PT-BR';
 let paginaAtual = 1;
-const CARDS_POR_PAGINA = 9;
+const CARDS_POR_PAGINA = 99;
 
 const textos = {
     'PT-BR': {
