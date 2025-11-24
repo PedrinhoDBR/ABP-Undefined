@@ -27,10 +27,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    let currentIdioma = 'PT-BR';
+
     async function loadEquipe() {
         mainWrap.insertAdjacentHTML('beforeend', '<p id="loading-message">Carregando Equipe...</p>');
         try {
             const idioma = await getIdiomaFromSession();
+            currentIdioma = idioma;
             // Busca membros visíveis filtrando por idioma
             const response = await fetch(`/api/membros?visivel=true&idioma=${encodeURIComponent(idioma)}`);
             if (!response.ok) throw new Error('Falha ao carregar dados da API.');
@@ -75,20 +78,42 @@ document.addEventListener('DOMContentLoaded', () => {
         const imagemSrc = membro.MembrosImagem || '/public/img/placeholder.jpg'; // Ajuste o placeholder
         
         // Crie o link Lattes com a URL completa
+        const lattesLabel = currentIdioma === 'EN-US' ? 'Lattes:' : 'Lattes:';
         const lattesContent = membro.MembrosLattes 
-            ? `<span>Lattes :</span> <br> <a target="_blank" href="${membro.MembrosLattes}">${membro.MembrosLattes}</a>` 
+            ? `<span>${lattesLabel}</span> <br> <a target="_blank" href="${membro.MembrosLattes}">${membro.MembrosLattes}</a>` 
             : '';
+
+        const sobreLabel = currentIdioma === 'EN-US' ? 'About' : 'Sobre';
+        const noDesc = currentIdioma === 'EN-US' ? 'No description available.' : 'Nenhuma descrição disponível.';
+
+        // Tradução do cargo se idioma for EN-US
+        const cargoOriginal = membro.MembrosCargo || '';
+        const cargoMapEN = {
+            'Coordenador': 'Coordinator',
+            'Pesquisadores - Coordenadores': 'Coordinator',
+            'Pesquisador Coordenador': 'Coordinator',
+            'Pesquisador Titular': 'Lead Researcher',
+            'Pesquisador Associado': 'Associate Researcher',
+            'Estudante de Pós-graduação': 'Graduate Student',
+            'Doutorando': 'PhD Student',
+            'Mestrando': "Master's Student",
+            'Bolsista': 'Fellow',
+            'Colaborador Externo': 'External Collaborator',
+            'Colaborador': 'Collaborator'
+        };
+        const displayCargo = currentIdioma === 'EN-US' ? (cargoMapEN[cargoOriginal] || cargoOriginal) : cargoOriginal;
+        const altLabel = currentIdioma === 'EN-US' ? 'Photo of' : 'Foto de';
 
         article.innerHTML = `
             <img class="member-image" src="${imagemSrc}" alt="Foto de ${membro.MembrosNome}" />
             <div class="member-info">
                 <h3 class="member-name">${membro.MembrosNome}</h3>
-                <p class="member-role">${membro.MembrosCargo}</p>
+                <p class="member-role">${displayCargo}</p>
             </div>
             <div class="member-bio" aria-hidden="true">
-                <h4 class="bio-title">Sobre ${membro.MembrosNome}</h4>
+                <h4 class="bio-title">${sobreLabel} ${membro.MembrosNome}</h4>
                 <p class="bio-text">
-                    ${membro.MembrosDescricao || 'Nenhuma descrição disponível.'}
+                    ${membro.MembrosDescricao || noDesc}
                     <br>
                     ${lattesContent}
                 </p>
