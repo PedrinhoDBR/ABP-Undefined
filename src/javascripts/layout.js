@@ -44,7 +44,7 @@ async function loadHeader() {
             });
         }
 
-        // Atualiza os textos do header com base no idioma
+        
         if (idioma === 'EN-US') {
             const sobreButton = document.querySelector('.sobre .menu-button');
             const submenuSobre = document.querySelector('.submenu a[href="/sobre"]');
@@ -74,6 +74,34 @@ async function loadHeader() {
             if (idiomaButton) idiomaButton.innerHTML  = 'Language <div class="arrow-down"></div>';
             if (adminButton) adminButton.innerHTML  = 'Admin';
         }
+
+        // Mobile submenu toggle (single tap opens)
+        const menuGroups = document.querySelectorAll('.menu-group');
+        menuGroups.forEach(group => {
+            const trigger = group.querySelector('.menu-button');
+            if (!trigger) return;
+            const toggleHandler = (e) => {
+                if (window.matchMedia('(max-width: 1000px)').matches) {
+                    e.preventDefault();
+                    menuGroups.forEach(g => { if (g !== group) g.classList.remove('open'); });
+                    group.classList.toggle('open');
+                }
+            };
+            trigger.addEventListener('click', toggleHandler);
+            trigger.addEventListener('touchstart', toggleHandler, { passive: false });
+        });
+
+        // Close open submenu when tapping outside on mobile
+        document.addEventListener('click', (e) => {
+            if (!window.matchMedia('(max-width: 1000px)').matches) return;
+            const isInside = e.target.closest('.menu-group');
+            if (!isInside) menuGroups.forEach(g => g.classList.remove('open'));
+        });
+        document.addEventListener('touchstart', (e) => {
+            if (!window.matchMedia('(max-width: 1000px)').matches) return;
+            const isInside = e.target.closest('.menu-group');
+            if (!isInside) menuGroups.forEach(g => g.classList.remove('open'));
+        }, { passive: true });
     } catch (error) {
         console.error("Erro ao carregar o header:", error);
     }
@@ -178,6 +206,99 @@ function translatePage(idioma) {
             form.querySelector("#assunto").setAttribute("placeholder", "Subject");
             form.querySelector("button").textContent = "Send";
             document.querySelector(".localizacao h1").textContent = "OUR LOCATION:";
+        }
+
+        // Tradução para a página "publicacoes.html"
+        if (document.body.classList.contains('publicacoesBody')) {
+            const titulo = document.querySelector('h1.titulo');
+            if (titulo) titulo.textContent = 'PUBLICATIONS';
+            const anoSelect = document.getElementById('filter-ano');
+            if (anoSelect && anoSelect.options.length > 0) {
+                anoSelect.options[0].textContent = 'All Years';
+            }
+            const searchInput = document.getElementById('filter-search');
+            if (searchInput) searchInput.setAttribute('placeholder', 'Search by title');
+        }
+
+        // Tradução para a página "paginanoticias.html"
+        if (document.body.classList.contains('noticiasBody')) {
+            const titulo = document.querySelector('h1.titulo');
+            if (titulo) titulo.textContent = 'NEWS';
+            const anoSelect = document.getElementById('filter-ano');
+            if (anoSelect && anoSelect.options.length > 0) {
+                anoSelect.options[0].textContent = 'All Years';
+            }
+            const searchInput = document.getElementById('filter-search');
+            if (searchInput) searchInput.setAttribute('placeholder', 'Search by title');
+            const prevBtn = document.getElementById('prev-page');
+            const nextBtn = document.getElementById('next-page');
+            if (prevBtn) prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i> Previous';
+            if (nextBtn) nextBtn.innerHTML = 'Next <i class="fas fa-chevron-right"></i>';
+            const pageInfo = document.querySelector('.page-info');
+            if (pageInfo) {
+                pageInfo.innerHTML = 'Showing <span id="cards-shown">0</span> of <span id="total-cards">0</span> news';
+            }
+        }
+
+        // Tradução para a página "projetos.html"
+        if (document.body.classList.contains('projetosBody')) {
+            const titulo = document.querySelector('.container .titulo');
+            if (titulo && titulo.textContent.trim().toUpperCase() === 'PROJETOS') titulo.textContent = 'PROJECTS';
+            // Carrossel texto
+            const carrosselTitle = document.querySelector('.carroselText h2');
+            const carrosselParagraph = document.querySelector('.carroselText p');
+            if (carrosselTitle) carrosselTitle.textContent = 'Mapping Agricultural Areas with CONAB';
+            if (carrosselParagraph) carrosselParagraph.textContent = 'AgriRS integrates a project between the National Supply Company (Conab) and INPE.';
+        }
+
+        // Tradução para a página "membros.html"
+        if (document.body.classList.contains('membrosBody')) {
+            const h1 = document.getElementById('titulo-membros');
+            if (h1) h1.textContent = 'Members';
+            const subtitle = document.querySelector('.subtitle');
+            if (subtitle) subtitle.textContent = 'Meet our team members';
+            const coord = document.getElementById('coordenadores-title');
+            if (coord) coord.textContent = 'Researchers - Coordinators';
+            const assoc = document.getElementById('associados-title');
+            if (assoc) assoc.textContent = 'Researchers - Associates';
+            const dout = document.getElementById('doutorandos-title');
+            if (dout) dout.textContent = 'Graduate Students';
+            const bols = document.getElementById('bolsistas-title');
+            if (bols) bols.textContent = 'Fellows / Collaborators';
+        }
+
+        // Tradução para a página inicial "index.html"
+        if (document.body.classList.contains('indexBody')) {
+            // Botões de mais
+            const btnNoticias = document.getElementById('btnMaisNoticias');
+            const btnProjetos = document.getElementById('btnMaisProjetos');
+            const btnPublicacoes = document.getElementById('btnMaisPublicacoes');
+            if (btnNoticias) btnNoticias.textContent = '+ News';
+            if (btnProjetos) btnProjetos.textContent = '+ Projects';
+            if (btnPublicacoes) btnPublicacoes.textContent = '+ Publications';
+
+            // Títulos das seções principais
+            document.querySelectorAll('h2').forEach(h2 => {
+                const txt = h2.textContent.trim().toUpperCase();
+                if (txt === 'PROJETOS') h2.textContent = 'PROJECTS';
+                else if (txt === 'PUBLICAÇÕES') h2.textContent = 'PUBLICATIONS';
+                else if (txt === 'EQUIPE') h2.textContent = 'TEAM';
+                else if (txt === 'NOSSA LOCALIZAÇÃO:') h2.textContent = 'OUR LOCATION:';
+                else if (txt === 'ENTRE EM CONTATO:') h2.textContent = 'CONTACT US:';
+                else if (txt === 'COLABORADORES') h2.textContent = 'COLLABORATORS';
+            });
+
+            // Form placeholders
+            const nameInput = document.querySelector('input[type="text"][name="nome"]');
+            const emailInput = document.querySelector('input[type="email"][name="email"]');
+            const assuntoTextarea = document.querySelector('textarea[name="textarea"]');
+            if (nameInput) nameInput.setAttribute('placeholder', 'Your name...');
+            if (emailInput) emailInput.setAttribute('placeholder', 'Your email...');
+            if (assuntoTextarea) assuntoTextarea.setAttribute('placeholder', 'Subject...');
+
+            // Botão enviar
+            const enviarBtn = document.querySelector('.buttonForm button');
+            if (enviarBtn) enviarBtn.textContent = 'SEND';
         }
     }
 }

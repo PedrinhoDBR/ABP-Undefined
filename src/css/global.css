@@ -555,6 +555,27 @@ footer a {
       height: 2rem;
       width: 2rem;
     }
+
+    .menu-group .submenu,
+    .menu-group .submenuAtuacao {
+      display: none;
+      position: static;
+      background-color: var(--dark-blue-color);
+      margin-top: 0.5rem;
+    }
+    .menu-group.open .submenu,
+    .menu-group.open .submenuAtuacao,
+    .menu-group.open:hover .submenu,
+    .menu-group.open:hover .submenuAtuacao { /* ensure open state wins over hover */
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  /* Desktop keeps hover behavior */
+  @media screen and (min-width: 1001px) {
+    .menu-group.open .submenu,
+    .menu-group.open .submenuAtuacao { }
   }
 
 
