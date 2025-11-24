@@ -115,6 +115,46 @@ document.addEventListener('DOMContentLoaded', async () => {
         renderPublicacoes(publicacoes, idioma);
         renderEquipe(membros, idioma);
 
+        // Ativa setas e auto-scroll do carrossel de equipe (scroll horizontal)
+        const equipeContainer = document.querySelector('.equipeCarrosel');
+        if (equipeContainer) {
+            const getStep = () => Math.max(200, Math.floor(equipeContainer.clientWidth * 0.5));
+            const scrollLeft = () => equipeContainer.scrollBy({ left: -getStep(), behavior: 'smooth' });
+            const scrollRight = () => equipeContainer.scrollBy({ left: getStep(), behavior: 'smooth' });
+
+            leftArrowTeam && leftArrowTeam.addEventListener('click', scrollLeft);
+            rightArrowTeam && rightArrowTeam.addEventListener('click', scrollRight);
+
+            // Auto-scroll lento
+            let autoTimer;
+            const startAuto = () => {
+                stopAuto();
+                autoTimer = setInterval(() => {
+                    const maxScroll = equipeContainer.scrollWidth - equipeContainer.clientWidth - 2;
+                    if (equipeContainer.scrollLeft >= maxScroll) {
+                        equipeContainer.scrollTo({ left: 0, behavior: 'smooth' });
+                    } else {
+                        equipeContainer.scrollBy({ left: Math.max(120, Math.floor(equipeContainer.clientWidth * 0.25)), behavior: 'smooth' });
+                    }
+                }, 3000); // a cada 3s
+            };
+            const stopAuto = () => { if (autoTimer) clearInterval(autoTimer); };
+
+            // Pausa ao interagir, retoma depois
+            ['mouseenter','touchstart','focusin'].forEach(evt => {
+                equipeContainer.addEventListener(evt, stopAuto, { passive: true });
+            });
+            ['mouseleave','touchend','focusout'].forEach(evt => {
+                equipeContainer.addEventListener(evt, startAuto, { passive: true });
+            });
+            // Também pausa quando clicar nas setas e retoma depois de um curto tempo
+            const resumeSoon = () => { stopAuto(); setTimeout(startAuto, 4000); };
+            leftArrowTeam && leftArrowTeam.addEventListener('click', resumeSoon);
+            rightArrowTeam && rightArrowTeam.addEventListener('click', resumeSoon);
+
+            startAuto();
+        }
+
         // Botões de mais...
         const btnNoticias = document.getElementById('btnMaisNoticias');
         const btnProjetos = document.getElementById('btnMaisProjetos');
@@ -204,15 +244,131 @@ function renderPublicacoes(publicacoes, idioma) {
     });
 }
 
+let equipeAutoTimer;
 function renderEquipe(membros, idioma) {
     const container = document.querySelector('.equipeCarrosel');
     if (!container) return;
-    container.innerHTML = membros.map(membro => `
-        <div class="cardEquipeMiniatura" data-id="${membro.MembrosID}">
-            <img src="${membro.MembrosImagem || ''}" alt="${membro.MembrosNome}">
-            <div class="cardTextEquipe">
-                <p>${membro.MembrosNome}</p>
-            </div>
-        </div>
-    `).join('');
+    const leftBtn = document.getElementById('leftArrow');
+    const rightBtn = document.getElementById('rightArrow');
+
+    // estado do carrossel
+    let itemsPerView = 1;
+    let index = 0; // índice atual (contando clones)
+    const baseLength = (membros || []).length;
+    let track;
+    let cardStep = 140; // largura do card + gap (default), recalculada após render
+    const GAP = 12; // deve bater com o CSS
+
+    const getItemsPerView = () => {
+        const w = container.clientWidth;
+        if (w < 420) return 3;
+        if (w < 640) return 4;
+        if (w < 900) return 6;
+        return 8;
+    };
+
+    const build = () => {
+        // recria a estrutura com clones conforme itemsPerView
+        container.innerHTML = '<div class="equipeTrack"></div>';
+        track = container.querySelector('.equipeTrack');
+        itemsPerView = getItemsPerView();
+
+        if (baseLength === 0) return;
+
+        // Se poucos itens, sem infinito
+        if (baseLength <= itemsPerView) {
+            track.innerHTML = membros.map(m => cardHtml(m)).join('');
+            recalcMetrics();
+            index = 0;
+            applyTransform(true);
+            // Esconde setas
+            if (leftBtn) leftBtn.style.visibility = 'hidden';
+            if (rightBtn) rightBtn.style.visibility = 'hidden';
+            return;
+        }
+
+        const clonesHead = membros.slice(-itemsPerView).map(m => cardHtml(m)).join('');
+        const base = membros.map(m => cardHtml(m)).join('');
+        const clonesTail = membros.slice(0, itemsPerView).map(m => cardHtml(m)).join('');
+        track.innerHTML = clonesHead + base + clonesTail;
+
+        recalcMetrics();
+        // posição inicial após os clones iniciais
+        index = itemsPerView;
+        applyTransform(true);
+
+        // evento de wrap infinito
+        track.addEventListener('transitionend', onTransitionEnd);
+
+        // setas visíveis
+        if (leftBtn) leftBtn.style.visibility = 'visible';
+        if (rightBtn) rightBtn.style.visibility = 'visible';
+    };
+
+    const cardHtml = (m) => `
+        <div class="cardEquipeMiniatura" data-id="${m.MembrosID}">
+            <img src="${m.MembrosImagem || ''}" alt="${m.MembrosNome}">
+            <div class="cardTextEquipe"><p>${m.MembrosNome}</p></div>
+        </div>`;
+
+    const recalcMetrics = () => {
+        // garante que os cards não encolham antes da medição
+        Array.from(track.children).forEach(c => { c.style.flex = '0 0 auto'; });
+        const firstCard = track && track.children && track.children[0];
+        if (firstCard) {
+            const rect = firstCard.getBoundingClientRect();
+            cardStep = Math.round(rect.width) + GAP; // distância entre cards (px)
+        }
+        // recalcula quantos cabem por viewport
+        const avail = container.clientWidth - (72 * 2); // padding lateral de segurança
+        itemsPerView = Math.max(1, Math.floor((avail + GAP) / cardStep));
+    };
+
+    const step = () => itemsPerView; // avança por tela (quantidade de cards)
+
+    const applyTransform = (immediate = false) => {
+        if (!track) return;
+        if (immediate) track.style.transition = 'none';
+        const translatePx = index * cardStep;
+        track.style.transform = `translateX(-${translatePx}px)`;
+        if (immediate) {
+            // força reflow e restaura transição
+            // eslint-disable-next-line no-unused-expressions
+            track.offsetHeight;
+            track.style.transition = 'transform 400ms ease';
+        }
+    };
+
+    const onTransitionEnd = () => {
+        const C = itemsPerView;
+        const L = baseLength;
+        // quando passamos dos limites, reposiciona sem animação
+        if (index >= C + L) { index = C; applyTransform(true); }
+        else if (index < C) { index = C + L - step(); applyTransform(true); }
+    };
+
+    const goNext = () => { index += step(); applyTransform(false); };
+    const goPrev = () => { index -= step(); applyTransform(false); };
+
+    // liga setas
+    leftBtn && leftBtn.addEventListener('click', () => { stopAuto(); goPrev(); resumeSoon(); });
+    rightBtn && rightBtn.addEventListener('click', () => { stopAuto(); goNext(); resumeSoon(); });
+
+    // Auto-scroll lento
+    const startAuto = () => {
+        stopAuto();
+        if (baseLength <= itemsPerView) return;
+        equipeAutoTimer = setInterval(() => { goNext(); }, 4000);
+    };
+    const stopAuto = () => { if (equipeAutoTimer) clearInterval(equipeAutoTimer); };
+    const resumeSoon = () => setTimeout(startAuto, 5000);
+
+    container.addEventListener('mouseenter', stopAuto);
+    container.addEventListener('mouseleave', startAuto);
+
+    window.addEventListener('resize', () => { build(); });
+
+    // inicializa
+    build();
+    startAuto();
 }

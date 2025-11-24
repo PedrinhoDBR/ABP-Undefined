@@ -102,6 +102,46 @@ async function loadHeader() {
             const isInside = e.target.closest('.menu-group');
             if (!isInside) menuGroups.forEach(g => g.classList.remove('open'));
         }, { passive: true });
+
+        // Unified mobile menu population
+        const mobilePanel = document.getElementById('mobile-menu-panel');
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        if (mobilePanel && mobileBtn) {
+            const linksData = [
+                { href: '/sobre', pt: 'Sobre', en: 'About' },
+                { href: '/equipe', pt: 'Equipe', en: 'Team' },
+                { href: '/?colaboradores', pt: 'Colaboradores', en: 'Collaborators' },
+                { href: '/facaparte', pt: 'Oportunidades', en: 'Opportunities' },
+                { href: '/projetos', pt: 'Projetos', en: 'Projects' },
+                { href: '/publicacoes', pt: 'Publicações', en: 'Publications' },
+                { href: '/noticias', pt: 'Notícias', en: 'News' },
+                { href: '/contato', pt: 'Contato', en: 'Contact' },
+                { href: '/admin', pt: 'Admin', en: 'Admin' }
+            ];
+            const idiomaAtual = idioma || 'PT-BR';
+            mobilePanel.innerHTML = '';
+            linksData.forEach(l => {
+                const a = document.createElement('a');
+                a.href = l.href;
+                a.textContent = idiomaAtual === 'EN-US' ? l.en : l.pt;
+                mobilePanel.appendChild(a);
+            });
+            // Language switch inside panel
+            const langWrap = document.createElement('div');
+            langWrap.style.marginTop = '0.5rem';
+            langWrap.innerHTML = `<strong>${idiomaAtual === 'EN-US' ? 'Language:' : 'Idioma:'}</strong>`;
+            const langPt = document.createElement('a'); langPt.href = '#'; langPt.textContent = '🇧🇷 PT';
+            const langEn = document.createElement('a'); langEn.href = '#'; langEn.textContent = '🇺🇸 EN';
+            [langPt, langEn].forEach(el => { el.style.marginRight = '0.75rem'; el.addEventListener('click', async (e)=>{e.preventDefault(); const val = el.textContent.includes('PT')?'PT-BR':'EN-US'; await fetch('/alterar-idioma',{method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({idioma: val})}); location.reload();});});
+            mobilePanel.appendChild(langWrap); mobilePanel.appendChild(langPt); mobilePanel.appendChild(langEn);
+            mobileBtn.addEventListener('click', ()=>{
+                const opened = mobilePanel.style.display === 'flex';
+                mobilePanel.style.display = opened ? 'none' : 'flex';
+                mobilePanel.setAttribute('aria-hidden', opened ? 'true':'false');
+                mobileBtn.classList.toggle('open', !opened);
+                mobileBtn.setAttribute('aria-expanded', !opened);
+            });
+        }
     } catch (error) {
         console.error("Erro ao carregar o header:", error);
     }

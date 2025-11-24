@@ -78,10 +78,10 @@ router.get('/ultimas', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const { id } = req.params;
-
+        
         // Busca a publicação pelo ID
         const publicacao = await Publicacao.findByPk(id);
-s
+        console.log(publicacao)
         if (!publicacao) {
             return res.status(404).json({ erro: 'Publicação não encontrada' });
         }
@@ -96,7 +96,7 @@ s
 router.post('/', upload.single('PublicacaoImagemFile'), async (req, res) => {
     try {
         const dados = req.body;
-
+        console.log(req.file)
         if (req.file) {
             cloudinary.config({ 
                 cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
@@ -111,12 +111,13 @@ router.post('/', upload.single('PublicacaoImagemFile'), async (req, res) => {
 
             dados.PublicacaoImagem = uploadResult.secure_url;
         }
+        console.log(dados)
 
         dados.PublicacaoID = null;
         const novaPublicacao = await Publicacao.create(dados);
         res.status(201).json(novaPublicacao);
     } catch (error) {
-        console.error('Erro ao criar publicação:', error);
+        console.log('Erro ao criar publicação:', error);
         res.status(500).json({ erro: 'Erro ao criar publicação', detalhes: error.message });
     }
 });
