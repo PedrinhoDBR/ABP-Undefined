@@ -50,12 +50,27 @@ router.get('/', async (req, res) => {
                 whereFn(fn('LOWER', col('PublicacaoCitacao')), { [Op.like]: `%${termo}%` })
             ];
         }
-
+        
+        // console.log('Filtros:', where);
         const publicacoes = await Publicacao.findAll({where});
-
+        // console.log('RET:',publicacoes)
+        
         res.json({results: publicacoes });
     } catch (error) {
         res.status(500).json({ erro: 'Erro ao buscar publicações', detalhes: error.message });
+    }
+});
+
+router.get('/ultimas', async (req, res) => {
+    try {
+        const publicacoes = await Publicacao.findAll({
+            attributes: ['PublicacaoID', 'PublicacaoTitulo', 'PublicacaoImagem', 'PublicacaoCitacao'],
+            limit: 3, 
+            order: [['createdAt', 'DESC']]
+        });
+        res.json({ results: publicacoes });
+    } catch (error) {
+        res.status(500).json({ erro: 'Erro ao buscar últimas publicações' });
     }
 });
 
@@ -66,14 +81,14 @@ router.get('/:id', async (req, res) => {
 
         // Busca a publicação pelo ID
         const publicacao = await Publicacao.findByPk(id);
-
+s
         if (!publicacao) {
             return res.status(404).json({ erro: 'Publicação não encontrada' });
         }
 
         res.json(publicacao);
     } catch (error) {
-        res.status(500).json({ erro: 'Erro ao buscar publicação', detalhes: error.message });
+        res.status(500).json({ erro: 'Erro ao buscar publicação', detalhes: error.message});
     }
 });
 
@@ -158,6 +173,7 @@ router.put('/inativar/:id', async (req, res) => {
         res.status(500).json({ erro: 'Erro interno ao inativar publicação', detalhes: error.message });
     }
 });
+
 
 /* tEMPORARIO */
 router.post('/default', async (req, res) => {
