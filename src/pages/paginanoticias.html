@@ -11,104 +11,56 @@
 
     <script src="/javascripts/layout.js" defer></script>
     <script src="/javascripts/paginanoticias.js" defer></script>
-    <script src="https://kit.fontawesome.com/5e96e72d2d.js" crossorigin="anonymous"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Itim&family=Jacquard+24&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 </head>
 
 <body>
+
     <div id="header-socket"></div>
 
     <div class="container">
-        <div class="titulo-da-pagina">
-            <h1>AgriNews</h1>
+        <div class="header-content">
+            <div>
+                <h1 class="titulo">NOTÍCIAS</h1>
+            </div>
+            <div class="filters">
+                <select id="filter-ano" class="filter-input">
+                    <option value="">Todos os Anos</option>
+                    <option value="2025">2025</option>
+                    <option value="2024">2024</option>
+                    <option value="2023">2023</option>
+                    <option value="2022">2022</option>
+                    <option value="2021">2021</option>
+                </select>
+                <input id="filter-search" type="text" placeholder="Pesquisar por título" class="filter-input">
+            </div>
         </div>
-        
-        <section class="corpo-global">
 
-            <div class="container-filtro">
-                <div class="filtro-idioma">
-                    <div class="filtro-grupo">
-                        <label for="filtro-idioma">Idioma/Language:</label>
-                        <select id="filtro-idioma">
-                            <option value="PT-BR">Português (Brasil)</option>
-                            <option value="EN-US">English (EUA)</option>
-                        </select>
-                    </div>
-                </div>
+        <div id="news-grid" class="news-grid">
+            <!-- Cards de notícias serão carregados dinamicamente via JavaScript -->
+        </div>
 
-                <div class="filtro-titulo">
-                    <label for="filtro-titulo">Pesquisa por Título:</label>
-                    <input type="text" id="filtro-titulo" placeholder="Insira o Título da Notícia">   
-                </div>
-
-                <div class="filtro-data">
-                    <div class="filtro-grupo">
-                        <label for="filtro-mes">Filtrar por mês:</label>
-                        <select id="filtro-mes">
-                            <option value="">Todos os meses</option>
-                            <option value="1">Janeiro</option>
-                            <option value="2">Fevereiro</option>
-                            <option value="3">Março</option>
-                            <option value="4">Abril</option>
-                            <option value="5">Maio</option>
-                            <option value="6">Junho</option>
-                            <option value="7">Julho</option>
-                            <option value="8">Agosto</option>
-                            <option value="9">Setembro</option>
-                            <option value="10">Outubro</option>
-                            <option value="11">Novembro</option>
-                            <option value="12">Dezembro</option>
-                        </select>
-                    </div>
-
-                    <div class="filtro-grupo">
-                        <label for="filtro">Filtar por Ano:</label>
-                        <select id="filtro-ano">
-                            <option value="">Todos os Anos</option>
-                            <option value="2022">2022</option>
-                            <option value="2023">2023</option>
-                            <option value="2024">2024</option>
-                            <option value="2025">2025</option>
-                            <option value="2026">2026</option>
-                            <option value="2027">2027</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="botoes-filtro">
-                    <button id="botao-filtrar">Aplicar Filtros</button>
-                    <button id="botao-limpar">Limpar Filtros</button>
-                </div>
-            </div>
-
-            
-            <div class="cards-noticias-global">
-                <!-- Cards serão carregados dinamicamente via JavaScript -->
-            </div>
-
-          
-            <div class="paginacao-container">
-                <div class="paginacao">
-                    <button id="pagina-anterior" class="pagina-btn" disabled>
-                        <i class="fas fa-chevron-left"></i> Anterior
-                    </button>
-                    
-                    <div class="numeros-pagina" id="numeros-pagina">
-                        <!-- Os números das páginas serão gerados dinamicamente -->
-                    </div>
-                    
-                    <button id="proxima-pagina" class="pagina-btn">
-                        Próxima <i class="fas fa-chevron-right"></i>
-                    </button>
+        <div class="pagination-container">
+            <div class="pagination">
+                <button id="prev-page" class="pagination-btn" disabled>
+                    <i class="fas fa-chevron-left"></i> Anterior
+                </button>
+                
+                <div class="page-numbers" id="page-numbers">
+                    <!-- Os números das páginas serão gerados dinamicamente -->
                 </div>
                 
-                <div class="info-pagina">
-                    Mostrando <span id="cards-exibidos">0</span> de <span id="total-cards">0</span> notícias
-                </div>
+                <button id="next-page" class="pagination-btn">
+                    Próxima <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
-        </section>
+            
+            <div class="page-info">
+                Mostrando <span id="cards-shown">0</span> de <span id="total-cards">0</span> notícias
+            </div>
+        </div>
     </div>
 
     <div id="footer-socket"></div>
+
 </body>
 </html>

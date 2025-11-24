@@ -63,12 +63,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         if (!imagemPath.startsWith('/')) {
-          imagemPath = '/' + imagemPath;
+          imagemPath = imagemPath;
         }
         
         const imagemURL = imagemPath;
-        console.log('URL da imagem:', imagemURL);
-        
+
         imagemCell.innerHTML = `
           <img src="${imagemURL}" 
                loading="lazy" 

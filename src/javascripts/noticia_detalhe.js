@@ -81,7 +81,7 @@ class NoticiaDetalhe {
     // Renderiza a notícia na página
     renderizarNoticia(noticia) {
         const dataFormatada = this.formatarData(noticia.NoticiasData);
-        
+        console.log(noticia)
         const conteudoHTML = `
             <section class="corpo-total-noticia">
                 <div class="titulo-noticia-geral">
@@ -96,7 +96,7 @@ class NoticiaDetalhe {
 
                 ${noticia.NoticiasImagem ? `
                 <div class="imagem-da-noticia1">
-                    <img src="${noticia.NoticiasImagem.startsWith('/') ? noticia.NoticiasImagem : '/' + noticia.NoticiasImagem}" 
+                    <img src="${noticia.NoticiasImagem}" 
                          title="${this.sanitizarHTML(noticia.NoticiasTitulo)}" 
                          alt="${this.sanitizarHTML(noticia.NoticiasTitulo)}"
                          onerror="this.src='/public/img/placeholder.jpg'"

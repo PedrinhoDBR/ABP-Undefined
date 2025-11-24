@@ -4,7 +4,7 @@ const path = require('path');
 const { Op, fn, col, where: whereFn } = require('sequelize');
 const Membros = require('../models/membros');
 const router = express.Router();
-
+const cloudinary = require('cloudinary').v2;
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -23,7 +23,7 @@ const upload = multer({ storage: storage });
 
 router.get('/', async (req, res) => {
     try {
-        const { id, nome, cargo, idioma} = req.query;
+        const { id, nome, cargo, idioma,visivel} = req.query;
         const where = {};
         if (idioma) {
             where.MembrosIdioma = idioma;
@@ -33,6 +33,10 @@ router.get('/', async (req, res) => {
             where.MembrosNome = nome;
         }
 
+        if (visivel) { 
+            where.MembrosVisibilidade = true;
+        }
+
         if (cargo) {
              const termo = cargo.toLowerCase();
 
@@ -40,9 +44,7 @@ router.get('/', async (req, res) => {
                 whereFn(fn('LOWER', col('MembrosCargo')), { [Op.like]: `%${termo}%` })
             ];
         }
-        // console.log('Filtros:', where);
         const membros = await Membros.findAll({where});
-        // console.log('RET:',publicacoes)
 
         res.json({results: membros });
     } catch (error) {
@@ -69,15 +71,25 @@ router.get('/:id', async (req, res) => {
 
 
 router.post('/', upload.single('MembrosImagemFile'), async (req, res) => {
+
     try {
         const dados = req.body;
-
-        // Se uma imagem foi enviada, salva o caminho dela no banco
+        // Se uma imagem foi enviada, faz upload para o Cloudinary
         if (req.file) {
-            // Salva o caminho relativo que pode ser usado no frontend
-            dados.MembrosImagem = `/img/membros/${req.file.filename}`;
+ 
+            cloudinary.config({ 
+                cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
+                api_key: process.env.CLOUDINARY_API_KEY, 
+                api_secret: process.env.CLOUDINARY_API_SECRET
+            });
+            const uploadResult = await cloudinary.uploader.upload(req.file.path, {
+                folder: 'membros',
+                public_id: `membro_${Date.now()}`
+            });
+
+            dados.MembrosImagem = uploadResult.secure_url;
         }
-        dados.MembrosID = null
+        dados.MembrosID = null;
         const novoMembro = await Membros.create(dados);
         res.status(201).json(novoMembro);
     } catch (error) {
@@ -90,10 +102,21 @@ router.put('/:id', upload.single('MembrosImagemFile'), async (req, res) => {
     const { id } = req.params;
     try {
         const dados = req.body;
-        console.log(dados)
-        // Se uma nova imagem foi enviada, atualiza o caminho
+
+        // Se uma nova imagem foi enviada, faz upload para o Cloudinary
         if (req.file) {
-            dados.MembrosImagem = `/public/uploads/membros/${req.file.filename}`;
+            cloudinary.config({ 
+                cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
+                api_key: process.env.CLOUDINARY_API_KEY, 
+                api_secret: process.env.CLOUDINARY_API_SECRET
+            });
+
+            const uploadResult = await cloudinary.uploader.upload(req.file.path, {
+                folder: 'membros',
+                public_id: `membro_${Date.now()}`
+            });
+
+            dados.MembrosImagem = uploadResult.secure_url;
         }
 
         const [updated] = await Membros.update(dados, {
@@ -104,7 +127,7 @@ router.put('/:id', upload.single('MembrosImagemFile'), async (req, res) => {
             const membroAtualizado = await Membros.findByPk(id);
             return res.json(membroAtualizado);
         }
-        throw new Error('Membro não encontrada para atualização');
+        throw new Error('Membro não encontrado para atualização');
 
     } catch (error) {
         console.error('Erro ao atualizar membro:', error);

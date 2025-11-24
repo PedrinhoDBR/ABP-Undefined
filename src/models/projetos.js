@@ -53,6 +53,10 @@ const Projetos = sequelize.define('projetos', {
         defaultValue: 0,
         field: 'OrdemdeExibicao'
     },
+    ProjetosIdioma: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
     CriadoEm: {
         type: DataTypes.DATE,
         field: 'CriadoEm'

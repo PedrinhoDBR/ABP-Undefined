@@ -26,3 +26,7 @@ document.getElementById('login-btn').addEventListener('click', async function() 
         errorDiv.textContent = 'Erro ao conectar ao servidor.';
     }
 });
+
+document.getElementById('return-btn').addEventListener('click', function() {
+    window.location.href = '/';
+}); 

@@ -6,11 +6,12 @@ const { Op } = require('sequelize');
 const Noticias = require('../models/noticias');
 const router = express.Router();
 const fs = require('fs');
+const cloudinary = require('cloudinary').v2;
 
 // Salvar em public/img/noticias
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        const uploadPath = path.join(__dirname, '..', '..', 'public', 'img', 'noticias');
+        const uploadPath = path.join(__dirname, '..', '..', 'public', 'uploads', 'noticias');
         fs.mkdirSync(uploadPath, { recursive: true });
         cb(null, uploadPath);
     },
@@ -24,17 +25,22 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // GET todas as notícias
+// GET todas as notícias
 router.get('/', async (req, res) => {
     try {
-        const { idioma, titulo } = req.query;
+        const { idioma, titulo, ano } = req.query;
         const where = {};
         
         if (idioma) {
             where.NoticiasIdioma = idioma;
         }
-        
         if (titulo) {
             where.NoticiasTitulo = { [Op.like]: `%${titulo}%` };
+        }
+        if (ano) {
+            const inicioAno = new Date(`${ano}-01-01`);
+            const fimAno = new Date(`${ano}-12-31`);
+            where.NoticiasData = { [Op.between]: [inicioAno, fimAno] };
         }
 
         const noticias = await Noticias.findAll({
@@ -43,9 +49,9 @@ router.get('/', async (req, res) => {
         });
 
         res.json({ results: noticias });
-    } catch(error) {
+    } catch (error) {
         console.error('Erro ao buscar notícias:', error);
-        res.status(500).json({erro: 'Erro ao buscar notícias', detalhes: error.message});
+        res.status(500).json({ erro: 'Erro ao buscar notícias', detalhes: error.message });
     }
 });
 
@@ -76,17 +82,25 @@ router.post('/', upload.single('NoticiasImagemFile'), async (req, res) => {
             delete dados.NoticiasID;
         }
 
-        //  Caminho para /img/noticias/
         if (req.file) {
-            dados.NoticiasImagem = `/img/noticias/${req.file.filename}`;
+            cloudinary.config({ 
+                cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
+                api_key: process.env.CLOUDINARY_API_KEY, 
+                api_secret: process.env.CLOUDINARY_API_SECRET
+            });
+
+            const uploadResult = await cloudinary.uploader.upload(req.file.path, {
+                folder: 'noticias',
+                public_id: `noticia_${Date.now()}`
+            });
+
+            dados.NoticiasImagem = uploadResult.secure_url;
         }
 
-        
         if (dados.NoticiasData) {
             // Já deve vir no formato correto do input date
         }
 
-        console.log('Dados a serem salvos:', dados);
 
         const novaNoticia = await Noticias.create(dados);
         res.status(201).json(novaNoticia);
@@ -106,9 +120,19 @@ router.put('/:id', upload.single('NoticiasImagemFile'), async (req, res) => {
     try {
         const dados = req.body;
 
-       
         if (req.file) {
-            dados.NoticiasImagem = `/img/noticias/${req.file.filename}`;
+            cloudinary.config({ 
+                cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
+                api_key: process.env.CLOUDINARY_API_KEY, 
+                api_secret: process.env.CLOUDINARY_API_SECRET
+            });
+
+            const uploadResult = await cloudinary.uploader.upload(req.file.path, {
+                folder: 'noticias',
+                public_id: `noticia_${Date.now()}`
+            });
+
+            dados.NoticiasImagem = uploadResult.secure_url;
         }
 
         const [updated] = await Noticias.update(dados, {
