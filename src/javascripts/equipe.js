@@ -1,53 +1,64 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Mapeamento dos containers HTML
+    // Mapeamento dos containers por cargo (inclui variações possíveis)
     const containers = {
         'Coordenador': document.getElementById('coordenadores-grid'),
-        'Pesquisador Titular': document.getElementById('coordenadores-grid'), // Pode agrupar com Coordenador
+        'Pesquisadores - Coordenadores': document.getElementById('coordenadores-grid'),
+        'Pesquisador Coordenador': document.getElementById('coordenadores-grid'),
+        'Pesquisador Titular': document.getElementById('coordenadores-grid'),
         'Pesquisador Associado': document.getElementById('associados-grid'),
-        'Estudante de Pós-graduação': document.getElementById('doutorandos-grid'), // Agrupamento mais geral
+        'Estudante de Pós-graduação': document.getElementById('doutorandos-grid'),
         'Doutorando': document.getElementById('doutorandos-grid'),
+        'Mestrando': document.getElementById('doutorandos-grid'),
         'Bolsista': document.getElementById('bolsistas-grid'),
-        'Colaborador Externo': document.getElementById('bolsistas-grid'), // Pode agrupar com Bolsistas
+        'Colaborador Externo': document.getElementById('bolsistas-grid'),
+        'Colaborador': document.getElementById('bolsistas-grid')
     };
-    
-    // Contêiner principal para mensagens de erro/loading
+
     const mainWrap = document.querySelector('.members-wrap');
-    
-    // Função para buscar e exibir os membros
+
+    async function getIdiomaFromSession() {
+        try {
+            const resp = await fetch('/get-idioma');
+            const data = await resp.json();
+            return data.idioma || 'PT-BR';
+        } catch (e) {
+            console.warn('Falha ao obter idioma da sessão, usando PT-BR');
+            return 'PT-BR';
+        }
+    }
+
     async function loadEquipe() {
         mainWrap.insertAdjacentHTML('beforeend', '<p id="loading-message">Carregando Equipe...</p>');
-        
         try {
-            // Busca apenas membros visíveis (assumindo que sua API faz a filtragem)
-            const response = await fetch('/api/membros?visivel=true'); 
+            const idioma = await getIdiomaFromSession();
+            // Busca membros visíveis filtrando por idioma
+            const response = await fetch(`/api/membros?visivel=true&idioma=${encodeURIComponent(idioma)}`);
             if (!response.ok) throw new Error('Falha ao carregar dados da API.');
-
             const data = await response.json();
             const membros = data.results || [];
-            
             document.getElementById('loading-message')?.remove();
 
             if (membros.length === 0) {
                 mainWrap.insertAdjacentHTML('beforeend', '<p>Nenhum membro visível no momento.</p>');
-                // Esconder títulos de seção se estiverem vazios
                 document.querySelectorAll('.members-grid').forEach(el => el.style.display = 'none');
                 document.querySelectorAll('h2[id$="-title"]').forEach(el => el.style.display = 'none');
                 return;
             }
 
-            // 2. Renderiza os cards nos containers corretos
             membros.forEach(membro => {
-                const cargo = membro.MembrosCargo;
+                const cargoBruto = membro.MembrosCargo || '';
+                // Normaliza pequenos desvios (ex: espaços extras)
+                const cargo = cargoBruto.trim();
                 const container = containers[cargo];
-                
+                console.log(cargo, container);
+                console.log(membro);
                 if (container) {
                     const card = createMembroCard(membro);
                     container.appendChild(card);
                 } else {
-                    console.warn(`Cargo desconhecido: ${cargo}. Membro ${membro.MembrosNome} não renderizado.`);
+                    console.log(`Cargo desconhecido: '${cargo}'. Membro '${membro.MembrosNome}' não renderizado.`);
                 }
             });
-
         } catch (error) {
             console.error('Erro ao carregar a equipe:', error);
             document.getElementById('loading-message')?.remove();

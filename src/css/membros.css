@@ -15,11 +15,11 @@
         }
         
         .members-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
             display: flex;
+            flex-wrap: wrap;            /* permite quebra em múltiplas linhas */
             justify-content: center;
+            gap: 35px;                  /* espaço consistente entre cards */
+            margin-bottom: 40px;
         }
         
         .member-card {
@@ -121,9 +121,10 @@
 
 
 
-.coordenador{
-    flex-direction: column;
-    align-items: center;
+.coordenador {
+    flex-direction: row;        /* permite múltiplas colunas se houver vários coordenadores */
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 /* CARD */
@@ -134,10 +135,8 @@
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     position: relative;
-    height: 420px;           /* antes: 380px */
-    width: 100%;
-    width: 320px;        /* antes: 280px */
-    margin: 2rem;
+    height: 420px;
+    width: 300px;              /* largura base responsiva */
 }
 
 .member-card:hover {
@@ -203,32 +202,24 @@
 /* RESPONSIVIDADE */
 
 
+    @media screen and (max-width: 1100px) {
+        .member-card { width: 260px; height: 400px; }
+    }
+
     @media screen and (max-width: 900px) {
-            .members-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-                gap: 20px;
-                flex-direction: column;
-            }
-            
-            .member-card {
-                height: 350px;
-            }
-            
-            .member-image {
-                height: 200px;
-            }
-        }
-        
-        @media screen and(max-width: 480px) {
-            .members-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            h1 {
-                font-size: 24px;
-            }
-            
-            .subtitle {
-                font-size: 16px;
-            }
-        }
+        .members-grid { gap: 25px; }
+        .member-card { width: 240px; height: 380px; }
+        .member-image { height: 220px; }
+    }
+
+    @media screen and (max-width: 768px) {
+        .member-card { width: 90%; max-width: 340px; height: auto; }
+        .member-image { height: 220px; }
+    }
+
+    @media screen and (max-width: 480px) {
+        h1 { font-size: 24px; }
+        .subtitle { font-size: 16px; }
+        .member-card { width: 100%; }
+        .member-image { height: 200px; }
+    }

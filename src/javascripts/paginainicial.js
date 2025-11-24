@@ -122,6 +122,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (btnNoticias) btnNoticias.addEventListener('click', () => window.location.href = '/noticias');
         if (btnProjetos) btnProjetos.addEventListener('click', () => window.location.href = '/projetos');
         if (btnPublicacoes) btnPublicacoes.addEventListener('click', () => window.location.href = '/publicacoes');
+
+        // Foco automático em colaboradores se query ?colaboradores presente
+        const params = new URLSearchParams(window.location.search);
+        if (params.has('colaboradores')) {
+            const colabSection = document.getElementById('colaboradores-section');
+            if (colabSection) {
+                colabSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                colabSection.classList.add('focus-colaboradores');
+                setTimeout(() => colabSection.classList.remove('focus-colaboradores'), 4000);
+            }
+        }
     } catch (error) {
         console.error('Erro ao carregar dados:', error);
     }
