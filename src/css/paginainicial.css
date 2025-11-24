@@ -86,6 +86,9 @@
   transition: 200ms;
   z-index: 10;
   width: 100%;
+  left: 0;
+  right: 0;
+  padding: 0 8px;
 }
 
 .arrow:hover{
@@ -128,6 +131,20 @@
     transform: scaleX(-1);
 }
 
+/* Visual das setas do carrossel de equipe */
+.arrowEquipe .material-symbols-outlined{
+  font-size: 36px;
+  background: rgba(255,255,255,0.9);
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  padding: 6px;
+  cursor: pointer;
+  color: #1b1b1b;
+}
+.arrowEquipe .material-symbols-outlined:hover{
+  background: rgba(255,255,255,0.95);
+}
+
 
 
 .setasEquipe {
@@ -144,14 +161,25 @@
   justify-content: center;
   max-width: 95%;
   overflow-x: hidden;
+  min-height: 160px; /* garante espaço mesmo antes de imagens carregarem */
 }
 
 
 .equipeCarrosel {
-    display: flex;
-    justify-content: space-between;
-    cursor: pointer;
+  position: relative;
+  overflow: hidden; /* carrossel real, sem barra de rolagem */
+  padding: 8px 72px; /* área segura das setas */
 }
+
+.equipeTrack {
+  display: flex;
+  gap: 12px;
+  transition: transform 400ms ease;
+  will-change: transform;
+}
+
+/* Evita encolher os cards no track (mantém largura fixa) */
+.equipeTrack > .cardEquipeMiniatura { flex: 0 0 auto; }
 
 
 /* área de Formulario /////////////////// */

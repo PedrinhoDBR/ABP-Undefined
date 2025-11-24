@@ -15,15 +15,21 @@ document.addEventListener('DOMContentLoaded', () => {
   async function loadProjetos() {
     tbody.innerHTML = `<tr><td colspan="7" class="loading">Carregando projetos...</td></tr>`;
     try {
-      const res = await fetch('/projeto');
+      const res = await fetch('/api/projetos');
+      const contentType = res.headers.get('content-type') || '';
+      
+      if (!contentType.includes('application/json')) {
+        throw new Error('Resposta não é JSON. Content-Type recebido: ' + contentType);
+      }
       const data = await res.json();
-      allProjetos = data.results || [];
+      if (!data || typeof data !== 'object') throw new Error('Formato inesperado da resposta.');
+      allProjetos = Array.isArray(data.results) ? data.results : [];
       filtered = allProjetos;
       currentPage = 1;
       renderGrid();
     } catch (err) {
-      console.error(err);
-      tbody.innerHTML = `<tr><td colspan="7" class="loading">Erro ao carregar projetos.</td></tr>`;
+      console.error('Falha ao carregar projetos:', err);
+      tbody.innerHTML = `<tr><td colspan="7" class="loading">Erro ao carregar projetos. ${err.message}</td></tr>`;
     }
   }
 

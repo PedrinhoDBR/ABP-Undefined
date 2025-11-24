@@ -100,6 +100,38 @@ nav{
   
 }
 
+/* Mobile unified menu hidden on desktop */
+/* Mobile nav default (hidden on desktop) */
+.mobile-nav { display: none; }
+.mobile-menu-panel {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: var(--dark-blue-color);
+  padding: 0.75rem 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  z-index: 50;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 220px;
+  border-radius: 4px;
+}
+.mobile-menu-panel a { color: #fff; text-decoration: none; padding: 0.4rem 0; }
+.mobile-menu-panel a:hover { color: var(--light-green-color); }
+#mobile-menu-btn.menu-button {
+  background: none;
+  border: none;
+  padding: 1rem; /* mimic anchor spacing */
+  font: inherit;
+  color: var(--light-blue-color);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+#mobile-menu-btn.menu-button:hover { color: var(--light-green-color); }
+#mobile-menu-btn.open { color: var(--light-green-color); }
+
 
 
 
@@ -470,7 +502,7 @@ footer a {
   }
 
   nav {
-    display: flex;
+    display: none; /* hide original multi-menu */
     justify-content: center;
     align-items: center;
     font-size: 0.8rem;
@@ -482,6 +514,12 @@ footer a {
   nav .menu-button {
     margin: 0.5rem;
   }
+
+  /* Mobile unified menu visibility (moved out of invalid nested block) */
+  .headerTop { flex-direction: row; justify-content: space-between; width: 100%; }
+  .mobile-nav { display: flex; position: relative; align-items: center; }
+  #mobile-menu-btn.menu-button { margin: 0; }
+  .mobile-menu-panel { position: absolute; top: 100%; }
 
   .languageButton {
     width: 2rem;
@@ -574,8 +612,7 @@ footer a {
 
   /* Desktop keeps hover behavior */
   @media screen and (min-width: 1001px) {
-    .menu-group.open .submenu,
-    .menu-group.open .submenuAtuacao { }
+    /* retain desktop hover behavior; no explicit overrides needed */
   }
 
 
