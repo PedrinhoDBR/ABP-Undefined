@@ -13,23 +13,40 @@ document.addEventListener('DOMContentLoaded', () => {
   const pageSize = 10;
 
   async function loadProjetos() {
-    tbody.innerHTML = `<tr><td colspan="7" class="loading">Carregando projetos...</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="6" class="loading">Carregando projetos...</td></tr>`;
     try {
-      const res = await fetch('/api/projetos');
-      const contentType = res.headers.get('content-type') || '';
+      console.log('Fazendo requisição para /projeto...');
+      const res = await fetch('/projeto');
       
-      if (!contentType.includes('application/json')) {
-        throw new Error('Resposta não é JSON. Content-Type recebido: ' + contentType);
+      if (!res.ok) {
+        throw new Error(`Erro HTTP: ${res.status} ${res.statusText}`);
       }
-      const data = await res.json();
-      if (!data || typeof data !== 'object') throw new Error('Formato inesperado da resposta.');
-      allProjetos = Array.isArray(data.results) ? data.results : [];
+
+      // Tenta ler como texto primeiro para debug
+      const responseText = await res.text();
+      console.log('Resposta bruta:', responseText.substring(0, 500));
+
+      // Tenta parsear como JSON
+      let data;
+      try {
+        data = JSON.parse(responseText);
+      } catch (parseError) {
+        console.error('Erro ao parsear JSON:', parseError);
+        throw new Error('Resposta do servidor não é JSON válido');
+      }
+      
+      console.log('Dados recebidos:', data);
+      
+      allProjetos = data.results || data || [];
       filtered = allProjetos;
       currentPage = 1;
       renderGrid();
     } catch (err) {
-      console.error('Falha ao carregar projetos:', err);
-      tbody.innerHTML = `<tr><td colspan="7" class="loading">Erro ao carregar projetos. ${err.message}</td></tr>`;
+      console.error('Erro ao carregar projetos:', err);
+      tbody.innerHTML = `<tr><td colspan="6" class="loading" style="color: #dc3545;">
+        Erro ao carregar projetos. Verifique se o servidor está respondendo corretamente.
+        <br><small>${err.message}</small>
+      </td></tr>`;
     }
   }
 
@@ -42,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const current = filtered.slice(start, start + pageSize);
 
     if (!current.length) {
-      tbody.innerHTML = `<tr><td colspan="7" class="loading">Nenhum projeto encontrado.</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="6" class="loading">Nenhum projeto cadastrado.</td></tr>`;
       updatePagination();
       return;
     }
@@ -50,7 +67,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const fragment = document.createDocumentFragment();
     current.forEach(projeto => {
       const row = rowTemplate.content.cloneNode(true);
-      row.querySelector('.projetos-id').textContent = projeto.ProjetosId || '';
+      
+      // REMOVIDO: row.querySelector('.projetos-id').textContent = projeto.ProjetosId || '';
       row.querySelector('.projetos-titulo').textContent = projeto.ProjetosTitulo || '';
       row.querySelector('.projetos-titulo-card').textContent = projeto.ProjetosTituloCard || '';
       row.querySelector('.ativo').innerHTML = `
@@ -60,20 +78,23 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
       row.querySelector('.ordem').textContent = projeto.OrdemdeExibicao || '0';
       
+      // TRATAMENTO DAS IMAGENS
       const imagemCell = row.querySelector('.imagem-card');
       if (projeto.ImagemCard) {
         let imagemPath = projeto.ImagemCard;
         
+        // Remove /public do início se existir
         if (imagemPath.startsWith('/public/')) {
           imagemPath = imagemPath.substring(8); // Remove "/public/"
         }
         
+        // Garante que começa com /
         if (!imagemPath.startsWith('/')) {
-          imagemPath = imagemPath;
+          imagemPath = '/' + imagemPath;
         }
         
         const imagemURL = imagemPath;
-
+        
         imagemCell.innerHTML = `
           <img src="${imagemURL}" 
                loading="lazy" 
@@ -91,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const menuBtn = row.querySelector('.admin-menu-btn');
 
       showBtn.addEventListener('click', () => {
-        window.open(`/projeto?project=${projeto.ProjetosId}`, '_blank');
+        window.open(`/pages/projetoCONAB.html?project=${projeto.ProjetosId}`, '_blank');
       });
 
       modifyBtn.addEventListener('click', () => {
@@ -184,5 +205,6 @@ document.addEventListener('DOMContentLoaded', () => {
     window.location.href = '/admin/projeto?modo=inserir';
   });
 
+  // Inicializar
   loadProjetos();
 });

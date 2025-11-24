@@ -95,29 +95,38 @@ router.post('/', async (req, res) => {
             data.ProjetosIdioma = body.ProjetosIdioma || null;    
 
             if (files && files.ImagemCarrosselFile && files.ImagemCarrosselFile[0]) {
-                cloudinary.config({ 
-                    cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
-                    api_key: process.env.CLOUDINARY_API_KEY, 
-                    api_secret: process.env.CLOUDINARY_API_SECRET
-                });
-
-                const uploadResult = await cloudinary.uploader.upload(files.ImagemCarrosselFile[0].path, {
-                    folder: 'projetos',
-                    public_id: `projeto_carrossel_${Date.now()}`
-                });
-
-                data.ImagemCarrossel = uploadResult.secure_url;
+                const hasCloudinary = !!(process.env.CLOUDINARY_CLOUD_NAME && process.env.CLOUDINARY_API_KEY && process.env.CLOUDINARY_API_SECRET);
+                if (hasCloudinary) {
+                    cloudinary.config({ 
+                        cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
+                        api_key: process.env.CLOUDINARY_API_KEY, 
+                        api_secret: process.env.CLOUDINARY_API_SECRET
+                    });
+                    const uploadResult = await cloudinary.uploader.upload(files.ImagemCarrosselFile[0].path, {
+                        folder: 'projetos',
+                        public_id: `projeto_carrossel_${Date.now()}`
+                    });
+                    data.ImagemCarrossel = uploadResult.secure_url;
+                } else {
+                    const filename = path.basename(files.ImagemCarrosselFile[0].path);
+                    data.ImagemCarrossel = `/public/uploads/projetos/${filename}`;
+                }
             } else if (body.ImagemCarrossel) {
                 data.ImagemCarrossel = body.ImagemCarrossel;
             }
 
             if (files && files.ImagemCardFile && files.ImagemCardFile[0]) {
-                const uploadResult = await cloudinary.uploader.upload(files.ImagemCardFile[0].path, {
-                    folder: 'projetos',
-                    public_id: `projeto_card_${Date.now()}`
-                });
-
-                data.ImagemCard = uploadResult.secure_url;
+                const hasCloudinary = !!(process.env.CLOUDINARY_CLOUD_NAME && process.env.CLOUDINARY_API_KEY && process.env.CLOUDINARY_API_SECRET);
+                if (hasCloudinary) {
+                    const uploadResult = await cloudinary.uploader.upload(files.ImagemCardFile[0].path, {
+                        folder: 'projetos',
+                        public_id: `projeto_card_${Date.now()}`
+                    });
+                    data.ImagemCard = uploadResult.secure_url;
+                } else {
+                    const filename = path.basename(files.ImagemCardFile[0].path);
+                    data.ImagemCard = `/public/uploads/projetos/${filename}`;
+                }
             } else if (body.ImagemCard) {
                 data.ImagemCard = body.ImagemCard;
             }
