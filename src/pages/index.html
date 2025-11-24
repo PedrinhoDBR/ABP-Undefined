@@ -16,6 +16,7 @@
     
     <script src="../javascripts/paginainicial.js" defer></script>
     <script src="../javascripts/layout.js" defer></script>
+    <script src="../javascripts/home.js"></script>
     <script src="https://kit.fontawesome.com/5e96e72d2d.js" crossorigin="anonymous" defer></script>
     <!-- <link
        href="https://fonts.googleapis.com/css2?family=Itim&family=Jacquard+24&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
@@ -39,29 +40,61 @@
 
     <div class="container">
         <section>
+
+           
             <div class="carroselBox">
-                <button id="leftArrowNews" class="arrow-btn">←</button>
+                <div class="arrow">
+                    <span class="material-symbols-outlined" id="leftArrowNews">
+                        arrow_forward_ios
+                    </span>
+                </div>
+
+                <div class="arrow rightArrow">
+                    <span class="material-symbols-outlined" id="rightArrowNews">
+                        arrow_forward_ios
+                    </span>
+                </div>
+ <a href="/noticias">
                 <div class="carrosel" id="slide0">
                     <!-- Notícias serão carregadas dinamicamente -->
                 </div>
-                <button id="rightArrowNews" class="arrow-btn">→</button>
+                <div class="carrosel" id="slide2">
+                    <img src="../public/img/3hovernoticia.png" alt="">
+
+
+                    <div class="carroselText">
+                        <h3>Tecnologias Verdes Transformam a Agricultura Sustentável</h3>
+                        <p>Combinação de sensoriamento remoto e inteligência artificial está criando novas
+                            possibilidades para uma agricultura mais ecológica e eficiente.</p>
+                        <div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </a>
+                
+
             </div>
             <button type="button" id="btnMaisNoticias">Mais Notícias</button>
         </section>
         <section>
+            <a href="/noticias"><button type="button">Mais Notícias</button></a>
             <h2>PROJETOS</h2>
-            <div class="cardsBox">
-                <!-- Projetos serão carregados dinamicamente aqui -->
+            <div class="cardsBox" id="container-projetos">
+                
             </div>
-            <button type="button" id="btnMaisProjetos">Mais Projetos</button>
+        
+            <a href="/projetos"><button type="button">Mais Projetos</button></a>
         </section>
         <section>
             <h2>PUBLICAÇÕES</h2>
-            <div class="cardsBox">
-                <!-- Publicações serão carregadas dinamicamente aqui -->
+            <div class="cardsBox" id="container-publicacoes">
+            
             </div>
-            <button type="button" id="btnMaisPublicacoes">Mais Publicações</button>
-
+            <a href="/publicacoes"><button type="button">Mais Projetos</button></a>
         </section>
         <section>
             <h2>EQUIPE</h2>
