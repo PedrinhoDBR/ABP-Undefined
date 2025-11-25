@@ -171,7 +171,12 @@ class ProjetosManager {
 
     getCurrentPage() {
         const path = window.location.pathname;
-        if (path.includes('projetoCONAB.html')) {
+        // Página de detalhe pode ser servida em /projeto (sem nome de arquivo) ou com arquivo direto
+        if (path === '/projeto' || path.startsWith('/projeto/')) {
+            return 'project-detail';
+        }
+        // Fallback: se existir container de detalhe no DOM, assume detalhe
+        if (document.getElementById('projeto-titulo')) {
             return 'project-detail';
         }
         return 'projects-list';
@@ -179,7 +184,8 @@ class ProjetosManager {
 
     getProjectFromURL() {
         const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get('project') || '1';
+        const id = urlParams.get('project');
+        return id ? id : '1';
     }
 
     init() {
@@ -297,6 +303,10 @@ class ProjetosManager {
 
     async renderProjectDetail() {
         const projetoId = this.currentProject;
+        if (!projetoId) {
+            console.warn('Nenhum ID de projeto fornecido na URL. Adicione ?project=ID.');
+            return;
+        }
 
         try {
             const response = await fetch(`${this.apiBaseURL}/projeto/${projetoId}`);
@@ -328,13 +338,8 @@ class ProjetosManager {
         const carrosselImg = document.getElementById('carrossel-imagem');
         if (carrosselImg && project.ImagemCarrossel) {
             let imagemPath = project.ImagemCarrossel;
-            if (imagemPath.startsWith('/public')) {
-                imagemPath = imagemPath.replace('/public', '');
-            }
-            if (!imagemPath.startsWith('/')) {
-                imagemPath = '/' + imagemPath;
-            }
-            carrosselImg.src = `${this.apiBaseURL}${imagemPath}`;
+
+            carrosselImg.src = `${imagemPath}`;
             carrosselImg.alt = project.ProjetosTitulo;
         }
 

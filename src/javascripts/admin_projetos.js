@@ -132,15 +132,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (projeto.ImagemCard) {
         let imagemPath = projeto.ImagemCard;
         
-        // Remove /public do início se existir
-        if (imagemPath.startsWith('/public/')) {
-          imagemPath = imagemPath.substring(8); // Remove "/public/"
-        }
-        
-        // Garante que começa com /
-        if (!imagemPath.startsWith('/')) {
-          imagemPath = '/' + imagemPath;
-        }
         
         const imagemURL = imagemPath;
         

@@ -1038,8 +1038,8 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
       <td>RF05, RNF02</td>
     </tr>
     <tr>
-      <td>SO-078</td>
-      <td>Configuração do servidor do banco de dados</td>
+      <td>ES-078</td>
+      <td>Planejar backlog sprint 3</td>
       <td>3</td>
       <td>Pedro</td>
       <td>✔️</td>
@@ -1047,13 +1047,85 @@ O desenvolvimento do site será feito utilizando tecnologias simples e eficiente
       <td></td>
     </tr>
     <tr>
-      <td>SO-079</td>
-      <td>Configuração do servidor do banco de aplicação</td>
+      <td>ES-079</td>
+      <td>Burndown sprint 3</td>
       <td>3</td>
       <td>Pedro</td>
       <td>✔️</td>
       <td></td>
       <td></td>
+    </tr>
+    <tr>
+      <td>SO-080</td>
+      <td>Configuração envio de email</td>
+      <td>3</td>
+      <td>Marcus</td>
+      <td>✔️</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>SO-081</td>
+      <td>Configuração do servidor do banco de dados</td>
+      <td>3</td>
+      <td>Nicolas</td>
+      <td>✔️</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>SO-082</td>
+      <td>Configuração do servidor de aplicação</td>
+      <td>3</td>
+      <td>Pedro</td>
+      <td>✔️</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>DW-083</td>
+      <td>Ajustes gerais da página de membros</td>
+      <td></td>
+      <td>Thales</td>
+      <td>✔️</td>
+      <td></td>
+      <td>RF03</td>
+    </tr>
+    <tr>
+      <td>DW-084</td>
+      <td>Ajustes gerais da página de notícias</td>
+      <td></td>
+      <td>Ronaldo</td>
+      <td>✔️</td>
+      <td></td>
+      <td>RF06</td>
+    </tr>
+    <tr>
+      <td>DW-085</td>
+      <td>Ajustes gerais da página de publicações</td>
+      <td></td>
+      <td>João</td>
+      <td>✔️</td>
+      <td></td>
+      <td>RF07</td>
+    </tr>
+    <tr>
+      <td>DW-086</td>
+      <td>Ajustes gerais da página de projetos</td>
+      <td></td>
+      <td>Israel</td>
+      <td>✔️</td>
+      <td></td>
+      <td>RF05</td>
+    </tr>
+    <tr>
+      <td>DW-087</td>
+      <td>Ajustes gerais da página inicial</td>
+      <td></td>
+      <td>Rainan</td>
+      <td>✔️</td>
+      <td></td>
+      <td>RF01</td>
     </tr>
   </tbody>
 </table>

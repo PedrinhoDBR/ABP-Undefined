@@ -467,9 +467,38 @@ document.addEventListener('DOMContentLoaded', function () {
     const filterAno = document.getElementById('filter-ano');
     const filterSearch = document.getElementById('filter-search');
     const newsGrid = document.getElementById('news-grid');
+    const prevBtn = document.getElementById('prev-page');
+    const nextBtn = document.getElementById('next-page');
+    const pageNumbersContainer = document.getElementById('page-numbers');
+    const shownSpan = document.getElementById('cards-shown');
+    const totalSpan = document.getElementById('total-cards');
+    // Oculta botões e números de página (remoção temporária da paginação)
+    if (prevBtn) prevBtn.style.display = 'none';
+    if (nextBtn) nextBtn.style.display = 'none';
+    if (pageNumbersContainer) pageNumbersContainer.style.display = 'none';
+    const pagination = document.querySelector('.pagination');
+    if (pagination) pagination.style.display = 'none';
 
-    let currentPage = 1;
-    const itemsPerPage = 12;
+    let newsData = [];
+    let itemsRendered = 0;
+    let batchSize = computeCardsPerPage();
+
+    function computeCardsPerPage(){
+        const w = window.innerWidth;
+        if (w >= 1500) return 18; // 3 linhas * 6 colunas aprox
+        if (w >= 1200) return 15; // 3 x 5
+        if (w >= 992)  return 12; // 3 x 4
+        if (w >= 768)  return 9;  // 3 x 3
+        if (w >= 576)  return 6;  // 2 x 3
+        return 4;                 // empilhado / menor
+    }
+
+    const onResize = debounce(() => {
+        const old = batchSize;
+        batchSize = computeCardsPerPage();
+        // Não re-renderiza já mostrados; só afeta próximos lotes
+    }, 250);
+    window.addEventListener('resize', onResize);
 
     // Função para buscar notícias do backend
     async function fetchNews() {
@@ -485,13 +514,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const response = await fetch(`/api/noticias?${params.toString()}`);
             const data = await response.json();
-
-            if (response.ok) {
-                renderNews(data.results);
-                updatePagination(data.page, Math.ceil(data.total / CARDS_POR_PAGINA));
-            } else {
-                console.error('Erro ao buscar notícias:', data.erro);
+            if (!response.ok) {
+                console.error('Erro ao buscar notícias:', data.erro || response.status);
+                return;
             }
+            newsData = data.results || [];
+            // Reset infinito
+            itemsRendered = 0;
+            newsGrid.innerHTML = '';
+            if (totalSpan) totalSpan.textContent = newsData.length;
+            renderNextBatch();
         } catch (error) {
             console.error('Erro ao buscar notícias:', error);
         }
@@ -509,8 +541,8 @@ async function getIdiomaFromSession() {
 }
 
     // Função para renderizar as notícias
-function renderNews(news) {
-    newsGrid.innerHTML = news.map(item => {
+function renderSlice(newsSlice) {
+    const html = newsSlice.map(item => {
         const dataNoticia = new Date(item.NoticiasData);
         let dataFormatada = '';
         console.log(dataNoticia)
@@ -522,7 +554,6 @@ function renderNews(news) {
         } else {
             dataFormatada = 'Data inválida';
         }
-
         return `
             <div class="news-card">
                 <div class="news-image">
@@ -537,16 +568,26 @@ function renderNews(news) {
             </div>
         `;
     }).join('');
+    newsGrid.insertAdjacentHTML('beforeend', html);
 }
-
-    // Função para atualizar a paginação
-    function updatePagination(page, totalPages) {
-        const paginationContainer = document.querySelector('.pagination-container');
-        paginationContainer.style.display = totalPages > 1 ? 'flex' : 'none';
-
-        const pageInfo = document.querySelector('.page-info');
-        pageInfo.textContent = `Mostrando página ${page} de ${totalPages}`;
+    // Scroll infinito
+    function renderNextBatch(){
+        if (itemsRendered >= newsData.length) return;
+        const slice = newsData.slice(itemsRendered, itemsRendered + batchSize);
+        renderSlice(slice);
+        itemsRendered += slice.length;
+        if (shownSpan) shownSpan.textContent = itemsRendered;
+        if (totalSpan) totalSpan.textContent = newsData.length;
     }
+
+    const onScroll = debounce(() => {
+        if (itemsRendered >= newsData.length) return;
+        const nearBottom = (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 300);
+        if (nearBottom) {
+            renderNextBatch();
+        }
+    }, 150);
+    window.addEventListener('scroll', onScroll);
 
     // Event listeners para os filtros
     filterAno.addEventListener('change', fetchNews);
