@@ -11,31 +11,42 @@ const router = express.Router();
 
 router.get('/ultimos', async (req, res) => {
     try {
+        const { idioma } = req.query;
+        const where = {};
+        if (idioma) {
+            where.ProjetosIdioma = idioma;
+        }
         const projetos = await Projetos.findAll({
-            limit: 3, 
+            where,
+            limit: 3,
             order: [['ProjetosId', 'DESC']]
         });
-        
-    
-        res.status(200).json({ results: projetos }); 
-        
+        res.status(200).json({ results: projetos });
     } catch (error) {
-        console.error("ERRO CRÍTICO NA ROTA /ultimos:", error);
-        res.status(500).json({ erro: 'Erro interno ao buscar dados do banco' });
+        console.error('ERRO CRÍTICO NA ROTA /ultimos:', error);
+        res.status(500).json({ erro: 'Erro interno ao buscar dados do banco', detalhes: error.message });
     }
 });
 
 // Rota para todos os projetos - RESPONDE A /projeto/
 router.get('/', async (req, res) => {
     try {
+        const { idioma } = req.query;
+        const where = {};
+        if (idioma) {
+            where.ProjetosIdioma = idioma;
+        }
+        
         const projetos = await Projetos.findAll({
+            where,
             order: [['ProjetosId', 'ASC']]
         });
+       
 
         res.json({ results: projetos });
-    } catch(error){
+    } catch (error) {
         console.error('Erro ao buscar a lista de projetos:', error);
-        res.status(500).json({erro: 'Erro ao buscar projetos', detalhes: error.message});
+        res.status(500).json({ erro: 'Erro ao buscar projetos', detalhes: error.message });
     }
 });
 

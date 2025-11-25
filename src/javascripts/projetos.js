@@ -159,6 +159,17 @@
 //     "impactos-agricultura", 
 //     "acompanhamento-frutas" 
 // ];
+async function getIdiomaFromSession() {
+    try {
+        const response = await fetch('/get-idioma');
+        const data = await response.json();
+        return data.idioma || 'PT-BR'; // Retorna o idioma ou 'PT-BR' como padrão
+    } catch (error) {
+        console.error('Erro ao buscar idioma da sessão:', error);
+        return 'PT-BR';
+    }
+}
+
 class ProjetosManager {
     constructor() {
         this.currentPage = this.getCurrentPage();
@@ -200,6 +211,8 @@ class ProjetosManager {
         this.projetosCarregados = true;
     }
 
+
+
     async renderProjectsList() {
    
         const containers = document.querySelectorAll('.cardsProjetos');
@@ -207,7 +220,11 @@ class ProjetosManager {
         if (!containers.length) return;
 
         try {
-            const response = await fetch(`/api/projetos`, { headers: { 'Accept': 'application/json' } });
+            // Detecta idioma da página (html lang="pt-BR" ou "en-US" etc.)
+            const idioma = await getIdiomaFromSession();
+            // Normaliza para valores usados no backend
+
+            const response = await fetch(`/api/projetos?idioma=${encodeURIComponent(idioma)}`, { headers: { 'Accept': 'application/json' } });
             if (!response.ok) throw new Error(`Erro HTTP: ${response.status}`);
 
             const contentType = response.headers.get('content-type') || '';

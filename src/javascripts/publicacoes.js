@@ -63,7 +63,7 @@ async function fetchPublications() {
         if (ano) params.append('ano', ano);
         if (titulo) params.append('titulo', titulo);
 
-        const url = `http://localhost:3030/publicacao?${params.toString()}`;
+        const url = `/api/publicacoes?${params.toString()}`;
         const response = await fetch(url);
         const data = await response.json();
 

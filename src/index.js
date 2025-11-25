@@ -163,6 +163,7 @@ app.get('/admin/noticia', requireLogin, (req, res) => {
 
 app.use('/api/noticias', Noticias); 
 app.use('/publicacao', Publicacao);
+app.use('/api/publicacoes', Publicacao);
 app.use('/projeto', Projetos);
 app.use('/api/projetos', Projetos);
 app.use('/api/membros', Membros);
