@@ -12,11 +12,47 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentPage = 1;
   const pageSize = 10;
 
+  // Verificar se já estamos em uma página administrativa para evitar duplicação
+  const isAdminPage = window.location.pathname.includes('/admin');
+  
+  // Traduções específicas para a página administrativa
+  function applyAdminTranslations() {
+    if (!isAdminPage) return;
+    
+    // Verificar se já foi traduzido para evitar duplicação
+    if (document.documentElement.lang === 'en') return;
+    
+    const h1 = document.querySelector('h1');
+    if (h1 && h1.textContent.includes('Gerenciamento de Projetos')) {
+      h1.textContent = 'Projects Management';
+    }
+    
+    if (searchInput) {
+      searchInput.placeholder = '🔍 Search by title...';
+    }
+    
+    if (btnInserir) {
+      btnInserir.textContent = '➕ New Project';
+    }
+    
+    if (pageInfo) {
+      pageInfo.textContent = pageInfo.textContent.replace('Página', 'Page').replace('de', 'of');
+    }
+    
+    const prevBtnText = document.querySelector('#prev-page');
+    const nextBtnText = document.querySelector('#next-page');
+    if (prevBtnText) prevBtnText.textContent = '⬅️ Previous';
+    if (nextBtnText) nextBtnText.textContent = 'Next ➡️';
+    
+    // Marcar como já traduzido
+    document.documentElement.lang = 'en';
+  }
+
   async function loadProjetos() {
-    tbody.innerHTML = `<tr><td colspan="6" class="loading">Carregando projetos...</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="6" class="loading">${isAdminPage && document.documentElement.lang === 'en' ? 'Loading projects...' : 'Carregando projetos...'}</td></tr>`;
     try {
       console.log('Fazendo requisição para /projeto...');
-      const res = await fetch('/api/projetos');
+      const res = await fetch('/projeto');
       
       if (!res.ok) {
         throw new Error(`Erro HTTP: ${res.status} ${res.statusText}`);
@@ -43,8 +79,12 @@ document.addEventListener('DOMContentLoaded', () => {
       renderGrid();
     } catch (err) {
       console.error('Erro ao carregar projetos:', err);
+      const errorMsg = isAdminPage && document.documentElement.lang === 'en' 
+        ? 'Error loading projects. Check if the server is responding correctly.'
+        : 'Erro ao carregar projetos. Verifique se o servidor está respondendo corretamente.';
+      
       tbody.innerHTML = `<tr><td colspan="6" class="loading" style="color: #dc3545;">
-        Erro ao carregar projetos. Verifique se o servidor está respondendo corretamente.
+        ${errorMsg}
         <br><small>${err.message}</small>
       </td></tr>`;
     }
@@ -59,7 +99,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const current = filtered.slice(start, start + pageSize);
 
     if (!current.length) {
-      tbody.innerHTML = `<tr><td colspan="6" class="loading">Nenhum projeto cadastrado.</td></tr>`;
+      const noProjectsMsg = isAdminPage && document.documentElement.lang === 'en' 
+        ? 'No projects registered.' 
+        : 'Nenhum projeto cadastrado.';
+      tbody.innerHTML = `<tr><td colspan="6" class="loading">${noProjectsMsg}</td></tr>`;
       updatePagination();
       return;
     }
@@ -68,14 +111,20 @@ document.addEventListener('DOMContentLoaded', () => {
     current.forEach(projeto => {
       const row = rowTemplate.content.cloneNode(true);
       
-      // REMOVIDO: row.querySelector('.projetos-id').textContent = projeto.ProjetosId || '';
       row.querySelector('.projetos-titulo').textContent = projeto.ProjetosTitulo || '';
       row.querySelector('.projetos-titulo-card').textContent = projeto.ProjetosTituloCard || '';
+      
+      // Status em português/inglês
+      const ativoStatus = isAdminPage && document.documentElement.lang === 'en' 
+        ? (projeto.Ativo ? 'Active' : 'Inactive')
+        : (projeto.Ativo ? 'Ativo' : 'Inativo');
+      
       row.querySelector('.ativo').innerHTML = `
         <span class="status-tag ${projeto.Ativo ? 'status-true' : 'status-false'}">
-          ${projeto.Ativo ? 'Ativo' : 'Inativo'}
+          ${ativoStatus}
         </span>
       `;
+      
       row.querySelector('.ordem').textContent = projeto.OrdemdeExibicao || '0';
       
       // TRATAMENTO DAS IMAGENS
@@ -86,12 +135,16 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const imagemURL = imagemPath;
         
+        const noImageText = isAdminPage && document.documentElement.lang === 'en' 
+          ? 'No image' 
+          : 'Sem imagem';
+        
         imagemCell.innerHTML = `
           <img src="${imagemURL}" 
                loading="lazy" 
                alt="Imagem do projeto" 
                style="max-width: 60px; max-height: 60px; border-radius: 4px; object-fit: cover;"
-               onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=\\'color:#888; font-size:12px;\\'>Sem imagem</span>'">
+               onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=\\'color:#888; font-size:12px;\\'>${noImageText}</span>'">
         `;
       } else {
         imagemCell.innerHTML = '<span style="color:#888;">-</span>';
@@ -102,6 +155,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const deleteBtn = row.querySelector('.delete');
       const menuBtn = row.querySelector('.admin-menu-btn');
 
+      // Traduzir textos dos botões do menu
+      if (isAdminPage && document.documentElement.lang === 'en') {
+        showBtn.textContent = '👁️ View';
+        modifyBtn.textContent = '✏️ Edit';
+        deleteBtn.textContent = '🗑️ Delete';
+      }
+
       showBtn.addEventListener('click', () => {
         window.open(`/pages/projetoCONAB.html?project=${projeto.ProjetosId}`, '_blank');
       });
@@ -111,7 +171,11 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       deleteBtn.addEventListener('click', async () => {
-        if (confirm(`Deseja realmente excluir o projeto "${projeto.ProjetosTitulo}"?`)) {
+        const confirmMsg = isAdminPage && document.documentElement.lang === 'en'
+          ? `Do you really want to delete the project "${projeto.ProjetosTitulo}"?`
+          : `Deseja realmente excluir o projeto "${projeto.ProjetosTitulo}"?`;
+          
+        if (confirm(confirmMsg)) {
           await deleteProjeto(projeto.ProjetosId);
           await loadProjetos();
         }
@@ -132,7 +196,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function updatePagination() {
     const totalPages = Math.ceil(filtered.length / pageSize) || 1;
-    pageInfo.textContent = `Página ${currentPage} de ${totalPages}`;
+    
+    if (isAdminPage && document.documentElement.lang === 'en') {
+      pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+    } else {
+      pageInfo.textContent = `Página ${currentPage} de ${totalPages}`;
+    }
+    
     prevBtn.disabled = currentPage <= 1;
     nextBtn.disabled = currentPage >= totalPages;
   }
@@ -143,7 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const titulo = (projeto.ProjetosTitulo || '').toLowerCase();
         const tituloCard = (projeto.ProjetosTituloCard || '').toLowerCase();
         const ordem = (projeto.OrdemdeExibicao || '').toString().toLowerCase();
-        const status = projeto.Ativo ? 'ativo true' : 'inativo false';
+        const status = projeto.Ativo ? 'ativo active true' : 'inativo inactive false';
 
         return (
           titulo.includes(term) ||
@@ -181,10 +251,18 @@ document.addEventListener('DOMContentLoaded', () => {
         throw new Error('Erro ao excluir projeto');
       }
       
-      alert('Projeto excluído com sucesso!');
+      const successMsg = isAdminPage && document.documentElement.lang === 'en'
+        ? 'Project deleted successfully!'
+        : 'Projeto excluído com sucesso!';
+      
+      alert(successMsg);
     } catch (err) {
       console.error(err);
-      alert('Erro ao excluir projeto.');
+      const errorMsg = isAdminPage && document.documentElement.lang === 'en'
+        ? 'Error deleting project.'
+        : 'Erro ao excluir projeto.';
+      
+      alert(errorMsg);
     }
   }
 
@@ -196,6 +274,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.location.href = '/admin/projeto?modo=inserir';
   });
 
-  // Inicializar
+  // Aplicar traduções e inicializar
+  applyAdminTranslations();
   loadProjetos();
 });
