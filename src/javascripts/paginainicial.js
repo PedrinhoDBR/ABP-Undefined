@@ -163,6 +163,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (btnProjetos) btnProjetos.addEventListener('click', () => window.location.href = '/projetos');
         if (btnPublicacoes) btnPublicacoes.addEventListener('click', () => window.location.href = '/publicacoes');
 
+        // Tradução dos textos dos botões conforme idioma
+        if (idioma === 'EN-US') {
+            if (btnNoticias) btnNoticias.textContent = '+ News';
+            if (btnProjetos) btnProjetos.textContent = '+ Projects';
+            if (btnPublicacoes) btnPublicacoes.textContent = '+ Publications';
+        } else { // PT-BR padrão
+            if (btnNoticias) btnNoticias.textContent = '+ Notícias';
+            if (btnProjetos) btnProjetos.textContent = '+ Projetos';
+            if (btnPublicacoes) btnPublicacoes.textContent = '+ Publicações';
+        }
+
         // Foco automático em colaboradores se query ?colaboradores presente
         const params = new URLSearchParams(window.location.search);
         if (params.has('colaboradores')) {
@@ -195,7 +206,12 @@ function renderProjetos(projetos, idioma) {
     const boxes = document.querySelectorAll('.cardsBox');
     const container = boxes[0]; // primeiro cardsBox = projetos
     if (!container) return;
-    container.innerHTML = projetos.map(projeto => `
+    // Limita a exibição aos 3 primeiros projetos ativos (se houver)
+    const lista = (projetos || [])
+        .filter(p => p.Ativo !== false)
+        .sort((a,b) => (a.OrdemdeExibicao||0) - (b.OrdemdeExibicao||0))
+        .slice(0,3);
+    container.innerHTML = lista.map(projeto => `
         <div class="card cardWide" data-id="${projeto.ProjetosId}">
             <div class="cardImg">
                 <img src="${projeto.ImagemCard || projeto.ImagemCarrossel || ''}" alt="${projeto.ProjetosTitulo}">
@@ -218,7 +234,11 @@ function renderPublicacoes(publicacoes, idioma) {
     const boxes = document.querySelectorAll('.cardsBox');
     const container = boxes[1]; // segundo cardsBox = publicações
     if (!container) return;
-    container.innerHTML = (publicacoes || []).map(pub => {
+    // Limita às 3 primeiras publicações visíveis
+    const lista = (publicacoes || [])
+        .filter(p => p.PublicacaoVisibilidade !== false)
+        .slice(0,3);
+    container.innerHTML = lista.map(pub => {
         const hasLink = !!pub.PublicacaoLinkExterno;
         return `
         <div class="card cardWide ${hasLink ? 'clickable' : 'no-link'}" data-link="${pub.PublicacaoLinkExterno || ''}">
