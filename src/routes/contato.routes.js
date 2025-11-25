@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const nodemailer = require('nodemailer');
 const dotenv = require('dotenv');
+const dns = require('dns');
+const net = require('net');
 
 dotenv.config();
 
@@ -28,6 +30,17 @@ const baseSmtpConfig = {
 };
 
 let transporter = nodemailer.createTransport(baseSmtpConfig);
+
+async function verifyTransport() {
+    try {
+        await transporter.verify();
+        console.log('SMTP verify OK host=' + baseSmtpConfig.host + ' port=' + baseSmtpConfig.port);
+    } catch (e) {
+        console.error('SMTP verify failed', { message: e.message, code: e.code });
+    }
+}
+
+verifyTransport();
 
 function fallbackTransport() {
     return nodemailer.createTransport({
@@ -92,6 +105,30 @@ router.post('/enviar', async (req, res) => {
         }
         return res.redirect('/contato?status=error');
     }
+});
+
+router.get('/debug-email', async (req, res) => {
+    const host = baseSmtpConfig.host;
+    const portPrimary = baseSmtpConfig.port;
+    const portSsl = 465;
+    const result = { host, resolve: null, connectPrimary: null, connectSsl: null };
+    await new Promise(r => dns.lookup(host, (err, address, family) => { result.resolve = err ? { error: err.message } : { address, family }; r(); }));
+    function testPort(port) {
+        return new Promise(resolve => {
+            const socket = net.connect({ host, port, timeout: 6000 }, () => { socket.destroy(); resolve({ ok: true }); });
+            socket.on('error', e => { resolve({ ok: false, error: e.message }); });
+            socket.on('timeout', () => { socket.destroy(); resolve({ ok: false, error: 'timeout' }); });
+        });
+    }
+    result.connectPrimary = await testPort(portPrimary);
+    result.connectSsl = await testPort(portSsl);
+    try {
+        await transporter.verify();
+        result.verify = { ok: true };
+    } catch (e) {
+        result.verify = { ok: false, error: e.message };
+    }
+    res.json(result);
 });
 
 module.exports = router;
