@@ -4,10 +4,27 @@ const nodemailer = require('nodemailer');
 const dotenv = require('dotenv');
 const dns = require('dns');
 const net = require('net');
+let sendgridEnabled = false;
+let sendgrid;
 
 dotenv.config();
 
 const EMAIL_DESTINO = process.env.EMAIL_AGRIRS;
+const SENDGRID_KEY = process.env.SENDGRID_API_KEY;
+const SENDGRID_FROM = process.env.SENDGRID_FROM || process.env.EMAIL_USER; // remetente verificado
+
+if (SENDGRID_KEY) {
+    try {
+        sendgrid = require('@sendgrid/mail');
+        sendgrid.setApiKey(SENDGRID_KEY);
+        sendgridEnabled = true;
+        console.log('SendGrid ativado como provedor de e-mail (HTTPS).');
+    } catch (e) {
+        console.error('Falha ao inicializar SendGrid:', e.message);
+    }
+} else {
+    console.log('SendGrid não configurado (sem SENDGRID_API_KEY). Usando SMTP tradicional.');
+}
 
 // Configuração base com timeouts e pooling (porta 587 STARTTLS)
 const baseSmtpConfig = {
@@ -85,22 +102,45 @@ router.post('/enviar', async (req, res) => {
         `,
     };
 
+    // Se SendGrid estiver habilitado, tenta primeiro via API (não depende de portas 587/465)
+    if (sendgridEnabled) {
+        try {
+            const sgMsg = {
+                to: EMAIL_DESTINO,
+                from: SENDGRID_FROM,
+                replyTo: dadosFormulario.email_remetente,
+                subject: `Novo contato de ${dadosFormulario.nome}`,
+                html: mailOptions.html,
+            };
+            await sendgrid.send(sgMsg);
+            console.log('E-mail enviado via SendGrid.');
+            return res.redirect('/contato?status=success');
+        } catch (e) {
+            console.error('Falha SendGrid:', { message: e.message });
+        }
+    }
+
+    // SMTP tradicional
     try {
         const info = await transporter.sendMail(mailOptions);
-        console.log(`E-mail enviado com sucesso de ${dadosFormulario.email_remetente}. ID: ${info.messageId}`);
+        console.log(`E-mail enviado via SMTP. ID: ${info.messageId}`);
         return res.redirect('/contato?status=success');
     } catch (error) {
-        console.error('Primeira tentativa falhou:', { message: error.message, code: error.code, command: error.command });
+        console.error('SMTP falhou:', { message: error.message, code: error.code, command: error.command });
         if (/timeout/i.test(error.message)) {
-            console.log('Tentando fallback em porta 465 (SSL)...');
+            console.log('Timeout na porta 587. Tentando porta 465 (SSL)...');
             try {
                 const alt = fallbackTransport();
                 const info2 = await alt.sendMail(mailOptions);
-                console.log(`E-mail enviado (fallback SSL). ID: ${info2.messageId}`);
+                console.log(`E-mail enviado via SMTP fallback SSL. ID: ${info2.messageId}`);
                 return res.redirect('/contato?status=success');
             } catch (err2) {
-                console.error('Fallback também falhou:', { message: err2.message, code: err2.code, command: err2.command });
-                console.error('Sugestão: verificar se o provedor bloqueia SMTP outbound (porta 587/465).');
+                console.error('Fallback SSL falhou:', { message: err2.message, code: err2.code, command: err2.command });
+                if (sendgridEnabled) {
+                    console.error('SendGrid já tentou anteriormente. Sem outras opções configuradas.');
+                } else {
+                    console.error('Sugestão: configure SendGrid (HTTPS) para contornar bloqueio de SMTP.');
+                }
             }
         }
         return res.redirect('/contato?status=error');
