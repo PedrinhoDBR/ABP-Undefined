@@ -1,72 +1,21 @@
 const express = require('express');
 const router = express.Router();
-const nodemailer = require('nodemailer');
 const dotenv = require('dotenv');
-const dns = require('dns');
-const net = require('net');
-let sendgridEnabled = false;
-let sendgrid;
+const { Resend } = require('resend');
 
 dotenv.config();
 
 const EMAIL_DESTINO = process.env.EMAIL_AGRIRS;
-const SENDGRID_KEY = process.env.SENDGRID_API_KEY;
-const SENDGRID_FROM = process.env.SENDGRID_FROM || process.env.EMAIL_USER; // remetente verificado
+const RESEND_API_KEY = process.env.RESEND_API_KEY; // NUNCA deixe chave hardcoded
+const RESEND_FROM = process.env.RESEND_FROM || 'onboarding@resend.dev'; // ajuste para domínio verificado
 
-if (SENDGRID_KEY) {
-    try {
-        sendgrid = require('@sendgrid/mail');
-        sendgrid.setApiKey(SENDGRID_KEY);
-        sendgridEnabled = true;
-        console.log('SendGrid ativado como provedor de e-mail (HTTPS).');
-    } catch (e) {
-        console.error('Falha ao inicializar SendGrid:', e.message);
-    }
-} else {
-    console.log('SendGrid não configurado (sem SENDGRID_API_KEY). Usando SMTP tradicional.');
+if (!RESEND_API_KEY) {
+    console.error('RESEND_API_KEY ausente: configure no ambiente para envio de e-mails.');
 }
 
-// Configuração base com timeouts e pooling (porta 587 STARTTLS)
-const baseSmtpConfig = {
-    host: process.env.EMAIL_HOST || 'smtp.gmail.com',
-    port: parseInt(process.env.EMAIL_PORT || '587'),
-    secure: false,
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-    },
-    requireTLS: true,
-    connectionTimeout: 15000,
-    greetingTimeout: 8000,
-    socketTimeout: 20000,
-    // Desativa pool para evitar ficar aguardando conexões em ambiente restrito
-    pool: false,
-    logger: process.env.SMTP_LOG === 'true',
-    debug: process.env.SMTP_DEBUG === 'true',
-    family: 4, // força IPv4 (alguns hosts têm issues IPv6)
-};
+const resend = RESEND_API_KEY ? new Resend(RESEND_API_KEY) : null;
 
-let transporter = nodemailer.createTransport(baseSmtpConfig);
-
-async function verifyTransport() {
-    try {
-        await transporter.verify();
-        console.log('SMTP verify OK host=' + baseSmtpConfig.host + ' port=' + baseSmtpConfig.port);
-    } catch (e) {
-        console.error('SMTP verify failed', { message: e.message, code: e.code });
-    }
-}
-
-verifyTransport();
-
-function fallbackTransport() {
-    return nodemailer.createTransport({
-        ...baseSmtpConfig,
-        port: 465,
-        secure: true,
-        requireTLS: false,
-    });
-}
+// Removido SMTP/SendGrid: uso exclusivo de Resend (HTTP API)
 
 router.post('/enviar', async (req, res) => {
     const { nome, mail, email, assunto } = req.body;
@@ -102,74 +51,30 @@ router.post('/enviar', async (req, res) => {
         `,
     };
 
-    // Se SendGrid estiver habilitado, tenta primeiro via API (não depende de portas 587/465)
-    if (sendgridEnabled) {
-        try {
-            const sgMsg = {
-                to: EMAIL_DESTINO,
-                from: SENDGRID_FROM,
-                replyTo: dadosFormulario.email_remetente,
-                subject: `Novo contato de ${dadosFormulario.nome}`,
-                html: mailOptions.html,
-            };
-            await sendgrid.send(sgMsg);
-            console.log('E-mail enviado via SendGrid.');
-            return res.redirect('/contato?status=success');
-        } catch (e) {
-            console.error('Falha SendGrid:', { message: e.message });
-        }
+    if (!resend) {
+        console.error('Resend não inicializado (falta RESEND_API_KEY).');
+        return res.redirect('/contato?status=error');
     }
-
-    // SMTP tradicional
     try {
-        const info = await transporter.sendMail(mailOptions);
-        console.log(`E-mail enviado via SMTP. ID: ${info.messageId}`);
+
+
+        const { data, error } = await resend.emails.send({
+            from: 'AGRIRS <onboarding@resend.dev>',
+            to: EMAIL_DESTINO,
+            reply_to: dadosFormulario.email_remetente,
+            subject: `Novo contato de ${dadosFormulario.nome}`,
+            html: mailOptions.html,
+        });
+        
+        
+        console.log('E-mail enviado via Resend API.');
         return res.redirect('/contato?status=success');
-    } catch (error) {
-        console.error('SMTP falhou:', { message: error.message, code: error.code, command: error.command });
-        if (/timeout/i.test(error.message)) {
-            console.log('Timeout na porta 587. Tentando porta 465 (SSL)...');
-            try {
-                const alt = fallbackTransport();
-                const info2 = await alt.sendMail(mailOptions);
-                console.log(`E-mail enviado via SMTP fallback SSL. ID: ${info2.messageId}`);
-                return res.redirect('/contato?status=success');
-            } catch (err2) {
-                console.error('Fallback SSL falhou:', { message: err2.message, code: err2.code, command: err2.command });
-                if (sendgridEnabled) {
-                    console.error('SendGrid já tentou anteriormente. Sem outras opções configuradas.');
-                } else {
-                    console.error('Sugestão: configure SendGrid (HTTPS) para contornar bloqueio de SMTP.');
-                }
-            }
-        }
+    } catch (e) {
+        console.error('Erro Resend:', { message: e.message });
         return res.redirect('/contato?status=error');
     }
 });
 
-router.get('/debug-email', async (req, res) => {
-    const host = baseSmtpConfig.host;
-    const portPrimary = baseSmtpConfig.port;
-    const portSsl = 465;
-    const result = { host, resolve: null, connectPrimary: null, connectSsl: null };
-    await new Promise(r => dns.lookup(host, (err, address, family) => { result.resolve = err ? { error: err.message } : { address, family }; r(); }));
-    function testPort(port) {
-        return new Promise(resolve => {
-            const socket = net.connect({ host, port, timeout: 6000 }, () => { socket.destroy(); resolve({ ok: true }); });
-            socket.on('error', e => { resolve({ ok: false, error: e.message }); });
-            socket.on('timeout', () => { socket.destroy(); resolve({ ok: false, error: 'timeout' }); });
-        });
-    }
-    result.connectPrimary = await testPort(portPrimary);
-    result.connectSsl = await testPort(portSsl);
-    try {
-        await transporter.verify();
-        result.verify = { ok: true };
-    } catch (e) {
-        result.verify = { ok: false, error: e.message };
-    }
-    res.json(result);
-});
 
 module.exports = router;
 
