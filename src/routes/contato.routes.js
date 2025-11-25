@@ -20,11 +20,11 @@ const baseSmtpConfig = {
     connectionTimeout: 15000,
     greetingTimeout: 8000,
     socketTimeout: 20000,
-    pool: true,
-    maxConnections: 2,
-    maxMessages: 20,
-    logger: false,
-    debug: false,
+    // Desativa pool para evitar ficar aguardando conexões em ambiente restrito
+    pool: false,
+    logger: process.env.SMTP_LOG === 'true',
+    debug: process.env.SMTP_DEBUG === 'true',
+    family: 4, // força IPv4 (alguns hosts têm issues IPv6)
 };
 
 let transporter = nodemailer.createTransport(baseSmtpConfig);
@@ -87,6 +87,7 @@ router.post('/enviar', async (req, res) => {
                 return res.redirect('/contato?status=success');
             } catch (err2) {
                 console.error('Fallback também falhou:', { message: err2.message, code: err2.code, command: err2.command });
+                console.error('Sugestão: verificar se o provedor bloqueia SMTP outbound (porta 587/465).');
             }
         }
         return res.redirect('/contato?status=error');
