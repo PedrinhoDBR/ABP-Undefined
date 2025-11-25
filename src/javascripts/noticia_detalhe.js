@@ -110,7 +110,7 @@ class NoticiaDetalhe {
                     ${noticia.NoticiasCardcitacao ? `
                     <div class="card-citacao">
                         <div class="citacao-noticia">
-                            "${this.sanitizarHTML(noticia.NoticiasCardcitacao)}"
+                            ${this.sanitizarHTML(noticia.NoticiasCardcitacao)}
                         </div>
                     </div>
                     ` : ''}
