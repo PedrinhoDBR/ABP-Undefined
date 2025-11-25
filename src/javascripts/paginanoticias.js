@@ -467,9 +467,38 @@ document.addEventListener('DOMContentLoaded', function () {
     const filterAno = document.getElementById('filter-ano');
     const filterSearch = document.getElementById('filter-search');
     const newsGrid = document.getElementById('news-grid');
+    const prevBtn = document.getElementById('prev-page');
+    const nextBtn = document.getElementById('next-page');
+    const pageNumbersContainer = document.getElementById('page-numbers');
+    const shownSpan = document.getElementById('cards-shown');
+    const totalSpan = document.getElementById('total-cards');
 
     let currentPage = 1;
-    const itemsPerPage = 12;
+    let cardsPerPage = computeCardsPerPage();
+    let newsData = [];
+
+    function computeCardsPerPage(){
+        const w = window.innerWidth;
+        if (w >= 1500) return 18; // 3 linhas * 6 colunas aprox
+        if (w >= 1200) return 15; // 3 x 5
+        if (w >= 992)  return 12; // 3 x 4
+        if (w >= 768)  return 9;  // 3 x 3
+        if (w >= 576)  return 6;  // 2 x 3
+        return 4;                 // empilhado / menor
+    }
+
+    const onResize = debounce(() => {
+        const old = cardsPerPage;
+        cardsPerPage = computeCardsPerPage();
+        if (old !== cardsPerPage) {
+            // Ajusta página para não passar do limite
+            const totalPages = Math.max(1, Math.ceil(newsData.length / cardsPerPage));
+            if (currentPage > totalPages) currentPage = totalPages;
+            renderCurrentPage();
+            buildPagination();
+        }
+    }, 250);
+    window.addEventListener('resize', onResize);
 
     // Função para buscar notícias do backend
     async function fetchNews() {
@@ -485,13 +514,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const response = await fetch(`/api/noticias?${params.toString()}`);
             const data = await response.json();
-
-            if (response.ok) {
-                renderNews(data.results);
-                updatePagination(data.page, Math.ceil(data.total / CARDS_POR_PAGINA));
-            } else {
-                console.error('Erro ao buscar notícias:', data.erro);
+            if (!response.ok) {
+                console.error('Erro ao buscar notícias:', data.erro || response.status);
+                return;
             }
+            newsData = data.results || [];
+            currentPage = 1;
+            renderCurrentPage();
+            buildPagination();
         } catch (error) {
             console.error('Erro ao buscar notícias:', error);
         }
@@ -509,8 +539,8 @@ async function getIdiomaFromSession() {
 }
 
     // Função para renderizar as notícias
-function renderNews(news) {
-    newsGrid.innerHTML = news.map(item => {
+function renderSlice(newsSlice) {
+    newsGrid.innerHTML = newsSlice.map(item => {
         const dataNoticia = new Date(item.NoticiasData);
         let dataFormatada = '';
         console.log(dataNoticia)
@@ -540,13 +570,45 @@ function renderNews(news) {
 }
 
     // Função para atualizar a paginação
-    function updatePagination(page, totalPages) {
-        const paginationContainer = document.querySelector('.pagination-container');
-        paginationContainer.style.display = totalPages > 1 ? 'flex' : 'none';
-
-        const pageInfo = document.querySelector('.page-info');
-        pageInfo.textContent = `Mostrando página ${page} de ${totalPages}`;
+    function renderCurrentPage(){
+        const start = (currentPage - 1) * cardsPerPage;
+        const end = start + cardsPerPage;
+        const slice = newsData.slice(start, end);
+        renderSlice(slice);
+        if (shownSpan) shownSpan.textContent = slice.length; // mostrados na página
+        if (totalSpan) totalSpan.textContent = newsData.length;
     }
+
+    function buildPagination(){
+        const totalPages = Math.max(1, Math.ceil(newsData.length / cardsPerPage));
+        if (pageNumbersContainer) pageNumbersContainer.innerHTML = '';
+        // Limita a exibição de até 7 números (com reticências)
+        let start = Math.max(1, currentPage - 3);
+        let end = Math.min(totalPages, start + 6);
+        if (end - start < 6) start = Math.max(1, end - 6);
+
+        function addNumber(p){
+            const btn = document.createElement('button');
+            btn.className = 'pagination-btn number' + (p === currentPage ? ' active' : '');
+            btn.textContent = p;
+            btn.onclick = () => { currentPage = p; renderCurrentPage(); buildPagination(); scrollToGrid(); };
+            pageNumbersContainer.appendChild(btn);
+        }
+        if (pageNumbersContainer) {
+            if (start > 1){ addNumber(1); if (start > 2){ const span = document.createElement('span'); span.textContent='...'; pageNumbersContainer.appendChild(span);} }
+            for (let p=start; p<=end; p++) addNumber(p);
+            if (end < totalPages){ if (end < totalPages -1){ const span = document.createElement('span'); span.textContent='...'; pageNumbersContainer.appendChild(span);} addNumber(totalPages); }
+        }
+        if (prevBtn) prevBtn.disabled = currentPage === 1;
+        if (nextBtn) nextBtn.disabled = currentPage === totalPages;
+        const pageInfo = document.querySelector('.page-info');
+        if (pageInfo) pageInfo.textContent = `Página ${currentPage} de ${totalPages}`;
+    }
+
+    function scrollToGrid(){ newsGrid && newsGrid.scrollIntoView({behavior:'smooth', block:'start'}); }
+
+    prevBtn && prevBtn.addEventListener('click', () => { if (currentPage>1){ currentPage--; renderCurrentPage(); buildPagination(); scrollToGrid(); } });
+    nextBtn && nextBtn.addEventListener('click', () => { const totalPages = Math.ceil(newsData.length / cardsPerPage); if (currentPage<totalPages){ currentPage++; renderCurrentPage(); buildPagination(); scrollToGrid(); } });
 
     // Event listeners para os filtros
     filterAno.addEventListener('change', fetchNews);
