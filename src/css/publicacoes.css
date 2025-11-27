@@ -1,16 +1,18 @@
 
 .header-content {
-    /* display: flex; */
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     margin-bottom: 2rem;
-    padding: 0 1rem;
 }
 
 .filters {
-    /* display: flex; */
+    display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
     align-items: center;
+    width: 90% !important;
 }
 
 .filter-input {
@@ -18,13 +20,16 @@
     border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 1rem;
+    box-sizing: border-box; /* evita overflow quando width:100% */
+    max-width: 100%;
 }
 
 .publications-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 2rem;
-    padding: 1rem;
+    /* padding: 1rem; */
+    width: 90% !important;
 }
 
 .publication-card {
@@ -180,6 +185,7 @@
     
     .filter-input {
         width: 100%;
+        max-width: 100%;
     }
     
     .publications-grid {
