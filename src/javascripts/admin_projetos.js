@@ -275,6 +275,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Aplicar traduções e inicializar
-  applyAdminTranslations();
+  // applyAdminTranslations();
   loadProjetos();
 });

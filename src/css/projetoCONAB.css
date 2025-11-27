@@ -28,6 +28,7 @@
     border-radius: 10px;
     position: relative;
     overflow: hidden;
+    margin-top: 20px;
 }
 
 .carrosel-img {
@@ -37,7 +38,7 @@
 }
 
 .projeto-conteudo {
-    max-width: 900px;
+    max-width: 90%;
     margin: 0 auto;
     text-align: center;
     padding: 0 20px;
@@ -47,6 +48,8 @@
     color: #2E6A50;
     margin-bottom: 1.5rem;
     font-size: 2rem;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
 }
 
 .projeto-descricao {
@@ -58,6 +61,7 @@
 .projeto-descricao p {
     margin-bottom: 1.5rem;
     text-align: justify;
+    overflow-wrap: anywhere;
 }
 
 .projeto-info {
@@ -106,8 +110,17 @@ button:hover {
 }
 
 @media (max-width: 768px) {
+    .projeto-conteudo {
+        padding: 0 14px;
+    }
     .projeto-conteudo h1 {
-        font-size: 1.6rem;
+        font-size: clamp(1.25rem, 5.5vw, 1.6rem);
+    }
+    .projeto-descricao {
+        line-height: 1.6;
+    }
+    .projeto-descricao p {
+        font-size: 0.95rem;
     }
     
     .projeto-info {
@@ -116,5 +129,30 @@ button:hover {
     
     .carrosel {
         height: 25vh;
+        width: 90% !important;
+    }
+    button {
+        width: 100%;
+        max-width: 320px;
+        padding: 10px 16px;
+        margin: 0 auto 1rem;
+        display: block;
+    }
+}
+
+@media (max-width: 480px) {
+    .carrosel {
+        height: 22vh;
+        border-radius: 8px;
+        width: 90% !important;
+    }
+    .info-item {
+        padding: 1rem;
+    }
+    .info-item h3 {
+        font-size: 1.05rem;
+    }
+    .info-item p {
+        font-size: 0.95rem;
     }
 }
