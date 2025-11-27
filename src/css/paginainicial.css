@@ -166,9 +166,12 @@
 
 
 .equipeCarrosel {
-  position: relative;
-  overflow: hidden; /* carrossel real, sem barra de rolagem */
-  padding: 8px 72px; /* área segura das setas */
+    position: relative;
+    overflow: hidden;
+    padding: 8px 0px;
+    align-items: center;
+    display: flex
+
 }
 
 .equipeTrack {
@@ -288,7 +291,8 @@ button{
 
 
   .carroselBox{
-    width: 95%;
+    width: 80%;
+    justify-self: center;
   }
   
 

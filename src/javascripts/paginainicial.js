@@ -90,13 +90,7 @@ rightArrow.addEventListener('click', () => {
 
 
 
-// Carrosel equipe 
-
-const slidesCarrosel = document.querySelectorAll(".equipeCarrosel")
-
-const leftArrowTeam = document.querySelector("#leftArrow")
-
-const rightArrowTeam = document.querySelector("#rightArrow")
+// Carrossel equipe (configurado dentro de renderEquipe)
 
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -115,45 +109,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         renderPublicacoes(publicacoes, idioma);
         renderEquipe(membros, idioma);
 
-        // Ativa setas e auto-scroll do carrossel de equipe (scroll horizontal)
-        const equipeContainer = document.querySelector('.equipeCarrosel');
-        if (equipeContainer) {
-            const getStep = () => Math.max(200, Math.floor(equipeContainer.clientWidth * 0.5));
-            const scrollLeft = () => equipeContainer.scrollBy({ left: -getStep(), behavior: 'smooth' });
-            const scrollRight = () => equipeContainer.scrollBy({ left: getStep(), behavior: 'smooth' });
-
-            leftArrowTeam && leftArrowTeam.addEventListener('click', scrollLeft);
-            rightArrowTeam && rightArrowTeam.addEventListener('click', scrollRight);
-
-            // Auto-scroll lento
-            let autoTimer;
-            const startAuto = () => {
-                stopAuto();
-                autoTimer = setInterval(() => {
-                    const maxScroll = equipeContainer.scrollWidth - equipeContainer.clientWidth - 2;
-                    if (equipeContainer.scrollLeft >= maxScroll) {
-                        equipeContainer.scrollTo({ left: 0, behavior: 'smooth' });
-                    } else {
-                        equipeContainer.scrollBy({ left: Math.max(120, Math.floor(equipeContainer.clientWidth * 0.25)), behavior: 'smooth' });
-                    }
-                }, 3000); // a cada 3s
-            };
-            const stopAuto = () => { if (autoTimer) clearInterval(autoTimer); };
-
-            // Pausa ao interagir, retoma depois
-            ['mouseenter','touchstart','focusin'].forEach(evt => {
-                equipeContainer.addEventListener(evt, stopAuto, { passive: true });
-            });
-            ['mouseleave','touchend','focusout'].forEach(evt => {
-                equipeContainer.addEventListener(evt, startAuto, { passive: true });
-            });
-            // Também pausa quando clicar nas setas e retoma depois de um curto tempo
-            const resumeSoon = () => { stopAuto(); setTimeout(startAuto, 4000); };
-            leftArrowTeam && leftArrowTeam.addEventListener('click', resumeSoon);
-            rightArrowTeam && rightArrowTeam.addEventListener('click', resumeSoon);
-
-            startAuto();
-        }
+        // carrossel da equipe é configurado em renderEquipe
 
         // Botões de mais...
         const btnNoticias = document.getElementById('btnMaisNoticias');
@@ -188,40 +144,98 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error('Erro ao carregar dados:', error);
     }
 });
+// Envio do formulário de contato da página inicial sem alterar layout
+document.addEventListener('DOMContentLoaded', () => {
+    const formSection = document.querySelector('section.formSection .form');
+    const sendBtn = formSection ? formSection.querySelector('.buttonForm button[type="submit"]') : null;
+    if (sendBtn) {
+        sendBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            try {
+                const nomeInput = formSection.querySelector('input[name="nome"]');
+                const emailInput = formSection.querySelector('input[name="email"]');
+                const assuntoTextarea = formSection.querySelector('textarea[name="textarea"]');
+
+                const nome = nomeInput ? nomeInput.value.trim() : '';
+                const mail = emailInput ? emailInput.value.trim() : '';
+                const assunto = assuntoTextarea ? assuntoTextarea.value.trim() : '';
+
+                if (!nome || !mail || !assunto) {
+                    alert('Preencha nome, email e assunto.');
+                    return;
+                }
+
+                const body = new URLSearchParams({ nome, mail, assunto });
+                const resp = await fetch('/contato/enviar', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: body.toString()
+                });
+
+                if (resp.ok) {
+                    alert('Mensagem enviada com sucesso!');
+                    if (nomeInput) nomeInput.value = '';
+                    if (emailInput) emailInput.value = '';
+                    if (assuntoTextarea) assuntoTextarea.value = '';
+                } else {
+                    const text = await resp.text();
+                    alert('Falha ao enviar: ' + text);
+                }
+            } catch (err) {
+                console.error('Erro ao enviar contato:', err);
+                alert('Erro ao enviar contato. Tente novamente.');
+            }
+        });
+    }
+});
 function renderNoticias(noticias, idioma) {
     const container = document.querySelector('.carroselBox');
-    container.innerHTML = noticias.map((noticia, index) => `
+    // usa fragment para minimizar reflows
+    const html = noticias.map((noticia, index) => `
         <div class="carrosel" id="slide${index}">
-            <img src="${noticia.NoticiasImagem}" alt="${noticia.NoticiasTitulo}">
+            <img class="fade-in" loading="lazy" src="${noticia.NoticiasImagem}" alt="${noticia.NoticiasTitulo}">
 
             <div class="carroselText">
-                <h3>${noticia.NoticiasTitulo}</h3>
-                <p>${noticia.NoticiasSubtitulo}</p>
+                <h3 class="fade-in">${noticia.NoticiasTitulo}</h3>
+                <p class="fade-in">${noticia.NoticiasSubtitulo}</p>
             </div>
         </div>
     `).join('');
+    container.innerHTML = html;
+    requestAnimationFrame(()=>{
+        container.querySelectorAll('.fade-in').forEach(el=>el.classList.add('ready'));
+    });
 }
 
 function renderProjetos(projetos, idioma) {
     const boxes = document.querySelectorAll('.cardsBox');
     const container = boxes[0]; // primeiro cardsBox = projetos
     if (!container) return;
-    // Limita a exibição aos 3 primeiros projetos ativos (se houver)
+
     const lista = (projetos || [])
         .filter(p => p.Ativo !== false)
         .sort((a,b) => (a.OrdemdeExibicao||0) - (b.OrdemdeExibicao||0))
-        .slice(0,3);
+        .slice(0,4);
+
+    if (lista.length > 0 && lista.length < 4) {
+        container.classList.add('centered');
+    } else {
+        container.classList.remove('centered');
+    }
     container.innerHTML = lista.map(projeto => `
         <div class="card cardWide" data-id="${projeto.ProjetosId}">
             <div class="cardImg">
-                <img src="${projeto.ImagemCard || projeto.ImagemCarrossel || ''}" alt="${projeto.ProjetosTitulo}">
+                <img class="fade-in" loading="lazy" src="${projeto.ImagemCard || projeto.ImagemCarrossel || ''}" alt="${projeto.ProjetosTitulo}">
             </div>
             <div class="cardText">
-                <h4>${projeto.ProjetosTitulo}</h4>
-                <p>${projeto.CardResumo || ''}</p>
+                <h4 class="fade-in">${projeto.ProjetosTitulo}</h4>
+                <p class="fade-in">${projeto.CardResumo || ''}</p>
             </div>
         </div>
     `).join('');
+    requestAnimationFrame(()=>{
+        container.querySelectorAll('.fade-in').forEach(el=>el.classList.add('ready'));
+    });
     container.querySelectorAll('.card').forEach(card => {
         card.addEventListener('click', () => {
             const id = card.getAttribute('data-id');
@@ -234,24 +248,34 @@ function renderPublicacoes(publicacoes, idioma) {
     const boxes = document.querySelectorAll('.cardsBox');
     const container = boxes[1]; // segundo cardsBox = publicações
     if (!container) return;
-    // Limita às 3 primeiras publicações visíveis
+    
     const lista = (publicacoes || [])
         .filter(p => p.PublicacaoVisibilidade !== false)
-        .slice(0,3);
+        .slice(0,4);
+
+    if (lista.length > 0 && lista.length < 4) {
+        container.classList.add('centered');
+    } else {
+        container.classList.remove('centered');
+    }
+
     container.innerHTML = lista.map(pub => {
         const hasLink = !!pub.PublicacaoLinkExterno;
         return `
         <div class="card cardWide ${hasLink ? 'clickable' : 'no-link'}" data-link="${pub.PublicacaoLinkExterno || ''}">
             <div class="cardImg">
-                <img src="${pub.PublicacaoImagem || ''}" alt="${pub.PublicacaoTitulo || ''}">
+                <img class="fade-in" loading="lazy" src="${pub.PublicacaoImagem || ''}" alt="${pub.PublicacaoTitulo || ''}">
             </div>
             <div class="cardText">
-                <h4>${pub.PublicacaoTitulo || ''}</h4>
-                <p>${pub.PublicacaoCitacao || ''}</p>
+                <h4 class="fade-in">${pub.PublicacaoTitulo || ''}</h4>
+                <p class="fade-in">${pub.PublicacaoCitacao || ''}</p>
                 ${hasLink ? '<span class="externoHint">Abrir publicação</span>' : '<span class="externoHint disabled">Sem link externo</span>'}
             </div>
         </div>`;
     }).join('');
+    requestAnimationFrame(()=>{
+        container.querySelectorAll('.fade-in').forEach(el=>el.classList.add('ready'));
+    });
     container.querySelectorAll('.card.clickable').forEach(card => {
         card.addEventListener('click', () => {
             const link = card.getAttribute('data-link');
@@ -264,131 +288,56 @@ function renderPublicacoes(publicacoes, idioma) {
     });
 }
 
-let equipeAutoTimer;
 function renderEquipe(membros, idioma) {
     const container = document.querySelector('.equipeCarrosel');
     if (!container) return;
     const leftBtn = document.getElementById('leftArrow');
     const rightBtn = document.getElementById('rightArrow');
 
-    // estado do carrossel
-    let itemsPerView = 1;
-    let index = 0; // índice atual (contando clones)
-    const baseLength = (membros || []).length;
-    let track;
-    let cardStep = 140; // largura do card + gap (default), recalculada após render
-    const GAP = 12; // deve bater com o CSS
+    const lista = Array.isArray(membros) ? membros : [];
+    if (!lista.length) {
+        container.innerHTML = '';
+        if (leftBtn) leftBtn.style.display = 'none';
+        if (rightBtn) rightBtn.style.display = 'none';
+        return;
+    }
 
-    const getItemsPerView = () => {
-        const w = container.clientWidth;
-        if (w < 420) return 3;
-        if (w < 640) return 4;
-        if (w < 900) return 6;
-        return 8;
-    };
-
-    const build = () => {
-        // recria a estrutura com clones conforme itemsPerView
-        container.innerHTML = '<div class="equipeTrack"></div>';
-        track = container.querySelector('.equipeTrack');
-        itemsPerView = getItemsPerView();
-
-        if (baseLength === 0) return;
-
-        // Se poucos itens, sem infinito
-        if (baseLength <= itemsPerView) {
-            track.innerHTML = membros.map(m => cardHtml(m)).join('');
-            recalcMetrics();
-            index = 0;
-            applyTransform(true);
-            // Esconde setas
-            if (leftBtn) leftBtn.style.visibility = 'hidden';
-            if (rightBtn) rightBtn.style.visibility = 'hidden';
-            return;
-        }
-
-        const clonesHead = membros.slice(-itemsPerView).map(m => cardHtml(m)).join('');
-        const base = membros.map(m => cardHtml(m)).join('');
-        const clonesTail = membros.slice(0, itemsPerView).map(m => cardHtml(m)).join('');
-        track.innerHTML = clonesHead + base + clonesTail;
-
-        recalcMetrics();
-        // posição inicial após os clones iniciais
-        index = itemsPerView;
-        applyTransform(true);
-
-        // evento de wrap infinito
-        track.addEventListener('transitionend', onTransitionEnd);
-
-        // setas visíveis
-        if (leftBtn) leftBtn.style.visibility = 'visible';
-        if (rightBtn) rightBtn.style.visibility = 'visible';
-    };
-
-    const cardHtml = (m) => `
+    container.innerHTML = '<div class="equipeTrack"></div>';
+    const track = container.querySelector('.equipeTrack');
+    track.innerHTML = lista.map(m => `
         <div class="cardEquipeMiniatura" data-id="${m.MembrosID}">
-            <img src="${m.MembrosImagem || ''}" alt="${m.MembrosNome}">
+            <img loading="lazy" src="${m.MembrosImagem || ''}" alt="${m.MembrosNome}">
             <div class="cardTextEquipe"><p>${m.MembrosNome}</p></div>
-        </div>`;
+        </div>`).join('');
 
-    const recalcMetrics = () => {
-        // garante que os cards não encolham antes da medição
-        Array.from(track.children).forEach(c => { c.style.flex = '0 0 auto'; });
-        const firstCard = track && track.children && track.children[0];
-        if (firstCard) {
-            const rect = firstCard.getBoundingClientRect();
-            cardStep = Math.round(rect.width) + GAP; // distância entre cards (px)
-        }
-        // recalcula quantos cabem por viewport
-        const avail = container.clientWidth - (72 * 2); // padding lateral de segurança
-        itemsPerView = Math.max(1, Math.floor((avail + GAP) / cardStep));
+    // tamanho do passo = largura de um card + gap (12px)
+    const firstCard = track.children[0];
+    let step = 180;
+    if (firstCard) {
+        const rect = firstCard.getBoundingClientRect();
+        step = rect.width + 12;
+    }
+
+    const scrollNext = () => {
+        const maxScroll = track.scrollWidth - container.clientWidth;
+        let target = container.scrollLeft + step;
+        if (target > maxScroll + 10) target = 0; // loop
+        container.scrollTo({ left: target, behavior: 'smooth' });
     };
 
-    const step = () => itemsPerView; // avança por tela (quantidade de cards)
-
-    const applyTransform = (immediate = false) => {
-        if (!track) return;
-        if (immediate) track.style.transition = 'none';
-        const translatePx = index * cardStep;
-        track.style.transform = `translateX(-${translatePx}px)`;
-        if (immediate) {
-            // força reflow e restaura transição
-            // eslint-disable-next-line no-unused-expressions
-            track.offsetHeight;
-            track.style.transition = 'transform 400ms ease';
-        }
+    const scrollPrev = () => {
+        const maxScroll = track.scrollWidth - container.clientWidth;
+        let target = container.scrollLeft - step;
+        if (target < -10) target = maxScroll; // loop inverso
+        container.scrollTo({ left: target, behavior: 'smooth' });
     };
 
-    const onTransitionEnd = () => {
-        const C = itemsPerView;
-        const L = baseLength;
-        // quando passamos dos limites, reposiciona sem animação
-        if (index >= C + L) { index = C; applyTransform(true); }
-        else if (index < C) { index = C + L - step(); applyTransform(true); }
-    };
-
-    const goNext = () => { index += step(); applyTransform(false); };
-    const goPrev = () => { index -= step(); applyTransform(false); };
-
-    // liga setas
-    leftBtn && leftBtn.addEventListener('click', () => { stopAuto(); goPrev(); resumeSoon(); });
-    rightBtn && rightBtn.addEventListener('click', () => { stopAuto(); goNext(); resumeSoon(); });
-
-    // Auto-scroll lento
-    const startAuto = () => {
-        stopAuto();
-        if (baseLength <= itemsPerView) return;
-        equipeAutoTimer = setInterval(() => { goNext(); }, 4000);
-    };
-    const stopAuto = () => { if (equipeAutoTimer) clearInterval(equipeAutoTimer); };
-    const resumeSoon = () => setTimeout(startAuto, 5000);
-
-    container.addEventListener('mouseenter', stopAuto);
-    container.addEventListener('mouseleave', startAuto);
-
-    window.addEventListener('resize', () => { build(); });
-
-    // inicializa
-    build();
-    startAuto();
+    if (leftBtn) {
+        leftBtn.style.display = lista.length > 1 ? 'block' : 'none';
+        leftBtn.onclick = scrollPrev;
+    }
+    if (rightBtn) {
+        rightBtn.style.display = lista.length > 1 ? 'block' : 'none';
+        rightBtn.onclick = scrollNext;
+    }
 }

@@ -1,7 +1,8 @@
 // ✅ SISTEMA COM PAGINAÇÃO E INTERNACIONALIZAÇÃO
 let noticiasCarregadas = [];
 let noticiasFiltradas = [];
-let idiomaAtual = 'PT-BR';
+// Inicializa com PT-BR e atualiza a partir da sessão
+let idiomaAtual = 'PT-BR'; 
 let paginaAtual = 1;
 const CARDS_POR_PAGINA = 99;
 
@@ -290,6 +291,10 @@ function mostrarMensagemNenhumaNoticia() {
     mensagem.textContent = textos[idiomaAtual].nenhumaNoticia;
     
     container.appendChild(mensagem);
+    const shownSpanLocal = document.getElementById('cards-shown');
+    const totalSpanLocal = document.getElementById('total-cards');
+    if (shownSpanLocal) shownSpanLocal.textContent = '0';
+    if (totalSpanLocal) totalSpanLocal.textContent = '0';
     atualizarPaginacao(0);
 }
 
@@ -463,7 +468,7 @@ function limparFiltros() {
     paginaAtual = 1; // Volta para primeira página
     limparECarregarCards();
 }
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
     const filterAno = document.getElementById('filter-ano');
     const filterSearch = document.getElementById('filter-search');
     const newsGrid = document.getElementById('news-grid');
@@ -523,6 +528,7 @@ document.addEventListener('DOMContentLoaded', function () {
             itemsRendered = 0;
             newsGrid.innerHTML = '';
             if (totalSpan) totalSpan.textContent = newsData.length;
+            if (shownSpan) shownSpan.textContent = '0';
             renderNextBatch();
         } catch (error) {
             console.error('Erro ao buscar notícias:', error);
@@ -554,6 +560,7 @@ function renderSlice(newsSlice) {
         } else {
             dataFormatada = 'Data inválida';
         }
+        const textoLeiaMais = textos[idiomaAtual]?.leiaMais || 'Leia mais';
         return `
             <div class="news-card">
                 <div class="news-image">
@@ -563,7 +570,7 @@ function renderSlice(newsSlice) {
                     <div class="news-date">${dataFormatada}</div>
                     <h4 class="news-title">${item.NoticiasTitulo}</h4>
                     <p class="news-excerpt">${item.NoticiasConteudo}</p>
-                    <a href="/noticia?id=${item.NoticiasID}" class="news-read-more">Leia mais</a>
+                    <a href="/noticia?id=${item.NoticiasID}" class="news-read-more">${textoLeiaMais}</a>
                 </div>
             </div>
         `;
@@ -602,6 +609,15 @@ function renderSlice(newsSlice) {
         };
     }
 
-    // Carregamento inicial
+    // Carrega idioma da sessão antes de buscar notícias
+    try {
+        console.log('Obtendo idioma da sessão...');
+        idiomaAtual = await getIdiomaFromSession();
+        console.log('Idioma obtido:', idiomaAtual);
+    } catch (e) {
+        console.warn('Falha ao obter idioma da sessão, usando PT-BR');
+        idiomaAtual = 'PT-BR';
+    }
+    // Carregamento inicial com idioma correto
     fetchNews();
 });

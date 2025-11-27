@@ -2,7 +2,7 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const crypto = require('crypto');
-const { Op } = require('sequelize');
+const { Op, fn, col } = require('sequelize');
 const Noticias = require('../models/noticias');
 const router = express.Router();
 const fs = require('fs');
@@ -35,7 +35,19 @@ router.get('/', async (req, res) => {
             where.NoticiasIdioma = idioma;
         }
         if (titulo) {
-            where.NoticiasTitulo = { [Op.like]: `%${titulo}%` };
+            const tituloUpper = String(titulo).toUpperCase();
+            // Comparação case-insensitive: UPPER(NoticiasTitulo) LIKE %UPPER(titulo)%
+            where[Op.and] = [
+                {
+                    [Op.and]: [
+                        // Usa Sequelize.where para aplicar função UPPER na coluna
+                        require('sequelize').where(
+                            fn('upper', col('NoticiasTitulo')),
+                            { [Op.like]: `%${tituloUpper}%` }
+                        )
+                    ]
+                }
+            ];
         }
         if (ano) {
             const inicioAno = new Date(`${ano}-01-01`);

@@ -274,10 +274,7 @@ function translatePage(idioma) {
             const nextBtn = document.getElementById('next-page');
             if (prevBtn) prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i> Previous';
             if (nextBtn) nextBtn.innerHTML = 'Next <i class="fas fa-chevron-right"></i>';
-            const pageInfo = document.querySelector('.page-info');
-            if (pageInfo) {
-                pageInfo.innerHTML = 'Showing <span id="cards-shown">0</span> of <span id="total-cards">0</span> news';
-            }
+
         }
 
         // Tradução para a página "projetos.html"
