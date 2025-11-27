@@ -443,9 +443,6 @@ body {
         min-height: 140px;
     }
     
-    .container > * {
-        /* padding: 0 12px; */
-    }
 }
 
 .header-content {
@@ -463,6 +460,7 @@ body {
     gap: 1rem;
     align-items: center;
     width: 90% !important;
+    justify-content: center;
 }
 
 .filter-input {

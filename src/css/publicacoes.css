@@ -13,6 +13,7 @@
     gap: 1rem;
     align-items: center;
     width: 90% !important;
+    justify-content: center;
 }
 
 .filter-input {
